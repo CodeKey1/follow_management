@@ -80,7 +80,24 @@
                     <a href="{{ route('home') }}" class="nav-link"><span>الرئيسية</span><i
                             data-feather="monitor"></i></a>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> الإدارت المسؤلة للمتابعة
+                        </span>
+                        <i data-feather="chevrons-right"></i></a>
+                    <ul class="dropdown-menu">
 
+                        <li><a class="nav-link" href=""> كل الجهات</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> الجهات
+                        </span>
+                        <i data-feather="chevrons-right"></i></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a class="nav-link" href=""> كل الجهات</a></li>
+                    </ul>
+                </li>
                 <li class="menu-header">
                     <hr />
                 </li>
@@ -102,6 +119,7 @@
                         <li><a class="nav-link" href="{{ route('exports') }}"> كل الصادر</a></li>
                     </ul>
                 </li>
+
                 <li class="menu-header">
                     <hr />
                 </li>

@@ -41,15 +41,19 @@
                                     action="{{ route('topics.update', $topics->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="card card-primary">
+                                    <div class="card card-secondary">
                                         <div class="card-header">
-                                            <h4>اضــافة وارد جديــد</h4>
+                                            <h4> عرض وتعديل ملف وارد  : <span style="color: crimson;
+                                                font-size: larger;">{{ $topics->name }}</span></h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('topic.index') }}" class="btn btn-warning">كل
                                                     الوارد</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="card card-primary">
+
                                         <div class="card-body">
                                             <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
                                             <input class="user-name text-bold-700 float-left" type="hidden" name="users_name" value="{{ Auth::user()->name }}">
@@ -57,7 +61,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label>رقم الوارد</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="import_id" value="{{ $topics->import_id }}"
+                                                         value="{{ $topics->import_id }}"
                                                         class="form-control" disabled>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
                                                         name="import_id" value="{{ $topics->import_id }}"
@@ -65,9 +69,9 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> الإدارة المسؤلة </label>
-                                                    <select class="form-control" name="responsibles_id" disabled>
-                                                        <option value="{{ $topics->side_id }}" selected>
-                                                            {{ $topics->side_id }}
+                                                    <select class="form-control"  disabled>
+                                                        <option value="{{ $topics->responsibles_id }}" selected>
+                                                            {{ $topics->responsibles_id }}
                                                         </option>
                                                     </select>
                                                     <select class="form-control" name="responsibles_id">
@@ -88,7 +92,7 @@
                                                 <div class="form-group col-md-12">
                                                     <label>عنوان الملف الوارد</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="name" value="{{ $topics->name }}"
+                                                         value="{{ $topics->name }}"
                                                         class="form-control" disabled>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
                                                         name="name" value="{{ $topics->name }}"
@@ -97,7 +101,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الوارد منها</label>
-                                                    <select class="form-control" id="city" name="side_id" disabled>
+                                                    <select class="form-control" id="city"  disabled>
                                                         <option value="{{ $topics->side_id }}" disabled selected>
                                                             {{ $topics->side_id }}</option>
                                                     </select>
@@ -106,7 +110,7 @@
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
                                                                 @foreach ($side as $sides)
-                                                                    <option value="{{ $sides->side_name }}">
+                                                                    <option value="{{ $sides->id }}">
                                                                         {{ $sides->side_name }}
                                                                     </option>
                                                                 @endforeach
@@ -116,13 +120,13 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> الموقف التنفيذي </label>
-                                                    <select class="form-control"  name="state" disabled>
+                                                    <select class="form-control"   disabled>
                                                         <option value=" √ "@if($topics ->state == '1') selected @endif>  تم الرد </option>
-                                                            <option value=" X "@if($topics ->type == '0') selected @endif> لم يتم الرد </option>
+                                                            <option value=" X "@if($topics ->state == '0') selected @endif> لم يتم الرد </option>
                                                     </select>
                                                     <select class="form-control"  name="state" >
-                                                        <option value="1"@if($topics ->state == '1') selected @endif>  تم الرد </option>
-                                                        <option value="0"@if($topics ->type == '0') selected @endif> لم يتم الرد </option>
+                                                        <option value="1">  تم الرد </option>
+                                                        <option value="0"> لم يتم الرد </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -130,14 +134,14 @@
                                                 <div class="form-group col-md-4">
                                                     <label> تأشيرة السيد المحافظ </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="vic_sign" value="{{ $topics->vic_sign }}" class="form-control"placeholder="" disabled>
+                                                         value="{{ $topics->vic_sign }}" class="form-control"placeholder="" disabled>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="vic_sign" value="{{ $topics->vic_sign }}" class="form-control"placeholder="" required>
+                                                        name="vic_sign" value="{{ $topics->vic_sign }}" class="form-control" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> تاريخ استلام الوارد </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
-                                                    name="recived_date" value="{{ $topics->recived_date }}"
+                                                     value="{{ $topics->recived_date }}"
                                                     class="form-control" disabled>
                                                 <input style="height: calc(2.25rem + 6px);" type="date"
                                                     name="recived_date" value="{{ $topics->recived_date }}"

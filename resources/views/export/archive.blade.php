@@ -37,9 +37,9 @@
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12">
-                                <div class="card card-secondary" style="background-color: #ffa4267a !important;">
+                                <div class="card card-secondary" style="background-color: #ff47267a !important;">
                                     <div class="card-header">
-                                        <h4> أرشيف متابعة الملفات الواردة </h4>
+                                        <h4> أرشيف متابعة الملفات الصادرة </h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
                                                 <a href="{{ route('exports.create') }}" class="btn btn-warning "> وارد
@@ -59,7 +59,7 @@
                                                     <tr>
                                                         <th> # </th>
                                                         <th>اسم الصادر</th>
-                                                        <th> جهة الصادر اليها</th>
+                                                        <th> جهة الصادر</th>
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
@@ -67,38 +67,29 @@
                                                     @isset($exports)
                                                         @foreach ($exports as $Export)
                                                             <tr>
-                                                                <td>{{ $Export->name }}</td>
-                                                                <td>{{ $Export->send_date }}</td>
-                                                                <td>{{ $Export->requested_date }}</td>
-                                                                <td>{{ $Export->send_to }}</td>
+                                                                <td class="text-bold-700">{{ $Export->id }}</td>
+                                                                <td class="text-bold text-bold-700">
+                                                                    {{ $Export->name }}</td>
+                                                                <td class="text-danger text-bold-700">
+                                                                    {{ $Export->send_to }}</td>
+                                                                <td style="width: 15%">
+                                                                    <a class="btn btn-icon btn-success"
+                                                                        href="{{ route('exports.edit', $Export->id) }}"
+                                                                        ata-toggle="tooltip" data-placement="top"
+                                                                        title="عرض وتعديل"><i
+                                                                            class="fas fa-user"></i></a>
+                                                                    <a class="btn btn-icon btn-danger"
+                                                                        href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip" data-placement="top"
+                                                                        title="حذف"><i
+                                                                            class="fas fa-times"></i></a>
+                                                                    {{-- <a class="btn btn-icon btn-info"
+                                                                        href="{{ route('exports.archive', $Export->id) }}"ata-toggle="tooltip" data-placement="top"
+                                                                        title="نقل الارشيف"><i
+                                                                            class="fas fa-archive"></i></a> --}}
+                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                     @endisset
-                                                    {{-- @isset($topics)
-                                                    @foreach ($topics as $Topic)
-                                                        <tr>
-                                                            <td class="text-bold-700"> {{ $Topic->id }}</td>
-                                                            <td class="text-bold-700" style="text-align: right;"> {{ $Topic->topic_name }}</td>
-                                                            <td class="text-bold-700"> {{ $Topic->topic_tittle }}</td>
-
-                                                            <td style="width: 15%">
-                                                                <a class="btn btn-icon btn-success"
-                                                                    href="{{ route('topics.edit', $Topic->id) }}"
-                                                                    ata-toggle="tooltip" data-placement="top"
-                                                                    title="عرض وتعديل"><i
-                                                                        class="fas fa-user"></i></a>
-                                                                <a class="btn btn-icon btn-danger"
-                                                                    href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                    title="حذف"><i
-                                                                        class="fas fa-times"></i></a>
-                                                                <a class="btn btn-icon btn-info"
-                                                                    href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                    title="نقل الارشيف"><i
-                                                                        class="fas fa-archive"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endisset --}}
                                                 </tbody>
                                             </table>
                                         </div>

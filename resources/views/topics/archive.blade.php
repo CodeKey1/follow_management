@@ -60,36 +60,36 @@
                                                         <th> # </th>
                                                         <th>اسم الوارد</th>
                                                         <th> جهة الوارد</th>
-
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @isset($topics)
-                                                    @foreach ($topics as $Topic)
-                                                        <tr>
-                                                            <td class="text-bold-700"> {{ $Topic->id }}</td>
-                                                            <td class="text-bold-700" style="text-align: right;"> {{ $Topic->topic_name }}</td>
-                                                            <td class="text-bold-700"> {{ $Topic->topic_tittle }}</td>
+                                                        @foreach ($topics as $Topic)
+                                                            <tr>
+                                                                <td class="text-bold-700"> {{ $Topic->id }}</td>
+                                                                <td class="text-bold-700" style="text-align: right;">
+                                                                    {{ $Topic->name }}</td>
+                                                                <td class="text-bold-700"> {{ $Topic->responsibles_id }}
+                                                                </td>
 
-                                                            <td style="width: 15%">
-                                                                <a class="btn btn-icon btn-success"
-                                                                    href="{{ route('topics.edit', $Topic->id) }}"
-                                                                    ata-toggle="tooltip" data-placement="top"
-                                                                    title="عرض وتعديل"><i
-                                                                        class="fas fa-user"></i></a>
-                                                                <a class="btn btn-icon btn-danger"
-                                                                    href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                    title="حذف"><i
-                                                                        class="fas fa-times"></i></a>
-                                                                <a class="btn btn-icon btn-info"
-                                                                    href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                    title="نقل الارشيف"><i
-                                                                        class="fas fa-archive"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endisset
+                                                                <td style="width: 15%">
+                                                                    <a class="btn btn-icon btn-success"
+                                                                        href="{{ route('topics.edit', $Topic->id) }}"
+                                                                        ata-toggle="tooltip" data-placement="top"
+                                                                        title="عرض وتعديل"><i class="fas fa-user"></i></a>
+                                                                    <a class="btn btn-icon btn-danger"
+                                                                        href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"
+                                                                        data-placement="top" title="حذف"><i
+                                                                            class="fas fa-times"></i></a>
+                                                                    {{-- <a class="btn btn-icon btn-info"
+                                                                        href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
+                                                                        data-placement="top" title="نقل الارشيف"><i
+                                                                            class="fas fa-archive"></i></a> --}}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endisset
                                                 </tbody>
                                             </table>
                                         </div>

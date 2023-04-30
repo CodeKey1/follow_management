@@ -55,9 +55,9 @@ class ExportController extends Controller
     {
         $exports = Export::select()->find($id);
         if (!$exports) {
-            return redirect()->route('admin.export')->with(['error' => 'هذه الملف غير موجوده']);
+            return redirect()->route('export.index')->with(['error' => 'هذه الملف غير موجوده']);
         }
-        return view('admin.export.edit', compact('exports'));
+        return view('export.edit', compact('exports'));
     }
 
     public function update(Request $request, $id)

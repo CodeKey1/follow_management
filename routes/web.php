@@ -13,23 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 ///////////////////////////////////////////// users view ///////////////////////////////////////////
 
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/users'         ,[App\Http\Controllers\Admin\UserController::class,'index'])-> name('admin.users');
-    Route::get('/create'        ,[App\Http\Controllers\Admin\UserController::class,'create'])   -> name('user.Create');
-    Route::post('/save'         ,[App\Http\Controllers\Admin\UserController::class,'save'])      -> name('user.store');
-    Route::get('/edit/{id}'     ,[App\Http\Controllers\Admin\UserController::class,'edit'])      -> name('admin.users.edit');
-    Route::post('/update/{id}'  ,[App\Http\Controllers\Admin\UserController::class,'update'])   -> name('admin.users.update');
-    Route::get('/delete/{id}'   ,[App\Http\Controllers\Admin\UserController::class,'delete'])      -> name('user.delete');
+    Route::get('/user_create'        ,[App\Http\Controllers\Admin\UserController::class,'create'])   -> name('user.Create');
+    Route::post('/user_save'         ,[App\Http\Controllers\Admin\UserController::class,'save'])      -> name('user.store');
+    Route::get('/user_edit/{id}'     ,[App\Http\Controllers\Admin\UserController::class,'edit'])      -> name('admin.users.edit');
+    Route::post('/user_update/{id}'  ,[App\Http\Controllers\Admin\UserController::class,'update'])   -> name('admin.users.update');
+    Route::get('/user_delete/{id}'   ,[App\Http\Controllers\Admin\UserController::class,'delete'])      -> name('user.delete');
 });
 
 ///////////////////////////////////////////// topics view ///////////////////////////////////////////

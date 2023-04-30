@@ -38,14 +38,15 @@
                                 @include('layouts.success')
                                 @include('layouts.error')
                                 <form class="needs-validation" id="work_experience" novalidate=""
-                                    action="{{ route('topics.update', $topics->id) }}" method="POST"
+                                    action="{{ route('exports.update', $exports->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4>اضــافة وارد جديــد</h4>
+                                            <h4> عرض وتعديل ملف صادر  : <span style="color: crimson;
+                                                font-size: larger;">{{ $exports->name }}</span></h4>
                                             <div class="card-header-action">
-                                                <a href="{{ route('topic.index') }}" class="btn btn-warning">كل الوارد</a>
+                                                <a href="{{ route('exports') }}" class="btn btn-warning">كل الوارد</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>

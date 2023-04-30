@@ -98,26 +98,17 @@ class TopicController extends Controller
         } else {
             $upload[] = "";
         }
-        try {
 
-            Topic::where('id',$id)->update(([
-                    'import_id' => $request['import_id'],
-                    'name' => $request['name'],
-                    'responsibles_id' => $request['responsibles_id'],
-                    'side_id' => $request['side_id'],
-                    'file' => implode('|', $upload),
-                    'vic_sign' => $request['vic_sign'],
-                    'recived_date' => $request['recived_date'],
-                    'state' => $request['state'],
-                    'users_name' => $request['users_name'],
-                    'notes' => $request['notes'],
-                    'cat_name' => $request['cat_name'],
-                ]));
-                return redirect()->route('topic.index')->with(['success' => 'تم تعديل الموضوع بنجاح']);
+            $topics = Topic::find($id);
+            if (!$topics) {
+                return redirect()->route('topic.index', $id)->with(['error' => 'هذه الموضوع غير موجوده']);
             }
-         catch (\Exception $ex) {
-            return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        }
+            if (!$request->has('active'))
+                $request->request->add(['active' => 0]);
+
+            $topics->update($request->except('_token'));
+                return redirect()->route('topic.index')->with(['success' => 'تم تعديل الموضوع بنجاح']);
+        
     }
 
     public function destroy(string $id)
