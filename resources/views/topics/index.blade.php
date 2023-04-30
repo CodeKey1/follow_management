@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- datatables.html  21 Nov 2019 03:55:21 GMT -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title></title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+</head>
+
+<body class="light theme-white dark-sidebar">
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            @include('layouts.sidbar')
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-secondary">
+                                    <div class="card-header">
+                                        <h4> كل ملفات متابعة الوارد </h4>
+                                        <div class="card-header-action">
+                                            <div class="dropdown">
+                                                <a href="{{ route('topics.create') }}" class="btn btn-warning "> وارد
+                                                    جديد </a>
+
+                                            </div>
+                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="section-body">
+                                    <div class="row ">
+                                        <div class="col-xl-3 col-lg-6">
+                                          <div class="card l-bg-green">
+                                            <div class="card-statistic-3">
+                                              <div class="card-icon card-icon-large"></div>
+                                              <div class="card-content">
+                                                <h4 class="card-title">New Orders</h4>
+                                                <span>524</span>
+                                                <div class="progress mt-1 mb-1" data-height="8">
+                                                  <div class="progress-bar l-bg-purple" role="progressbar" data-width="25%" aria-valuenow="25"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <p class="mb-0 text-sm">
+                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+                                                  <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6">
+                                          <div class="card l-bg-cyan">
+                                            <div class="card-statistic-3">
+                                              <div class="card-icon card-icon-large"></div>
+                                              <div class="card-content">
+                                                <h4 class="card-title">New Booking</h4>
+                                                <span>1,258</span>
+                                                <div class="progress mt-1 mb-1" data-height="8">
+                                                  <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <p class="mb-0 text-sm">
+                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+                                                  <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6">
+                                          <div class="card l-bg-purple">
+                                            <div class="card-statistic-3">
+                                              <div class="card-icon card-icon-large"></div>
+                                              <div class="card-content">
+                                                <h4 class="card-title">Inquiry</h4>
+                                                <span>10,225</span>
+                                                <div class="progress mt-1 mb-1" data-height="8">
+                                                  <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <p class="mb-0 text-sm">
+                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+                                                  <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6">
+                                          <div class="card l-bg-orange">
+                                            <div class="card-statistic-3">
+                                              <div class="card-icon card-icon-large"></div>
+                                              <div class="card-content">
+                                                <h4 class="card-title">Earning</h4>
+                                                <span>$2,658</span>
+                                                <div class="progress mt-1 mb-1" data-height="8">
+                                                  <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <p class="mb-0 text-sm">
+                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+                                                  <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="card card-secondary">
+                                    <div class="card-body" style="direction: rtl;">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="save-stage"
+                                                style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th>اسم الوارد</th>
+                                                        <th> جهة الوارد</th>
+                                                        <th>تفاصيل</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @isset($topics)
+                                                        @foreach ($topics as $Topic)
+                                                            <tr>
+                                                                <td class="text-bold-700"> {{ $Topic->id }}</td>
+                                                                <td class="text-bold-700" style="text-align: right;">
+                                                                    {{ $Topic->name }}</td>
+                                                                <td class="text-bold-700"> {{ $Topic->responsibles_id }}
+                                                                </td>
+
+                                                                <td style="width: 15%">
+                                                                    <a class="btn btn-icon btn-success"
+                                                                        href="{{ route('topics.edit', $Topic->id) }}"
+                                                                        ata-toggle="tooltip" data-placement="top"
+                                                                        title="عرض وتعديل"><i class="fas fa-user"></i></a>
+                                                                    <a class="btn btn-icon btn-danger"
+                                                                        href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"
+                                                                        data-placement="top" title="حذف"><i
+                                                                            class="fas fa-times"></i></a>
+                                                                    <a class="btn btn-icon btn-info"
+                                                                        href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
+                                                                        data-placement="top" title="نقل الارشيف"><i
+                                                                            class="fas fa-archive"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endisset
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                @include('layouts.setting')
+            </div>
+            @include('layouts.footer')
+        </div>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="assets/bundles/datatables/datatables.min.js"></script>
+    <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="assets/js/page/datatables.js"></script>
+    <!-- Template JS File -->
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+        </script>
+    @endif
+    <script>
+        $(document).ready(function() {
+            $('table.table').DataTable();
+        });
+    </script>
+    <!-- Custom JS File -->
+    <script src="assets/js/custom.js"></script>
+</body>
+
+
+<!-- datatables.html  21 Nov 2019 03:55:25 GMT -->
+
+</html>
