@@ -21,4 +21,8 @@ class Topic extends Model
 
         return  $this->belongsTo(Side::class ,'side_id');
     }
+    public function responsename(){
+
+        return  $this->belongsTo(Responsible::class ,'responsibles_id');
+    }
 }

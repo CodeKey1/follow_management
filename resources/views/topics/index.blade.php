@@ -53,82 +53,104 @@
                                 <div class="section-body">
                                     <div class="row ">
                                         <div class="col-xl-3 col-lg-6">
-                                          <div class="card l-bg-green">
-                                            <div class="card-statistic-3">
-                                              <div class="card-icon card-icon-large"></div>
-                                              <div class="card-content">
-                                                <h4 class="card-title">New Orders</h4>
-                                                <span>524</span>
-                                                <div class="progress mt-1 mb-1" data-height="8">
-                                                  <div class="progress-bar l-bg-purple" role="progressbar" data-width="25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="card l-bg-green">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title">New Orders</h4>
+                                                        <span>524</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-purple" role="progressbar"
+                                                                data-width="25%" aria-valuenow="25" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
+                                                        </div>
+                                                        <p class="mb-0 text-sm">
+                                                            <span class="mr-2"><i class="fa fa-arrow-up"></i>
+                                                                10%</span>
+                                                            <span class="text-nowrap">Since last month</span>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0 text-sm">
-                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                                                  <span class="text-nowrap">Since last month</span>
-                                                </p>
-                                              </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col-xl-3 col-lg-6">
-                                          <div class="card l-bg-cyan">
-                                            <div class="card-statistic-3">
-                                              <div class="card-icon card-icon-large"></div>
-                                              <div class="card-content">
-                                                <h4 class="card-title">New Booking</h4>
-                                                <span>1,258</span>
-                                                <div class="progress mt-1 mb-1" data-height="8">
-                                                  <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="card l-bg-cyan">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title">New Booking</h4>
+                                                        <span>1,258</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-orange" role="progressbar"
+                                                                data-width="25%" aria-valuenow="25" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
+                                                        </div>
+                                                        <p class="mb-0 text-sm">
+                                                            <span class="mr-2"><i class="fa fa-arrow-up"></i>
+                                                                10%</span>
+                                                            <span class="text-nowrap">Since last month</span>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0 text-sm">
-                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                                                  <span class="text-nowrap">Since last month</span>
-                                                </p>
-                                              </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col-xl-3 col-lg-6">
-                                          <div class="card l-bg-purple">
-                                            <div class="card-statistic-3">
-                                              <div class="card-icon card-icon-large"></div>
-                                              <div class="card-content">
-                                                <h4 class="card-title">Inquiry</h4>
-                                                <span>10,225</span>
-                                                <div class="progress mt-1 mb-1" data-height="8">
-                                                  <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="card l-bg-purple">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> أرشيف الوارد </h4>
+                                                        <span> إجمالي أرشيف الوارد </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($topics_trash / $topics_trash) * 100 }}%"
+                                                                aria-valuenow="{{ $topics->count() }}"
+                                                                aria-valuemin="{{ $topics_trash }}"
+                                                                aria-valuemax="{{ $topics_trash }}"></div>
+                                                        </div>
+                                                        <p class="mb-0 text-sm">
+                                                            @if ($topics_trash && $topics_trash > 0)
+                                                                <span class="mr-2"
+                                                                    style="color: black;font-size: 16px;font-weight: 800;"><i
+                                                                        class="fa fa-arrow-up"></i>
+                                                                    {{ ($topics_trash / $topics_trash) * 100 }}%</span>
+                                                            @endif
+                                                            <span class="text-nowrap"> نسبة الإكتمال </span>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0 text-sm">
-                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                                                  <span class="text-nowrap">Since last month</span>
-                                                </p>
-                                              </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col-xl-3 col-lg-6">
-                                          <div class="card l-bg-orange">
-                                            <div class="card-statistic-3">
-                                              <div class="card-icon card-icon-large"></div>
-                                              <div class="card-content">
-                                                <h4 class="card-title">Earning</h4>
-                                                <span>$2,658</span>
-                                                <div class="progress mt-1 mb-1" data-height="8">
-                                                  <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="card l-bg-orange">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> عدد الوارد </h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الواردة </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $topics->count() }}"
+                                                                aria-valuemin="{{ $topics->count() }}"
+                                                                aria-valuemax="{{ $topics->count() }}"></div>
+                                                        </div>
+                                                        <p class="mb-0 text-sm">
+                                                            <span class="mr-2"
+                                                                style="color: black;font-size: 16px;font-weight: 800;"><i
+                                                                    class="fa fa-arrow-up"></i>
+                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%</span>
+                                                            <span class="text-nowrap"> نسبة الإكتمال </span>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0 text-sm">
-                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                                                  <span class="text-nowrap">Since last month</span>
-                                                </p>
-                                              </div>
                                             </div>
-                                          </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                                 <div class="card card-secondary">
                                     <div class="card-body" style="direction: rtl;">
@@ -150,22 +172,27 @@
                                                                 <td class="text-bold-700"> {{ $Topic->id }}</td>
                                                                 <td class="text-bold-700" style="text-align: right;">
                                                                     {{ $Topic->name }}</td>
-                                                                <td class="text-bold-700"> {{ $Topic->responsibles_id }}
+                                                                <td class="text-bold-700">
+                                                                    {{ $Topic->sidename->side_name }}
                                                                 </td>
 
                                                                 <td style="width: 15%">
                                                                     <a class="btn btn-icon btn-success"
                                                                         href="{{ route('topics.edit', $Topic->id) }}"
                                                                         ata-toggle="tooltip" data-placement="top"
-                                                                        title="عرض وتعديل"><i class="fas fa-user"></i></a>
+                                                                        title="عرض وتعديل">
+                                                                        <i class="fas fa-user"></i>
+                                                                    </a>
                                                                     <a class="btn btn-icon btn-danger"
                                                                         href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="حذف"><i
-                                                                            class="fas fa-times"></i></a>
+                                                                        data-placement="top" title="حذف">
+                                                                        <i class="fas fa-times"></i>
+                                                                    </a>
                                                                     <a class="btn btn-icon btn-info"
                                                                         href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="نقل الارشيف"><i
-                                                                            class="fas fa-archive"></i></a>
+                                                                        data-placement="top" title="نقل الارشيف">
+                                                                        <i class="fas fa-archive"></i>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

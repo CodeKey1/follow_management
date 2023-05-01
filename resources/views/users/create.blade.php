@@ -42,8 +42,9 @@
                                             <h4>اضافة مستخدم جديد</h4>
                                             <div class="card-header-action">
 
-                                            <a href="{{ route('admin.users') }}" class="btn btn-warning">كل المستخدمين</a>
-                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                                                <a href="{{ route('admin.users') }}" class="btn btn-warning">كل
+                                                    المستخدمين</a>
+                                                <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                             {{-- <button class="btn btn-dark"
                                                 style="position: absolute; left: 10px; top:5px"><a
@@ -55,14 +56,9 @@
                                         <div class="card-body">
                                             <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
                                             <div class="row mb-3">
-                                                <label for="name"
-                                                    class="col-md-2 col-form-label text-md-end">{{ __('اسم المستخدم الجديد') }}</label>
+                                                <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('اسم المستخدم الجديد') }}</label>
                                                 <div class="col-md-6">
-                                                    <input id="name" type="text"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        name="name" value="{{ old('name') }}" required
-                                                        autocomplete="name" autofocus>
-
+                                                    <input id="name" type="text"class="form-control @error('name') is-invalid @enderror"name="name" value="{{ old('name') }}" requiredautocomplete="name" autofocus>
                                                     @error('name')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -71,15 +67,10 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="email"
-                                                    class="col-md-2 col-form-label text-md-end">{{ __('البريد الإلكتروني') }}</label>
+                                                <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('البريد الإلكتروني') }}</label>
 
                                                 <div class="col-md-6">
-                                                    <input id="email" type="email"
-                                                        class="form-control @error('email') is-invalid @enderror"
-                                                        name="email" value="{{ old('email') }}" required
-                                                        autocomplete="email">
-
+                                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                                     @error('email')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -88,14 +79,9 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="password"
-                                                    class="col-md-2 col-form-label text-md-end">{{ __('الرقم السري') }}</label>
-
+                                                <label for="password" class="col-md-2 col-form-label text-md-end">{{ __('الرقم السري') }}</label>
                                                 <div class="col-md-6">
-                                                    <input id="password" type="password"
-                                                        class="form-control @error('password') is-invalid @enderror"
-                                                        name="password" required autocomplete="new-password">
-
+                                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -104,22 +90,17 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="password-confirm"
-                                                    class="col-md-2 col-form-label text-md-end">{{ __('تأكيد الرقم السري') }}</label>
-
+                                                <label for="password-confirm" class="col-md-2 col-form-label text-md-end">{{ __('تأكيد الرقم السري') }}</label>
                                                 <div class="col-md-6">
-                                                    <input id="password-confirm" type="password" class="form-control"
-                                                        name="password_confirmation" required
-                                                        autocomplete="new-password">
+                                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="role"
-                                                    class="col-md-2 col-form-label text-md-end">{{ __(' صلاحية المستخدم  ') }}</label>
-
+                                                <label for="role" class="col-md-2 col-form-label text-md-end">{{ __(' صلاحية المستخدم  ') }}</label>
                                                 <div class="col-md-6">
                                                     <select class="form-control" id="role" name="role">
-                                                        <option value="" disabled selected> صلاحية المستخدم </option>
+                                                        <option value="" disabled selected> صلاحية المستخدم
+                                                        </option>
                                                         @isset($role)
                                                             @if ($role && $role->count() > 0)
                                                                 @foreach ($role as $Role)
@@ -131,9 +112,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <button type="submit" class="btn btn-success"
-                                                style="float: left;">حفظ</button>
+                                            <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
                                         </div>
                                     </div>
                                 </form>

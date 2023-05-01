@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -21,8 +22,8 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
     public function create(){
-
-        return view('users.create');
+        $role = Role::select()->get();
+        return view('users.create',compact('role'));
     }
     protected function save (Request $request)
     {

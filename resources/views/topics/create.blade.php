@@ -100,9 +100,10 @@
                                                 <div class="form-group col-md-6">
                                                     <label> الموقف التنفيذي </label>
                                                     <select class="form-control"  name="state">
-                                                        <option value="" disabled selected>اختر موقف الرد</option>
-                                                        <option value=" 1 "> تم الرد √ </option>
-                                                        <option value=" 0 ">  لم يتم الرد X</option>
+                                                        <option value="" disabled >اختر موقف الرد</option>
+                                                        <option value="2" selected> جاري المتابعة </option>
+                                                        <option value="1"> تم الرد  </option>
+                                                        <option value="0">  لم يتم الرد </option>
                                                     </select>
                                                 </div>
                                             </div>

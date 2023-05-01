@@ -15,8 +15,10 @@ class ExportController extends Controller
 {
     public function index()
     {
+
+        $exports_trash = Export::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
         $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
-        return view('export.index', compact('exports'));
+        return view('export.index', compact('exports','exports_trash'));
     }
     public function archive()
     {
@@ -34,19 +36,27 @@ class ExportController extends Controller
 
     public function save(Request $request)
     {
-        $file_extension = $request->upload_f->getclientoriginalExtension();
-        $file_name = time() . '.' . $file_extension;
-        $path = 'files/import';
-        $request->upload_f->move($path, $file_name);
+        $upload_f = array();
+        if ($files = $request->file('upload_f')) {
+            foreach ($files as $file) {
+                $ext = strtolower($file->getClientOriginalName());
+                $file_name = time() . '.' . $ext;
+                $path = 'attatch_office/export_follow';
+                $file->move($path, $file_name);
+                $upload[] = $file_name;
+            }
+        } else {
+            $upload[] = "";
+        }
         try {
 
             Export::create(([
                 'name' => $request['name'],
-                'send_to' => $request['send_to'],
+                'side_id' => $request['side_id'],
+                'topic_id' => $request['topic_id'],
                 'send_date' => $request['send_date'],
                 'requested_date' => $request['requested_date'],
                 'details' => $request ['details'],
-                'state' => $request ['state'],
                 'cat_name' => $request ['cat_name'],
                 'upload_f' => $file_name
             ]));
@@ -94,10 +104,10 @@ class ExportController extends Controller
                 'upload_f' => $file_name
             ]));
 
-            return redirect()->route('admin.exports')->with(['success' => 'تم تعديل الملف الصادر بنجاح']);
+            return redirect()->route('exports')->with(['success' => 'تم تعديل الملف الصادر بنجاح']);
 
         } catch (\Exception $ex) {
-            return redirect()->route('admin.exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
 
 
@@ -109,14 +119,14 @@ class ExportController extends Controller
         try {
             $exports = Export::find($id);
             if (!$exports) {
-                return redirect()->route('admin.exports', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
+                return redirect()->route('exports', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
             }
             $exports->forcedelete();
 
-            return redirect()->route('admin.exports')->with(['success' => 'تم حذف الملف الصادر بنجاح']);
+            return redirect()->route('exports')->with(['success' => 'تم حذف الملف الصادر بنجاح']);
 
         } catch (\Exception $ex) {
-            return redirect()->route('admin.exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
 

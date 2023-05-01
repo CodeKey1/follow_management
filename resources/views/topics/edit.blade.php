@@ -58,7 +58,7 @@
                                             <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
                                             <input class="user-name text-bold-700 float-left" type="hidden" name="users_name" value="{{ Auth::user()->name }}">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label>رقم الوارد</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
                                                          value="{{ $topics->import_id }}"
@@ -67,16 +67,15 @@
                                                         name="import_id" value="{{ $topics->import_id }}"
                                                         class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label> الإدارة المسؤلة </label>
                                                     <select class="form-control"  disabled>
                                                         <option value="{{ $topics->responsibles_id }}" selected>
-                                                            {{ $topics->responsibles_id }}
+                                                            {{ $topics->responsename->name }}
                                                         </option>
                                                     </select>
                                                     <select class="form-control" name="responsibles_id">
-                                                        <option value="" disabled selected> الإدارة المسؤلة
-                                                            للمتابعة </option>
+                                                        <option value="{{ $topics->responsename->name }}" disabled selected> {{ $topics->responsename->name }}</option>
                                                         @isset($responsibles)
                                                             @if ($responsibles && $responsibles->count() > 0)
                                                                 @foreach ($responsibles as $Response)
@@ -89,24 +88,14 @@
                                                     </select>
 
                                                 </div>
-                                                <div class="form-group col-md-12">
-                                                    <label>عنوان الملف الوارد</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                         value="{{ $topics->name }}"
-                                                        class="form-control" disabled>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="name" value="{{ $topics->name }}"
-                                                        class="form-control" >
-
-                                                </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label> اسم الجهة الوارد منها</label>
                                                     <select class="form-control" id="city"  disabled>
                                                         <option value="{{ $topics->side_id }}" disabled selected>
-                                                            {{ $topics->side_id }}</option>
+                                                            {{ $topics->sidename->side_name }}</option>
                                                     </select>
                                                     <select class="form-control" id="city" name="side_id">
-                                                        <option value="{{ $topics->side_id }}" disabled selected> {{ $topics->side_id }}</option>
+                                                        <option value="{{ $topics->side_id }}" disabled selected> {{ $topics->sidename->side_name }}</option>
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
                                                                 @foreach ($side as $sides)
@@ -118,16 +107,10 @@
                                                         @endisset
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> الموقف التنفيذي </label>
-                                                    <select class="form-control"   disabled>
-                                                        <option value=" √ "@if($topics ->state == '1') selected @endif>  تم الرد </option>
-                                                            <option value=" X "@if($topics ->state == '0') selected @endif> لم يتم الرد </option>
-                                                    </select>
-                                                    <select class="form-control"  name="state" >
-                                                        <option value="1">  تم الرد </option>
-                                                        <option value="0"> لم يتم الرد </option>
-                                                    </select>
+                                                <div class="form-group col-md-12">
+                                                    <label>عنوان الملف الوارد</label>
+                                                    <textarea cols="10" rows="2" type="text" value="{{ $topics->name }}" class="form-control" disabled>{{ $topics->name }}</textarea>
+                                                    <textarea cols="10" rows="2" type="text" name="name" value="{{ $topics->name }}" class="form-control">{{ $topics->name }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -148,10 +131,20 @@
                                                     class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label> الملف المرفق</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                        name="file[]" class="form-control" >
+                                                    <label> الموقف التنفيذي </label>
+                                                    <select class="form-control"  disabled>
+                                                        <option value="1"@if($topics ->state == '1') selected @endif>  تم الرد </option>
+                                                        <option value="0"@if($topics ->state == '0') selected @endif> لم يتم الرد </option>
+                                                        <option value="2"@if($topics ->state == '2') selected @endif> جاري المتابعة   </option>
+                                                    </select>
+                                                    <select class="form-control"  name="state" >
+                                                        <option value="" disabled >اختر موقف الرد</option>
+                                                        <option value="1"@if($topics ->state == '1') selected @endif>  تم الرد </option>
+                                                        <option value="0"@if($topics ->state == '0') selected @endif> لم يتم الرد </option>
+                                                        <option value="2"@if($topics ->state == '2') selected @endif> جاري المتابعة   </option>
+                                                    </select>
                                                 </div>
+
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
@@ -160,6 +153,11 @@
                                                     <textarea class="form-control" name="notes" cols="10" rows="5">{{ $topics->notes }}</textarea>
 
                                                 </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label> الملف المرفق</label>
+                                                <input style="height: calc(2.25rem + 6px);" type="file" multiple
+                                                    name="file[]" class="form-control" >
                                             </div>
                                             {{-- <div class="form-row">
                                                 <div class="form-group col-md-12">
@@ -175,8 +173,7 @@
                                                     @endif
                                                 </div>
                                             </div> --}}
-                                            <button type="submit" class="btn btn-success"
-                                                style="float: left;">حفظ</button>
+                                            <button type="submit" class="btn btn-success"style="float: left;">حفظ</button>
                                         </div>
 
                                     </div>

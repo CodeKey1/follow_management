@@ -16,9 +16,9 @@ class TopicController extends Controller
     public function index()
     {
 
-
+        $topics_trash = Topic::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
         $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
-        return view('topics.index', compact('topics'));
+        return view('topics.index', compact('topics','topics_trash'));
     }
 
     public function T_archive()
