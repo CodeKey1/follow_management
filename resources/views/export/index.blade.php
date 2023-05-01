@@ -42,8 +42,8 @@
                                         <h4> كل ملفات متابعة الصادرة </h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
-                                                <a href="{{ route('exports.create') }}" class="btn btn-warning "> صادر
-                                                    جديد </a>
+                                                <a href="{{ route('exports.create') }}" class="btn btn-warning "> صادر جديد لوارد </a>
+                                                <a href="{{ route('exports.create') }}" class="btn btn-danger "> صادر جديد  </a>
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>

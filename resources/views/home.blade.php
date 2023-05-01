@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title></title>
+    <title>مكتب السيد المحافظ</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="assets/css/app.min.css" />
     <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css" />
@@ -44,7 +44,7 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             @include('layouts.sidbar')
-            <!-- Main Content -->
+            <!--
             <div class="main-content">
                 <section class="section">
                     <div class="row ">
@@ -172,8 +172,7 @@
 
                                 <div class="card-body" style="direction: rtl;">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-hover"
-                                            >
+                                        <table class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>المزاد</th>
@@ -259,6 +258,7 @@
                     </div>
                 </section>
             </div>
+            Main Content -->
             <footer class="main-footer">
                 <div class="footer-left">
                     <a href="https://aswan.gov.eg/">ISDT</a></a>

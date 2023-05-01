@@ -70,7 +70,7 @@
         <div class="sidebar-brand">
             <a href="{{ route('home') }}" style="letter-spacing: initial"> <img alt="image"
                     src="images/logo/aswan.png" class="header-logo" />
-                <span class="logo-name"> الإستثمار </span>
+                <span class="logo-name"> مكتب السيد المحافظ </span>
             </a>
         </div>
         {{-- /* super admin permission and role for sidebar*/ --}}
@@ -86,16 +86,16 @@
                         <i data-feather="chevrons-right"></i></a>
                     <ul class="dropdown-menu">
 
-                        <li><a class="nav-link" href=""> كل الجهات</a></li>
+                        <li><a class="nav-link" href="{{ route('manage') }}"> كل الإدارات </a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> الجهات
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> الجهات الوارد منها
                         </span>
                         <i data-feather="chevrons-right"></i></a>
                     <ul class="dropdown-menu">
 
-                        <li><a class="nav-link" href=""> كل الجهات</a></li>
+                        <li><a class="nav-link" href="{{ route('side') }}"> كل الجهات</a></li>
                     </ul>
                 </li>
                 <li class="menu-header">

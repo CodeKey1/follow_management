@@ -15,6 +15,10 @@ class Responsible extends Model
     public function  scopeSelection($query){
         return $query -> select('id','name');
     }
-    //
+
+    public function Respone_topic(){
+        return $this->hasMany(Topic::class ,'responsibles_id');
+    }
+
 
 }

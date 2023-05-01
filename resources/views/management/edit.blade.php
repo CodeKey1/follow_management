@@ -38,13 +38,13 @@
                                 @include('layouts.success')
                                 @include('layouts.error')
                                 <form class="needs-validation" id="work_experience" novalidate=""
-                                    action="{{ route('side.store') }}" method="POST" enctype="multipart/form-data">
+                                    action="{{ route('manage.update', $responsible->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4> اضافة جهة  للوارد </h4>
+                                            <h4> تعديل ادارة المسؤلة للمتابعة </h4>
                                             <div class="card-header-action">
-                                                <a href="{{ route('side') }}" class="btn btn-warning"> كل الجهات
+                                                <a href="{{ route('manage') }}" class="btn btn-warning"> كل الإدارات
                                                 </a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
@@ -54,9 +54,9 @@
                                         <div class="card-body">
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label> اسم الجهة </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="side_name" class="form-control">
+                                                    <label> اسم الإدارة </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" name="name" value="{{ $responsible->name }}" class="form-control" disabled>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" name="name" value="{{ $responsible->name }}" class="form-control">
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-success"

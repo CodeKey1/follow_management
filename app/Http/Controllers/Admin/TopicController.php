@@ -79,7 +79,7 @@ class TopicController extends Controller
         $responsibles = Responsible::select()->get();
         $topics = Topic::select()->find($id);
         if (!$topics) {
-            return redirect()->route('topics.index')->with(['error' => 'هذه الموضوع غير موجوده']);
+            return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
         }
         return view('topics.edit', compact('topics','responsibles','side'));
     }
@@ -108,7 +108,7 @@ class TopicController extends Controller
 
             $topics->update($request->except('_token'));
                 return redirect()->route('topic.index')->with(['success' => 'تم تعديل الموضوع بنجاح']);
-        
+
     }
 
     public function destroy(string $id)

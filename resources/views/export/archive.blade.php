@@ -73,11 +73,7 @@
                                                                 <td class="text-danger text-bold-700">
                                                                     {{ $Export->send_to }}</td>
                                                                 <td style="width: 15%">
-                                                                    <a class="btn btn-icon btn-success"
-                                                                        href="{{ route('exports.edit', $Export->id) }}"
-                                                                        ata-toggle="tooltip" data-placement="top"
-                                                                        title="عرض وتعديل"><i
-                                                                            class="fas fa-user"></i></a>
+                                                                    
                                                                     <a class="btn btn-icon btn-danger"
                                                                         href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip" data-placement="top"
                                                                         title="حذف"><i

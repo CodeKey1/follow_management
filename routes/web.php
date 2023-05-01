@@ -22,12 +22,12 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 ///////////////////////////////////////////// users view ///////////////////////////////////////////
 
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
-    Route::get('/users'         ,[App\Http\Controllers\Admin\UserController::class,'index'])-> name('admin.users');
-    Route::get('/user_create'        ,[App\Http\Controllers\Admin\UserController::class,'create'])   -> name('user.Create');
+    Route::get('/users'         ,[App\Http\Controllers\Admin\UserController::class,'index'])          -> name('admin.users');
+    Route::get('/user_create'        ,[App\Http\Controllers\Admin\UserController::class,'create'])    -> name('user.Create');
     Route::post('/user_save'         ,[App\Http\Controllers\Admin\UserController::class,'save'])      -> name('user.store');
     Route::get('/user_edit/{id}'     ,[App\Http\Controllers\Admin\UserController::class,'edit'])      -> name('admin.users.edit');
-    Route::post('/user_update/{id}'  ,[App\Http\Controllers\Admin\UserController::class,'update'])   -> name('admin.users.update');
-    Route::get('/user_delete/{id}'   ,[App\Http\Controllers\Admin\UserController::class,'delete'])      -> name('user.delete');
+    Route::post('/user_update/{id}'  ,[App\Http\Controllers\Admin\UserController::class,'update'])    -> name('admin.users.update');
+    Route::get('/user_delete/{id}'   ,[App\Http\Controllers\Admin\UserController::class,'delete'])    -> name('user.delete');
 });
 
 ///////////////////////////////////////////// topics view ///////////////////////////////////////////
@@ -56,6 +56,21 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/move/{id}'             ,[App\Http\Controllers\Admin\ExportController::class,'delete'])   -> name('exports.archive');
     Route::get('/export_show/{id}'      ,[App\Http\Controllers\Admin\ExportController::class,'show'])     -> name('exports.show');
 
+    ///////////////////////////////////////////// management view ///////////////////////////////////////////
+
+    Route::get('/managemente' ,[App\Http\Controllers\Admin\ManagController::class,'index'])    -> name('manage');
+    Route::get('/managemente-create' ,[App\Http\Controllers\Admin\ManagController::class,'create'])    -> name('manage.create');
+    Route::post('/manage-store' ,[App\Http\Controllers\Admin\ManagController::class,'store'])    -> name('manage.store');
+    Route::get('/manage-edit{id}' ,[App\Http\Controllers\Admin\ManagController::class,'edit'])    -> name('manage.edit');
+    Route::post('/manage-update{id}' ,[App\Http\Controllers\Admin\ManagController::class,'update'])    -> name('manage.update');
+
+    ///////////////////////////////////////////// side view ///////////////////////////////////////////
+
+    Route::get('/side'        ,[App\Http\Controllers\Admin\SideController::class,'index'])    -> name('side');
+    Route::get('/side-create'        ,[App\Http\Controllers\Admin\SideController::class,'create'])    -> name('side.create');
+    Route::post('/side-store' ,[App\Http\Controllers\Admin\SideController::class,'store'])    -> name('side.store');
+    Route::get('/side-edit{id}' ,[App\Http\Controllers\Admin\SideController::class,'edit'])    -> name('side.edit');
+    Route::post('/side-update{id}' ,[App\Http\Controllers\Admin\SideController::class,'update'])    -> name('side.update');
 
 });
 

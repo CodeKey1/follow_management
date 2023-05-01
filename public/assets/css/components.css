@@ -1245,14 +1245,17 @@ tr:first-child>td>.fc-day-grid-event {
     min-height: 42px;
     line-height: 42px;
     padding-left: 20px;
-    padding-right: 20px
+    padding-right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__arrow,
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     position: absolute;
     top: 1px;
-    right: 1px;
+    left: 1px;
     width: 40px;
     min-height: 42px
 }

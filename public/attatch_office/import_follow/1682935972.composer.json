@@ -1,0 +1,5 @@
+{
+    "require": {
+        "opcodesio/log-viewer": "^1.9"
+    }
+}

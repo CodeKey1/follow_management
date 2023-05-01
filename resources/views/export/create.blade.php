@@ -42,24 +42,49 @@
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4>اضــافة ملف صادر جديــد</h4>
+                                            <h4>اضــافة ملف صادر جديــد لملف وارد</h4>
                                             <div class="card-header-action">
-                                                <a href="{{ route('exports') }}" class="btn btn-warning">كل الوارد</a>
+                                                <a href="{{ route('exports') }}" class="btn btn-warning">كل الصادر</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="card card-secondary">
+                                    <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
+
+                                    <div class="card card-secondary">
                                         <div class="card-body">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label>رقم الوارد</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="import_id" class="form-control"placeholder="">
+                                                    <select class="form-control select2"  id="project" name="import_id">
+                                                        <option value="" disabled selected>اختر الملف الوارد</option>
+                                                        @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                @foreach ($topics as $topic)
+                                                                    <option value="{{ $topic->side_id }}"> {{ $topic->import_id }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> اسم الجهة الوارد منها</label>
-                                                    <select class="form-control" id="city" name="import_side">
+                                                <div class="form-group col-md-4">
+                                                    <label> اسم الجهة الوارد منها </label>
+                                                    <select class="form-control" id="sub_cat" name="side_id">
+                                                        <option value="" disabled selected>  الجهة الوارد منها </option>
+                                                        @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                @foreach ($topics as $topic)
+                                                                    <option class="option cat-{{ $topic->sidename->id }}" value="{{ $topic->sidename->id }}"> {{ $topic->sidename->side_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label> اسم الجهة الصادر اليها</label>
+                                                    <select class="form-control" name="send_to">
                                                         <option value="" disabled selected>اختر الجهة</option>
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
@@ -73,21 +98,33 @@
                                                 </div>
 
                                                 <div class="form-group col-md-12">
-                                                    <label>عنوان الملف الوارد</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="import_name" class="form-control"placeholder="">
+                                                    <label>عنوان الملف الصادر</label>
+                                                    @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                @foreach ($topics as $topic)
+                                                                <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}" class="option license-{{ $topic->sidename->id }} form-control" disabled>{{ $topic->name }}</textarea>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+
                                                 </div>
                                             </div>
+                                                <hr style="margin-top: 1rem;margin-bottom: 2rem;border: 0;border-top: 1px solid rgb(0 0 0 / 77%);">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-4">
                                                     <label> الملف المرفق</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                        name="import_file[]" class="form-control">
+                                                        name="upload_f" class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> تاريخ استلام الوارد </label>
+                                                <div class="form-group col-md-4">
+                                                    <label> تاريخ الإرسال  </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="import_date" class="form-control"placeholder="">
+                                                        name="send_date" class="form-control"placeholder="">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label> تاريخ الإنتهاء  </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                        name="requested_date" class="form-control"placeholder="">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -100,7 +137,7 @@
                                             <button type="submit" class="btn btn-success"
                                                 style="float: left;">حفظ</button>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </form>
                             </div>
                             {{-- <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn"
@@ -132,9 +169,20 @@
     <script src="assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script>
         $('.option').hide();
-        $('#city').on('change', function(e) {
+        $('.coption').hide();
+        $('#project').on('change', function(e) {
             $('.option').hide();
+            $('.license-' + e.target.value).show();
+            $('.cat-' + e.target.value).show();
+        });
+
+        $('#city_id').on('change', function(e) {
+            $('.coption').hide();
             $('.city-' + e.target.value).show();
+        });
+        $('#project').on('change', function(e) {
+            $('.coption').hide();
+            $('.type-' + e.target.value).show();
         });
     </script>
 

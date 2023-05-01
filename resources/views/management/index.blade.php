@@ -37,12 +37,12 @@
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12">
-                                <div class="card card-secondary" style="background-color: #ffa4267a !important;">
+                                <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h4>  أرشيف متابعة الملفات الواردة </h4>
+                                        <h4>  الإدارت المسؤلة للمتابعة</h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
-                                                <a href="{{ route('topics.create') }}" class="btn btn-warning "> وارد
+                                                <a href="{{ route('manage.create') }}" class="btn btn-warning "> ادارة
                                                     جديد </a>
 
                                             </div>
@@ -58,35 +58,29 @@
                                                 <thead>
                                                     <tr>
                                                         <th> # </th>
-                                                        <th>اسم الوارد</th>
-                                                        <th> جهة الوارد</th>
+                                                        <th>اسم الإدارة</th>
+                                                        <th> عدد ملفات المتابعة </th>
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @isset($topics)
-                                                        @foreach ($topics as $Topic)
-                                                            <tr>
-                                                                <td class="text-bold-700"> {{ $Topic->id }}</td>
-                                                                <td class="text-bold-700" style="text-align: right;">
-                                                                    {{ $Topic->name }}</td>
-                                                                <td class="text-bold-700"> {{ $Topic->responsibles_id }}
-                                                                </td>
-
-                                                                <td style="width: 15%">
-                                                                    
-                                                                    <a class="btn btn-icon btn-danger"
-                                                                        href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="حذف"><i
-                                                                            class="fas fa-times"></i></a>
-                                                                    {{-- <a class="btn btn-icon btn-info"
-                                                                        href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="نقل الارشيف"><i
-                                                                            class="fas fa-archive"></i></a> --}}
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @endisset
+                                                    @isset($responsibles)
+                                                    @foreach ($responsibles as $respon)
+                                                        <tr>
+                                                            <td class="text-bold-700"> {{ $respon->id }}</td>
+                                                            <td class="text-bold-700" style="text-align: right;"> {{ $respon->name }}</td>
+                                                            <td class="text-bold-700"> {{ $respon->Respone_topic->count() }}</td>
+                                                            <td >
+                                                                <a class="btn btn-icon btn-primary"href="{{ route('manage.edit',$respon->id) }}"ata-toggle="tooltip" data-placement="top"title="عرض وتعديل">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                {{-- <a class="btn btn-icon btn-danger"href="#"ata-toggle="tooltip" data-placement="top"title=" حذف ">
+                                                                    <i class="fas fa-times"></i>
+                                                                </a> --}}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endisset
                                                 </tbody>
                                             </table>
                                         </div>

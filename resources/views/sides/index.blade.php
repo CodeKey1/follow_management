@@ -39,12 +39,11 @@
                             <div class="col-12">
                                 <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h4>  كل ملفات متابعة الوارد </h4>
+                                        <h4>  كل الجهات للوارد </h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
-                                                <a href="{{ route('topics.create') }}" class="btn btn-warning "> وارد
+                                                <a href="{{ route('side.create') }}" class="btn btn-warning "> جهة
                                                     جديد </a>
-
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
@@ -58,34 +57,24 @@
                                                 <thead>
                                                     <tr>
                                                         <th> # </th>
-                                                        <th>اسم الوارد</th>
-                                                        <th> جهة الوارد</th>
-
+                                                        <th>اسم الجهة</th>
+                                                        <th> عدد الوارد</th>
+                                                        <th> عدد الصادر</th>
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @isset($topics)
-                                                    @foreach ($topics as $Topic)
+                                                    @isset($side)
+                                                    @foreach ($side as $Side)
                                                         <tr>
-                                                            <td class="text-bold-700"> {{ $Topic->id }}</td>
-                                                            <td class="text-bold-700" style="text-align: right;"> {{ $Topic->topic_name }}</td>
-                                                            <td class="text-bold-700"> {{ $Topic->topic_tittle }}</td>
-
+                                                            <td class="text-bold-700"> {{ $Side->id }}</td>
+                                                            <td class="text-bold-700" style="text-align: right;"> {{ $Side->side_name }}</td>
+                                                            <td class="text-bold-700"> {{ $Side->side_topic->count() }}</td>
+                                                            <td class="text-bold-700"> {{ $Side->side_export->count() }}</td>
                                                             <td style="width: 15%">
-                                                                <a class="btn btn-icon btn-success"
-                                                                    href="{{ route('topics.edit', $Topic->id) }}"
-                                                                    ata-toggle="tooltip" data-placement="top"
-                                                                    title="عرض وتعديل"><i
-                                                                        class="fas fa-user"></i></a>
-                                                                <a class="btn btn-icon btn-danger"
-                                                                    href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                    title="حذف"><i
-                                                                        class="fas fa-times"></i></a>
-                                                                <a class="btn btn-icon btn-info"
-                                                                    href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                    title="نقل الارشيف"><i
-                                                                        class="fas fa-archive"></i></a>
+                                                                <a class="btn btn-icon btn-primary"href="{{ route('side.edit', $Side->id) }}"ata-toggle="tooltip" data-placement="top"title="عرض وتعديل">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

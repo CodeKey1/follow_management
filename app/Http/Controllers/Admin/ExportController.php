@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveRequest;
+use App\Models\Responsible;
+use App\Models\Side;
+use App\Models\Topic;
 use App\Models\Export;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +26,10 @@ class ExportController extends Controller
 
     public function create()
     {
-        return view('export.create');
+        $topics = Topic::select()->with('sidename')->where('state', 1)->get();
+        $side = Side::select()->get();
+        $responsibles = Responsible::select()->get();
+        return view('export.create', compact('responsibles','topics','side'));
     }
 
     public function save(Request $request)
