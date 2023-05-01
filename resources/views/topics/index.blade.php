@@ -104,11 +104,13 @@
                                                         <span
                                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($topics_trash && $topics_trash > 0)
                                                             <div class="progress-bar l-bg-green" role="progressbar"
                                                                 data-width="{{ ($topics_trash / $topics_trash) * 100 }}%"
                                                                 aria-valuenow="{{ $topics->count() }}"
                                                                 aria-valuemin="{{ $topics_trash }}"
                                                                 aria-valuemax="{{ $topics_trash }}"></div>
+                                                                @endif
                                                         </div>
                                                         <p class="mb-0 text-sm">
                                                             @if ($topics_trash && $topics_trash > 0)
@@ -141,8 +143,7 @@
                                                         </div>
                                                         <p class="mb-0 text-sm">
                                                             <span class="mr-2"
-                                                                style="color: black;font-size: 16px;font-weight: 800;"><i
-                                                                    class="fa fa-arrow-up"></i>
+                                                                style="color: black;font-size: 16px;font-weight: 800;"></i>
                                                                 {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%</span>
                                                             <span class="text-nowrap"> نسبة الإكتمال </span>
                                                         </p>

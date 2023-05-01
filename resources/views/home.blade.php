@@ -44,7 +44,7 @@
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             @include('layouts.sidbar')
-            <!--
+
             <div class="main-content">
                 <section class="section">
                     <div class="row ">
@@ -55,7 +55,7 @@
                                         <div class="row ">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                                 <div class="card-content">
-                                                    <h5 class="font-15">الإطروحات</h5>
+                                                    <h5 class="font-15">  </h5>
                                                     <h2 class="mb-3 font-18"></h2>
                                                 </div>
                                             </div>
@@ -76,7 +76,7 @@
                                         <div class="row ">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                                 <div class="card-content">
-                                                    <h5 class="font-14">اجمالي المزادات</h5>
+                                                    <h5 class="font-14">  </h5>
                                                     <h2 class="mb-3 font-18">
 
                                                     </h2>
@@ -99,7 +99,7 @@
                                         <div class="row ">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                                 <div class="card-content">
-                                                    <h5 class="font-14">المشاريع المنتهية</h5>
+                                                    <h5 class="font-14">  </h5>
                                                     <h2 class="mb-3 font-18">
                                                     </h2>
                                                 </div>
@@ -121,7 +121,7 @@
                                         <div class="row ">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                                 <div class="card-content">
-                                                    <h5 class="font-14"> طلبات الإستثمار</h5>
+                                                    <h5 class="font-14">  </h5>
                                                     <h2 class="mb-3 font-18">
                                                     </h2>
                                                 </div>
@@ -155,15 +155,14 @@
                                           Delete</a>
                                       </div>
                                     </div> --}}
-                                        <a href="" class="btn btn-primary">كل طلبات
-                                            الإستثمار</a>
+                                        <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات الواردة </a>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <canvas id="lineChartFill"></canvas>
-                                    <input type="hidden" name="users" value="">
-                                    <input type="hidden" name="service" value="">
-                                    <input type="hidden" name="month" value="">
+                                    <input type="hidden" name="users" value="{{ $users['user'] }}">
+                                    <input type="hidden" name="service" value="{{ $users['service'] }}">
+                                    <input type="hidden" name="month" value="{{ $users['month'] }}">
                                 </div>
                             </div>
                         </div>
@@ -258,7 +257,7 @@
                     </div>
                 </section>
             </div>
-            Main Content -->
+            Main Content
             <footer class="main-footer">
                 <div class="footer-left">
                     <a href="https://aswan.gov.eg/">ISDT</a></a>
