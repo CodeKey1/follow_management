@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Export;
 use App\Models\Topic;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,10 +27,41 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $orderCharts = $this->orderChart();
+        $exports_trash = Export::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
+        $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
+        $topics_trash = Topic::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
+        $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
         $now = Carbon::today();
         $now = Carbon::today()->format('y-m-d');
         $users = $this->userChart();
-        return view('home',compact('now','users'));
+        return view('home',compact('now','users','topics_trash','topics','exports_trash','exports','orderCharts'));
+    }
+
+    public function orderChart()
+    {
+        $masterYear = array();
+        $labelsYear = array();
+
+        array_push($masterYear, Export::whereMonth('created_at', Carbon::now(env('timezone')))->count());
+        for ($i = 1; $i <= 11; $i++)
+        {
+            if ($i >= Carbon::now(env('timezone'))->month)
+            {
+                array_push($masterYear, Export::whereMonth('created_at',Carbon::now(env('timezone'))->subMonths($i))->whereYear('created_at', Carbon::now(env('timezone'))->subYears(1))->count());
+            }
+            else
+            {
+                array_push($masterYear, Export::whereMonth('created_at', Carbon::now(env('timezone'))->subMonths($i))->whereYear('created_at', Carbon::now(env('timezone'))->year)->count());
+            }
+        }
+
+        array_push($labelsYear, Carbon::now(env('timezone'))->format('M-y'));
+        for ($i = 1; $i <= 11; $i++)
+        {
+            array_push($labelsYear, Carbon::now(env('timezone'))->subMonths($i)->format('M-y'));
+        }
+        return ['data' => json_encode($masterYear), 'label' => json_encode($labelsYear)];
     }
 
     public function userChart()

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Model_has_roles;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -28,8 +30,8 @@ class UserController extends Controller
     protected function save (Request $request)
     {
 
-        try {
-            User::create([
+        // try {
+            $users= User::create([
                 'cat_name' => $request['cat_name'],
                 'name' => $request['name'],
                 'email' => $request['email'],
@@ -37,14 +39,18 @@ class UserController extends Controller
                 'role' => $request['role'],
 
             ]);
+            Model_has_roles :: create(([
+                'role_id' => $request['role'],
+                'model_id' => $users->id
+            ]));
 
             return redirect()->route('admin.users')->with(['success' => 'تم حفظ االمستخدم بنجاح']);
 
-        } catch (\Exception $ex) {
+        // } catch (\Exception $ex) {
 
-            return redirect()->route('admin.users')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        //     return redirect()->route('admin.users')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
 
-        }
+        // }
     }
     public function delete($id)
     {
@@ -65,13 +71,13 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        $users = User::select()->find($id);
-
-        if (!$users) {
+        $permissions = Permission::select()->get();
+        $roles = Role::select()->get();
+        $user = User::select()->find($id);
+        if (!$user) {
             return redirect()->route('admin.users')->with(['error' => 'هذه المستخدم غير موجوده']);
         }
-
-        return view('admin.users.edit', compact('users'));
+        return view('users.edit', compact('user','roles'));
 
     }
 
@@ -94,6 +100,10 @@ class UserController extends Controller
                 'password' => Hash::make($request['password']),
                 'role' => $request['role'],
             ]);
+            Model_has_roles :: where('model_id',$id)->update(([
+                'role_id' => $request['role'],
+                // 'model_id' => $users->id
+            ]));
 
             return redirect()->route('admin.users')->with(['success' => 'تم تعديل المستخدم بنجاح']);
 

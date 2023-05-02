@@ -25,7 +25,7 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/users'         ,[App\Http\Controllers\Admin\UserController::class,'index'])          -> name('admin.users');
     Route::get('/user_create'        ,[App\Http\Controllers\Admin\UserController::class,'create'])    -> name('user.Create');
     Route::post('/user_save'         ,[App\Http\Controllers\Admin\UserController::class,'save'])      -> name('user.store');
-    Route::get('/user_edit/{id}'     ,[App\Http\Controllers\Admin\UserController::class,'edit'])      -> name('admin.users.edit');
+    Route::get('/user_edit{id}'     ,[App\Http\Controllers\Admin\UserController::class,'edit'])      -> name('admin.users.edit');
     Route::post('/user_update/{id}'  ,[App\Http\Controllers\Admin\UserController::class,'update'])    -> name('admin.users.update');
     Route::get('/user_delete/{id}'   ,[App\Http\Controllers\Admin\UserController::class,'delete'])    -> name('user.delete');
 });
@@ -71,6 +71,16 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::post('/side-store' ,[App\Http\Controllers\Admin\SideController::class,'store'])    -> name('side.store');
     Route::get('/side-edit{id}' ,[App\Http\Controllers\Admin\SideController::class,'edit'])    -> name('side.edit');
     Route::post('/side-update{id}' ,[App\Http\Controllers\Admin\SideController::class,'update'])    -> name('side.update');
+
+
+        ///////////////////////////////////////////// role view ///////////////////////////////////////////
+
+        Route::get('/role', [App\Http\Controllers\Admin\RoleController::class, 'index'])->name('role');
+Route::get('/role-create', [App\Http\Controllers\Admin\RoleController::class, 'create'])->name('role.Create');
+Route::POST('/role-store', [App\Http\Controllers\Admin\RoleController::class, 'store'])->name('role.store');
+Route::get('/role-delete{id}', [App\Http\Controllers\Admin\RoleController::class, 'destroy'])->name('role.delete');
+Route::get('/role-edit{id}', [App\Http\Controllers\Admin\RoleController::class, 'edit'])->name('role.edite');
+Route::post('/role-update{id}', [App\Http\Controllers\Admin\RoleController::class, 'update'])->name('role.update');
 
 });
 

@@ -17,11 +17,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
-
 </head>
 
 <body class="light theme-white dark-sidebar">
@@ -35,15 +37,12 @@
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12">
-
-                                @include('layouts.error')
                                 <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h4> ادارة المستخدمين </h4>
+                                        <h4> صلاحيات المستخدمين</h4>
                                         <div class="card-header-action">
-
-                                            <a href="{{ route('user.Create') }}" class="btn btn-warning">اضافة
-                                                مستخدم</a>
+                                            <a href="{{ route('role.Create') }}" class="btn btn-warning">اضافة
+                                                صلحيات</a>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
                                     </div>
@@ -54,34 +53,23 @@
                                                 <thead>
                                                     <tr>
                                                         <th> # </th>
-                                                        <th> اسم المستخدم</th>
-                                                        <th> صلاحيات</th>
-                                                        {{-- <th> الحالة</th> --}}
-                                                        <th> البريد الإلكتروني</th>
+                                                        <th>اسم الصلحية</th>
+
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($roles as $role)
                                                         <tr>
-                                                            <td>{{ $user->id }}</td>
-                                                            <td>{{ $user->name }}</td>
-                                                            <td class="mb-2">{{ $user->userRole->name }}</td>
-
-                                                            {{-- <td class="mb-2">
-                                                                @if ($user->state == 0)
-                                                                    <div class="badge badge-danger"> </div>
-                                                                @elseif($user->state == 1)
-                                                                    <div class="badge badge-success"> </div>
-                                                                @endif
-                                                            </td> --}}
-                                                            <td class="mb-2">{{ $user->email }}</td>
+                                                            <td>{{ $role->id }}</td>
+                                                            <td>{{ $role->name }}</td>
                                                             <td>
-                                                                <a class="btn btn-icon btn-success" href="{{ route('admin.users.edit',$user->id) }}"
+                                                                <a class="btn btn-icon btn-success"
+                                                                    href="{{ route('role.edite', $role->id) }}"
                                                                     ata-toggle="tooltip" data-placement="top"
                                                                     title="عرض وتعديل"><i class="fas fa-user"></i></a>
                                                                 <a class="btn btn-icon btn-danger"
-                                                                    href="{{ route('user.delete', $user->id) }}"><i
+                                                                    href="{{ route('role.delete', $role->id) }}"><i
                                                                         class="fas fa-times"></i></a>
                                                             </td>
                                                         </tr>
@@ -114,6 +102,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
             $('table.table').DataTable();
@@ -121,16 +114,6 @@
     </script>
     <!-- Custom JS File -->
     <script src="assets/js/custom.js"></script>
-    @if (Session::has('success'))
-        <script>
-            toastr.success("{{ Session::get('success') }}");
-        </script>
-    @endif
-    @if (Session::has('error'))
-        <script>
-            toastr.success("{{ Session::get('error') }}");
-        </script>
-    @endif
 </body>
 
 

@@ -48,98 +48,109 @@
             <div class="main-content">
                 <section class="section">
                     <div class="row ">
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="card">
-                                <div class="card-statistic-4">
-                                    <div class="align-items-center justify-content-between">
-                                        <div class="row ">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                                <div class="card-content">
-                                                    <h5 class="font-15">  </h5>
-                                                    <h2 class="mb-3 font-18"></h2>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                                                <div class="banner-img">
-                                                    <img src="images/pay.png" alt="">
-                                                </div>
-                                            </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card l-bg-green">
+                                <div class="card-statistic-3">
+                                    <div class="card-icon card-icon-large"></div>
+                                    <div class="card-content">
+                                        <h4 class="card-title"> أرشيف الصادر </h4>
+                                        <span> إجمالي أرشيف الصادر </span>
+                                        <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports_trash }}</span>
+                                        <div class="progress mt-1 mb-1" data-height="8">
+                                            <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports_trash/ $exports_trash*100 }}%" aria-valuenow="{{ $exports->count() }}"
+                                                aria-valuemin="{{ $exports_trash }}" aria-valuemax="{{ $exports_trash }}"></div>
                                         </div>
-                                    </div>
+                                        <p class="mb-0 text-sm">
+                                          @if ($exports_trash && $exports_trash > 0)
+                                            <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"><i class="fa fa-arrow-up"></i> {{ $exports_trash/ $exports_trash*100 }}%</span>
+                                            @endif
+                                            <span class="text-nowrap"> نسبة الإكتمال </span>
+                                        </p>
+                                      </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="card">
-                                <div class="card-statistic-4">
-                                    <div class="align-items-center justify-content-between">
-                                        <div class="row ">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                                <div class="card-content">
-                                                    <h5 class="font-14">  </h5>
-                                                    <h2 class="mb-3 font-18">
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card l-bg-cyan">
+                                <div class="card-statistic-3">
+                                    <div class="card-icon card-icon-large"></div>
+                                    <div class="card-content">
+                                        <h4 class="card-title"> عدد الصادرة </h4>
+                                        <span class="text-nowrap">  اجمالي الملفات الصادرة </span>
+                                        <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
+                                        <div class="progress mt-1 mb-1" data-height="8">
+                                          <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports->where('state',1)->count()/ $exports->count() *100 }}%" aria-valuenow="{{ $exports->count() }}"
+                                            aria-valuemin="{{ $exports->count() }}" aria-valuemax="{{ $exports->count() }}"></div>
+                                        </div>
+                                        <p class="mb-0 text-sm">
 
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                                                <div class="banner-img">
-                                                    <img src="images/money.png" alt="">
-                                                </div>
-                                            </div>
+                                          <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> {{ $exports->where('state',1)->count()/ $exports->count() *100 }}%</span>
+                                          <span class="text-nowrap"> نسبة الإكتمال </span>
+                                        </p>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card l-bg-purple">
+                                <div class="card-statistic-3">
+                                    <div class="card-icon card-icon-large"></div>
+                                    <div class="card-content">
+                                        <h4 class="card-title"> أرشيف الوارد </h4>
+                                        <span> إجمالي أرشيف الوارد </span>
+                                        <span
+                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
+                                        <div class="progress mt-1 mb-1" data-height="8">
+                                            @if ($topics_trash && $topics_trash > 0)
+                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                data-width="{{ ($topics_trash / $topics_trash) * 100 }}%"
+                                                aria-valuenow="{{ $topics->count() }}"
+                                                aria-valuemin="{{ $topics_trash }}"
+                                                aria-valuemax="{{ $topics_trash }}"></div>
+                                                @endif
                                         </div>
+                                        <p class="mb-0 text-sm">
+                                            @if ($topics_trash && $topics_trash > 0)
+                                                <span class="mr-2"
+                                                    style="color: black;font-size: 16px;font-weight: 800;"><i
+                                                        class="fa fa-arrow-up"></i>
+                                                    {{ ($topics_trash / $topics_trash) * 100 }}%</span>
+                                            @endif
+                                            <span class="text-nowrap"> نسبة الإكتمال </span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="card">
-                                <div class="card-statistic-4">
-                                    <div class="align-items-center justify-content-between">
-                                        <div class="row ">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                                <div class="card-content">
-                                                    <h5 class="font-14">  </h5>
-                                                    <h2 class="mb-3 font-18">
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                                                <div class="banner-img">
-                                                    <img src="images/end.png" alt="">
-                                                </div>
-                                            </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card l-bg-orange">
+                                <div class="card-statistic-3">
+                                    <div class="card-icon card-icon-large"></div>
+                                    <div class="card-content">
+                                        <h4 class="card-title"> عدد الوارد </h4>
+                                        <span class="text-nowrap"> اجمالي الملفات الواردة </span>
+                                        <span
+                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
+                                        <div class="progress mt-1 mb-1" data-height="8">
+                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                aria-valuenow="{{ $topics->count() }}"
+                                                aria-valuemin="{{ $topics->count() }}"
+                                                aria-valuemax="{{ $topics->count() }}"></div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="card">
-                                <div class="card-statistic-4">
-                                    <div class="align-items-center justify-content-between">
-                                        <div class="row ">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                                <div class="card-content">
-                                                    <h5 class="font-14">  </h5>
-                                                    <h2 class="mb-3 font-18">
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
-                                                <div class="banner-img">
-                                                    <img src="images/project.png" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <p class="mb-0 text-sm">
+                                            <span class="mr-2"
+                                                style="color: black;font-size: 16px;font-weight: 800;"></i>
+                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%</span>
+                                            <span class="text-nowrap"> نسبة الإكتمال </span>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-12 col-md-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>المشاريع</h4>
@@ -166,26 +177,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-12 col-md-6 col-lg-6">
                             <div class="card">
-
-                                <div class="card-body" style="direction: rtl;">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>المزاد</th>
-                                                    <th> الاطرحة </th>
-                                                    <th>ن المئوية </th>
-
-                                                </tr>
-                                            </thead>
-
-                                        </table>
-                                    </div>
-                                </div>
+                              <div class="card-header">
+                                <h4>Line Chart</h4>
+                              </div>
+                              <div class="card-body">
+                                <canvas id="line-chart"></canvas>
+                                <input type="hidden" name="years" value="{{ $orderCharts['label'] }}">
+                                <input type="hidden" name="data" value="{{ $orderCharts['data'] }}">
+                              </div>
                             </div>
-                        </div>
+                          </div>
                     </div>
 
                     <div class="row">
