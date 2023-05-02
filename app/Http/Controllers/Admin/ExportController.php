@@ -33,7 +33,46 @@ class ExportController extends Controller
         $responsibles = Responsible::select()->get();
         return view('export.create', compact('responsibles','topics','side'));
     }
+    public function export_internal()
+    {
+        $topics = Topic::select()->with('sidename')->where('state', 1)->get();
+        $side = Side::select()->get();
+        $responsibles = Responsible::select()->get();
+        return view('export.export', compact('responsibles','topics','side'));
+    }
 
+    public function save_internal(Request $request)
+    {
+        $upload_f = array();
+        if ($files = $request->file('upload_f')) {
+            foreach ($files as $file) {
+                $ext = strtolower($file->getClientOriginalName());
+                $file_name = time() . '.' . $ext;
+                $path = 'attatch_office/export_follow';
+                $file->move($path, $file_name);
+                $upload[] = $file_name;
+            }
+        } else {
+            $upload[] = "";
+        }
+        try {
+
+            Export::create(([
+                'name' => $request['name'],
+                'side_id' => $request['side_id'],
+                'topic_id' => $request['topic_id'],
+                'send_date' => $request['send_date'],
+                'export_no' => $request['export_no'],
+                'details' => $request ['details'],
+                'cat_name' => $request ['cat_name'],
+                'upload_f' => $file_name
+            ]));
+            return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
+        } catch (\Exception $ex) {
+            return redirect()->route('exports')->
+            with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
+    }
     public function save(Request $request)
     {
         $upload_f = array();
@@ -55,7 +94,7 @@ class ExportController extends Controller
                 'side_id' => $request['side_id'],
                 'topic_id' => $request['topic_id'],
                 'send_date' => $request['send_date'],
-                'requested_date' => $request['requested_date'],
+                'export_no' => $request['export_no'],
                 'details' => $request ['details'],
                 'cat_name' => $request ['cat_name'],
                 'upload_f' => $file_name
@@ -97,7 +136,7 @@ class ExportController extends Controller
                 'name' => $request['name'],
                 'send_to' => $request['send_to'],
                 'send_date' => $request['send_date'],
-                'requested_date' => $request['requested_date'],
+                'export_no' => $request['export_no'],
                 'details' => $request ['details'],
                 'state' => $request ['state'],
                 'cat_name' => $request ['cat_name'],

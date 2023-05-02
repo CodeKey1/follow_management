@@ -43,7 +43,7 @@
                                         <div class="card-header-action">
                                             <div class="dropdown">
                                                 <a href="{{ route('exports.create') }}" class="btn btn-warning "> صادر جديد لوارد </a>
-                                                <a href="{{ route('exports.create') }}" class="btn btn-danger "> صادر جديد  </a>
+                                                <a href="{{ route('export.internal') }}" class="btn btn-danger "> صادر جديد  </a>
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
@@ -157,19 +157,11 @@
                                                                 <td class="text-bold text-bold-700">
                                                                     {{ $Export->sidename_export->side_name }}</td>
                                                                 <td style="width: 15%">
-                                                                    <a class="btn btn-icon btn-success"
-                                                                        href="{{ route('exports.edit', $Export->id) }}"
-                                                                        ata-toggle="tooltip" data-placement="top"
-                                                                        title="عرض وتعديل"><i
-                                                                            class="fas fa-user"></i></a>
-                                                                    <a class="btn btn-icon btn-danger"
-                                                                        href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                        title="حذف"><i
-                                                                            class="fas fa-times"></i></a>
-                                                                    <a class="btn btn-icon btn-info"
-                                                                        href="{{ route('exports.archive', $Export->id) }}"ata-toggle="tooltip" data-placement="top"
-                                                                        title="نقل الارشيف"><i
-                                                                            class="fas fa-archive"></i></a>
+                                                                    <a class="btn btn-icon btn-success" href="{{ route('exports.edit', $Export->id) }}" ata-toggle="tooltip" data-placement="top" title="عرض وتعديل"><i class="fas fa-user"></i></a>
+                                                                    @if (auth()->user()->hasRole('admin'))
+                                                                        <a class="btn btn-icon btn-danger" href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip" data-placement="top" title="حذف"><i class="fas fa-times"></i></a>
+                                                                    @endif
+                                                                    <a class="btn btn-icon btn-info" href="{{ route('exports.archive', $Export->id) }}"ata-toggle="tooltip" data-placement="top" title="نقل الارشيف"><i class="fas fa-archive"></i></a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

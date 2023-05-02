@@ -184,11 +184,9 @@
                                                                         title="عرض وتعديل">
                                                                         <i class="fas fa-user"></i>
                                                                     </a>
-                                                                    <a class="btn btn-icon btn-danger"
-                                                                        href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="حذف">
-                                                                        <i class="fas fa-times"></i>
-                                                                    </a>
+                                                                    @if (auth()->user()->hasRole('admin'))
+                                                                    <a class="btn btn-icon btn-danger"href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"data-placement="top" title="حذف"><i class="fas fa-times"></i></a>
+                                                                    @endif
                                                                     <a class="btn btn-icon btn-info"
                                                                         href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
                                                                         data-placement="top" title="نقل الارشيف">

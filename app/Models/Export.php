@@ -10,11 +10,11 @@ class Export extends Model
     use SoftDeletes;
     protected $table  = 'exports';
 
-    protected $fillable = ['name','side_id', 'send_date', 'requested_date' ,'state' ,'details','upload_f','topic_id','cat_name', 'deleted_at', 'created_at' , 'updated_at'];
+    protected $fillable = ['name','side_id','send_date','export_no','state','details','upload_f','topic_id','cat_name', 'deleted_at', 'created_at' , 'updated_at'];
 
     public function  scopeSelection($query){
 
-        return $query -> select('id','name','side_id','send_date','requested_date','upload_f','details','topic_id');
+        return $query -> select('id','name','side_id','send_date','export_no','upload_f','details','topic_id');
     }
     public function sidename_export(){
 

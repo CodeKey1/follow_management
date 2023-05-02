@@ -38,83 +38,35 @@
                                 @include('layouts.success')
                                 @include('layouts.error')
                                 <form class="needs-validation" id="work_experience" novalidate=""
-                                    action="{{ route('exports.save') }}" method="POST" enctype="multipart/form-data">
+                                    action="{{ route('save.internal') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4>اضــافة ملف صادر جديــد لملف وارد</h4>
+                                            <h4>  اضــافة ملف صادر جديــد داخلي </h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('exports') }}" class="btn btn-warning">كل الصادر</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name"
-                                        value="{{ Auth::user()->cat_name }}">
-
-                                    <div class="card card-secondary">
+                                    <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                    <div class="card card-primary">
                                         <div class="card-body">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <input class="user-name text-bold-700 float-left" type="hidden"
-                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
-                                                    <label>رقم الوارد</label>
-                                                    <select class="form-control select2" id="project" name="topic_id">
-                                                        <option value="" disabled selected>اختر الملف الوارد
-                                                        </option>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <option value="{{ $topic->id }}">
-                                                                        {{ $topic->import_id }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> اسم الجهة الوارد منها </label>
-                                                    <select class="form-control" id="sub_cat">
-                                                        <option value="" disabled selected> الجهة الوارد منها
-                                                        </option>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <option class="option cat-{{ $topic->id }}"
-                                                                        value="{{ $topic->sidename->id }}">
-                                                                        {{ $topic->sidename->side_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
                                                 <div class="form-group col-md-12">
-                                                    <label>عنوان الملف الصادر</label>
-                                                    @isset($topics)
-                                                        @if ($topics && $topics->count() > 0)
-                                                            @foreach ($topics as $topic)
-                                                                <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}"
-                                                                    class="option license-{{ $topic->id }} form-control" disabled>{{ $topic->name }}</textarea>
-                                                                <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}"
-                                                                    class="option license-{{ $topic->id }} form-control" hidden>{{ $topic->name }}</textarea>
-                                                            @endforeach
-                                                        @endif
-                                                    @endisset
+                                                    <label> عنوان الملف الصادر </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" name="name" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-secondary">
+
+                                    <div class="card card-secondary" id="work_experience">
                                         <div class="card-body">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <input class="user-name text-bold-700 float-left" type="hidden"
-                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الصادر</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number" name="export_no" class="form-control" required>
-
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الصادر اليها</label>
@@ -151,14 +103,14 @@
 
                                                 </div>
                                             </div>
+                                            <div class="">
+                                                <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn" class="btn btn-primary form-label" onclick="addWorkRow()">+</a>
+                                            </div>
                                             <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            {{-- <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn"
-                                class="btn btn-primary form-label" onclick="addWorkRow()">+ اضف مستحق
-                            </a> --}}
                         </div>
                     </div>
             </div>
@@ -183,6 +135,50 @@
     <script src="assets/js/custom.js"></script>
     <script src="assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
     <script src="assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script>
+        function addSkillRow() {
+            var elements = document.getElementsByClassName('skill-input');
+            var empty = "no"
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].value == "") {
+                    empty = "yes"
+                }
+            }
+
+            if (empty == "no" && document.getElementsByClassName("skills").length < 10) {
+                const div = document.createElement('div');
+                div.className = 'col-md-4 skills';
+                div.innerHTML = `
+                <div class="h5">
+                <select type="text" name="skill_id[]" class="skill-input" id="" placeholder="اسم المهارة">
+                <optgroup label="من فضلك أخترالمهارة "></optgroup>
+
+                <option value=""</option>
+
+                </select>
+                <a href="javascript:void(0)" style="padding: 5px 20px 5px 20px;"
+                            class="btn btn-danger form-label" onclick="removeSkillRow(this)">-</a>
+              </div>
+            `;
+                document.getElementById('skills').appendChild(div);
+                if (document.getElementsByClassName("skills").length == 9) {
+                    document.getElementById("addSkill-btn").style.display = "none";
+                }
+                if (document.getElementsByClassName("skills").length != 9) {
+                    document.getElementById("addSkill-btn").style.display = "block";
+                }
+            } else {
+                alert("برجاء ملء البيانات!");
+            }
+        }
+
+        function removeSkillRow(input) {
+            confirm("متأكد؟") ? document.getElementById('skills').removeChild(input.parentNode.parentNode) : 0;
+            if (document.getElementsByClassName("skills").length != 9) {
+                document.getElementById("addSkill-btn").style.display = "block";
+            }
+        }
+    </script>
     <script>
         $('.option').hide();
         $('.coption').hide();

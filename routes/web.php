@@ -48,6 +48,8 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 
     Route::get('/export'                ,[App\Http\Controllers\Admin\ExportController::class,'index'])    -> name('exports');
     Route::get('/export_create'         ,[App\Http\Controllers\Admin\ExportController::class,'create'])   -> name('exports.create');
+    Route::get('/export_intenal'        ,[App\Http\Controllers\Admin\ExportController::class,'export_internal'])   -> name('export.internal');
+    Route::post('/ex-intenal_save'      ,[App\Http\Controllers\Admin\ExportController::class,'save_internal'])     -> name('save.internal');
     Route::post('/export_save'          ,[App\Http\Controllers\Admin\ExportController::class,'save'])     -> name('exports.save');
     Route::get('/export_edit/{id}'      ,[App\Http\Controllers\Admin\ExportController::class,'edit'])     -> name('exports.edit');
     Route::post('/export_update/{id}'   ,[App\Http\Controllers\Admin\ExportController::class,'update'])   -> name('exports.update');

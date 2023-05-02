@@ -114,10 +114,11 @@
                     <a href="#" class="menu-toggle nav-link has-dropdown"><span>متابعة الصادر
                         </span>
                         <i data-feather="chevrons-right"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر</a></li>
-                        <li><a class="nav-link" href="{{ route('exports') }}"> كل الصادر</a></li>
-                    </ul>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ route('exports') }}"> كل الصادر</a></li>
+                            <li><a class="nav-link" href="{{ route('export.internal') }}">اضافة صادر</a></li>
+                            <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر لوارد</a></li>
+                        </ul>
                 </li>
 
                 <li class="menu-header">
@@ -263,8 +264,9 @@
                         </span>
                         <i data-feather="chevrons-right"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر</a></li>
                         <li><a class="nav-link" href="{{ route('exports') }}"> كل الصادر</a></li>
+                        <li><a class="nav-link" href="{{ route('export_internal') }}">اضافة صادر</a></li>
+                        <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر لوارد</a></li>
                     </ul>
                 </li>
 
