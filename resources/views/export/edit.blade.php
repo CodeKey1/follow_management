@@ -50,105 +50,68 @@
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
-                                        {{-- <div class="card-body">
+                                        <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name"
+                                        value="{{ Auth::user()->cat_name }}">
+                                    </div>
+                                    <div class="card card-secondary">
+                                        <div class="card-body">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
+                                                    <input class="user-name text-bold-700 float-left" type="hidden"
+                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الوارد</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="import_id" value="{{ $topics->import_id }}"
-                                                        class="form-control" disabled>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="import_id" value="{{ $topics->import_id }}"
-                                                        class="form-control">
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->topic_export->import_id }}" name="topic_id" class="form-control" disabled>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label> اسم الجهة الوارد منها</label>
-                                                    <select class="form-control" id="city" name="import_side" disabled>
-                                                        <option value="{{ $topics->import_side }}" disabled selected>
-                                                            {{ $topics->import_side }}</option>
-                                                    </select>
-                                                    <select class="form-control" id="city" name="import_side">
-                                                        <option value="{{ $topics->import_side }}" disabled selected>
-                                                            {{ $topics->import_side }}</option>
-                                                        @isset($side)
-                                                            @if ($side && $side->count() > 0)
-                                                                @foreach ($side as $sides)
-
-                                                                    <option value="{{ $sides->side_name }}"> {{ $sides->side_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
+                                                    <label> اسم الجهة الوارد منها </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->sidename_export->side_name }}" name="side_id" class="form-control" disabled>
                                                 </div>
-
                                                 <div class="form-group col-md-12">
-                                                    <label>عنوان الملف الوارد</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="import_name" value="{{ $import->import_name }}"
-                                                        class="form-control" disabled>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="import_name" value="{{ $import->import_name }}"
-                                                        class="form-control">
+                                                    <label>عنوان الملف الصادر</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->name }}" name="name" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-secondary">
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <input class="user-name text-bold-700 float-left" type="hidden"
+                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                                    <label>رقم الصادر</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number" value="{{ $exports->export_no }}" name="export_no[]" class="form-control"  disabled>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label> اسم الجهة الصادر اليها</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->sidename_export->side_name }}" name="side_id[]" class="form-control" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label> الموظف المكلف بالملف</label>
-                                                    <select class="form-control select2" style="width: 100% !important;"
-                                                        multiple="" name="region" disabled>
-                                                        <option value="" disabled selected>اختر الموظف</option>
-                                                        <option value="">1 الموظف</option>
-                                                        <option value="">2 الموظف</option>
-                                                        <option value="">3 الموظف</option>
-                                                        <option value="">4 الموظف</option>
-                                                    </select>
-                                                    <select class="form-control select2" style="width: 100% !important;"
-                                                        multiple="" name="region">
-                                                        <option value="" disabled selected>اختر الموظف</option>
-                                                        <option value="">1 الموظف</option>
-                                                        <option value="">2 الموظف</option>
-                                                        <option value="">3 الموظف</option>
-                                                        <option value="">4 الموظف</option>
-                                                    </select>
+                                                    <label> تاريخ الإرسال </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="date" value="{{ $exports->send_date }}" name="send_date" class="form-control" disabled>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label> تاريخ استلام الوارد </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="import_date" value="{{ $import->import_date }}"
-                                                        class="form-control" disabled>
-                                                    <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="import_date" value="{{ $import->import_date }}"
-                                                        class="form-control">
+                                                    <label> الملف المرفق</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="file" disabled
+                                                        multiple name="upload_f[]" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label>اضافة ملاحظات</label>
-                                                    <textarea class="form-control" cols="10" rows="5" disabled>{{ $import->import_note }}</textarea>
-                                                    <textarea class="form-control" cols="10" rows="5">{{ $import->import_note }}</textarea>
+                                                    <textarea class="form-control" cols="10" rows="5" name="details[]" disabled> {{  $exports->details }}</textarea>
 
                                                 </div>
                                             </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label>اضافة ملاحظات</label>
-                                                    @if (isset($import->id) && $import)
-                                                        @foreach (explode('|', $import->import_file) as $file)
-                                                            <a href="{{ asset('import-files/' . $file) }}"
-                                                                target="_blank">
-                                                                <span class="text-bold-600">
-                                                                    <img class="gallery-thumbnail card-img-top"
-                                                                        style=" display: block; ">{{ $import->import_file }}</span>
-                                                            </a>
-
-                                                        @endforeach
-                                                    @endif
-                                                </div>
+                                            <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
+                                            <div class="">
+                                                <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
+                                                    id="addWork-btn" class="btn btn-primary form-label"
+                                                    onclick="addWorkRow()">+</a>
                                             </div>
-                                            <button type="submit" class="btn btn-success"
-                                                style="float: left;">حفظ</button>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -180,9 +143,20 @@
     <script src="../assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script>
         $('.option').hide();
-        $('#city').on('change', function(e) {
+        $('.coption').hide();
+        $('#project').on('change', function(e) {
             $('.option').hide();
+            $('.license-' + e.target.value).show();
+            $('.cat-' + e.target.value).show();
+        });
+
+        $('#city_id').on('change', function(e) {
+            $('.coption').hide();
             $('.city-' + e.target.value).show();
+        });
+        $('#project').on('change', function(e) {
+            $('.coption').hide();
+            $('.type-' + e.target.value).show();
         });
     </script>
 

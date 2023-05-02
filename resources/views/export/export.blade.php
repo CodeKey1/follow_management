@@ -42,35 +42,38 @@
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4>  اضــافة ملف صادر جديــد داخلي </h4>
+                                            <h4> اضــافة ملف صادر جديــد داخلي </h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('exports') }}" class="btn btn-warning">كل الصادر</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                    <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name"
+                                        value="{{ Auth::user()->cat_name }}">
                                     <div class="card card-primary">
                                         <div class="card-body">
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label> عنوان الملف الصادر </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text" name="name" class="form-control" required>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        name="name" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="card card-secondary" id="work_experience">
-                                        <div class="card-body">
+                                    <div class="card card-secondary" >
+                                        <div class="card-body work-xp" id="work_experience">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label>رقم الصادر</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number" name="export_no" class="form-control" required>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number"
+                                                        name="export_no[]" class="form-control" required>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الصادر اليها</label>
-                                                    <select class="form-control" name="side_id">
+                                                    <select class="form-control" name="side_id[]">
                                                         <option value="" disabled selected>اختر الجهة</option>
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
@@ -92,21 +95,23 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> الملف المرفق</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="file"
-                                                        multiple name="upload_f[]" class="form-control">
+                                                    <input style="height: calc(2.25rem + 6px);" type="file" multiple
+                                                        name="upload_f[]" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label>اضافة ملاحظات</label>
-                                                    <textarea class="form-control" cols="10" rows="5" name="details"> </textarea>
+                                                    <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
 
                                                 </div>
                                             </div>
-                                            <div class="">
-                                                <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn" class="btn btn-primary form-label" onclick="addWorkRow()">+</a>
-                                            </div>
                                             <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
+                                            <div class="">
+                                                <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
+                                                    id="addWork-btn" class="btn btn-primary form-label"
+                                                    onclick="addWorkRow()">+</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -136,8 +141,8 @@
     <script src="assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
     <script src="assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script>
-        function addSkillRow() {
-            var elements = document.getElementsByClassName('skill-input');
+        function addWorkRow() {
+            var elements = document.getElementsByClassName('work-xp-input');
             var empty = "no"
             for (var i = 0; i < elements.length; i++) {
                 if (elements[i].value == "") {
@@ -145,37 +150,60 @@
                 }
             }
 
-            if (empty == "no" && document.getElementsByClassName("skills").length < 10) {
+            if (empty == "no" && document.getElementsByClassName("work-xp").length < 6) {
                 const div = document.createElement('div');
-                div.className = 'col-md-4 skills';
+                div.className = 'card card-secondary work-xp';
                 div.innerHTML = `
-                <div class="h5">
-                <select type="text" name="skill_id[]" class="skill-input" id="" placeholder="اسم المهارة">
-                <optgroup label="من فضلك أخترالمهارة "></optgroup>
+                <div class="card-body">
+                    <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label>رقم الصادر</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label> اسم الجهة الصادر اليها</label>
+                                                    <select class="form-control" name="side_id[]">
+                                                        <option value="" disabled selected>اختر الجهة</option>
+                                                        @isset($side)
+                                                            @if ($side && $side->count() > 0)
+                                                                @foreach ($side as $sides)
+                                                                    <option value="{{ $sides->id }}">
+                                                                        {{ $sides->side_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                    </div>
 
-                <option value=""</option>
+                    <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label>اضافة ملاحظات</label>
+                                                    <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
 
-                </select>
-                <a href="javascript:void(0)" style="padding: 5px 20px 5px 20px;"
-                            class="btn btn-danger form-label" onclick="removeSkillRow(this)">-</a>
-              </div>
-            `;
-                document.getElementById('skills').appendChild(div);
-                if (document.getElementsByClassName("skills").length == 9) {
-                    document.getElementById("addSkill-btn").style.display = "none";
+                                                </div>
+                    </div>
+                </div>
+                <input type="button" class="btn-danger" style="width: 50px;
+                 height: 35px;" value="x" onclick="removeWorkRow(this)" />
+                `;
+                document.getElementById('work_experience').appendChild(div);
+                if (document.getElementsByClassName("work-xp").length == 6) {
+                    document.getElementById("addWork-btn").style.display = "none";
                 }
-                if (document.getElementsByClassName("skills").length != 9) {
-                    document.getElementById("addSkill-btn").style.display = "block";
+                if (document.getElementsByClassName("work-xp").length != 6) {
+                    document.getElementById("addWork-btn").style.display = "block";
                 }
             } else {
                 alert("برجاء ملء البيانات!");
             }
         }
 
-        function removeSkillRow(input) {
-            confirm("متأكد؟") ? document.getElementById('skills').removeChild(input.parentNode.parentNode) : 0;
-            if (document.getElementsByClassName("skills").length != 9) {
-                document.getElementById("addSkill-btn").style.display = "block";
+        function removeWorkRow(input) {
+            confirm("متأكد؟") ? document.getElementById('work_experience').removeChild(input.parentNode) : 0;
+            if (document.getElementsByClassName("work-xp").length != 4) {
+                document.getElementById("addWork-btn").style.display = "block";
             }
         }
     </script>

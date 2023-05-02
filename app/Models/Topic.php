@@ -25,4 +25,8 @@ class Topic extends Model
 
         return  $this->belongsTo(Responsible::class ,'responsibles_id');
     }
+    public function export_topic(){
+
+        return  $this->hasMany(Topic::class ,'topic_id');
+    }
 }

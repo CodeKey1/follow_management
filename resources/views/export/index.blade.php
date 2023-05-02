@@ -120,12 +120,12 @@
                                                   <span class="text-nowrap">  اجمالي الملفات الصادرة </span>
                                                   <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
                                                   <div class="progress mt-1 mb-1" data-height="8">
-                                                    <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports->where('state',1)->count()/ $exports->count() *100 }}%" aria-valuenow="{{ $exports->count() }}"
+                                                    <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports->where('state',1)->count()/ $topics->count() *100 }}%" aria-valuenow="{{ $exports->count() }}"
                                                       aria-valuemin="{{ $exports->count() }}" aria-valuemax="{{ $exports->count() }}"></div>
                                                   </div>
                                                   <p class="mb-0 text-sm">
 
-                                                    <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> {{ $exports->where('state',1)->count()/ $exports->count() *100 }}%</span>
+                                                    <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> {{ $exports->where('state',1)->count()/ $topics->count() *100 }}%</span>
                                                     <span class="text-nowrap"> نسبة الإكتمال </span>
                                                   </p>
                                                 </div>

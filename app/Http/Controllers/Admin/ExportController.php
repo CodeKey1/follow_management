@@ -15,10 +15,10 @@ class ExportController extends Controller
 {
     public function index()
     {
-
+        $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
         $exports_trash = Export::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
         $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
-        return view('export.index', compact('exports','exports_trash'));
+        return view('export.index', compact('exports','exports_trash','topics'));
     }
     public function archive()
     {
@@ -57,16 +57,23 @@ class ExportController extends Controller
         }
         try {
 
-            Export::create(([
-                'name' => $request['name'],
-                'side_id' => $request['side_id'],
-                'topic_id' => $request['topic_id'],
-                'send_date' => $request['send_date'],
-                'export_no' => $request['export_no'],
-                'details' => $request ['details'],
-                'cat_name' => $request ['cat_name'],
-                'upload_f' => $file_name
-            ]));
+            for ($i = 0; $i < count($request->side_id); $i++) {
+                $side_id[] = $request->side_id[$i];
+                $export_no[]  = $request->export_no[$i];
+                $details[]  = $request->details[$i];
+                Export::create(([
+                    'name'      => $request['name'],
+                    'topic_id'  => $request['topic_id'],
+                    'cat_name'  => $request ['cat_name'],
+                    'send_date' => $request['send_date'],
+                    'side_id'   => $side_id[$i],
+                    'export_no' => $export_no[$i],
+                    'details'   => $details[$i],
+                    'upload_f'  =>implode('|', $upload),
+                ]));
+            }
+
+
             return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
         } catch (\Exception $ex) {
             return redirect()->route('exports')->
@@ -88,17 +95,22 @@ class ExportController extends Controller
             $upload[] = "";
         }
         try {
+            for ($i = 0; $i < count($request->side_id); $i++) {
+                $side_id[] = $request->side_id[$i];
+                $export_no[]  = $request->export_no[$i];
+                $details[]  = $request->details[$i];
+                Export::create(([
+                    'name'      => $request['name'],
+                    'topic_id'  => $request['topic_id'],
+                    'cat_name'  => $request ['cat_name'],
+                    'send_date' => $request['send_date'],
+                    'side_id'   => $side_id[$i],
+                    'export_no' => $export_no[$i],
+                    'details'   => $details[$i],
+                    'upload_f'  =>implode('|', $upload),
+                ]));
 
-            Export::create(([
-                'name' => $request['name'],
-                'side_id' => $request['side_id'],
-                'topic_id' => $request['topic_id'],
-                'send_date' => $request['send_date'],
-                'export_no' => $request['export_no'],
-                'details' => $request ['details'],
-                'cat_name' => $request ['cat_name'],
-                'upload_f' => $file_name
-            ]));
+            }
             return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
         } catch (\Exception $ex) {
             return redirect()->route('exports')->
@@ -108,11 +120,14 @@ class ExportController extends Controller
 
     public function edit($id)
     {
-        $exports = Export::select()->find($id);
+        $topics = Topic::select()->with('sidename')->where('state', 1)->get();
+        $side = Side::select()->get();
+        $responsibles = Responsible::select()->get();
+        $exports = Export::select()->with('topic_export','sidename_export')->find($id);
         if (!$exports) {
             return redirect()->route('export.index')->with(['error' => 'هذه الملف غير موجوده']);
         }
-        return view('export.edit', compact('exports'));
+        return view('export.edit', compact('exports','responsibles','side','topics'));
     }
 
     public function update(Request $request, $id)

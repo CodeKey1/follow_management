@@ -20,5 +20,9 @@ class Export extends Model
 
         return  $this->belongsTo(Side::class ,'side_id');
     }
+    public function topic_export(){
+
+        return  $this->belongsTo(Topic::class ,'topic_id');
+    }
 
 }
