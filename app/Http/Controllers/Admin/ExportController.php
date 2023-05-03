@@ -133,12 +133,20 @@ class ExportController extends Controller
     public function update(Request $request, $id)
     {
 
-        $file_extension = $request->upload_f->getclientoriginalExtension();
-        $file_name = time() . '.' . $file_extension;
-        $path = 'files/import';
-        $request->upload_f->move($path, $file_name);
+        $upload_f = array();
+        if ($files = $request->file('upload_f')) {
+            foreach ($files as $file) {
+                $ext = strtolower($file->getClientOriginalName());
+                $file_name = time() . '.' . $ext;
+                $path = 'attatch_office/export_follow';
+                $file->move($path, $file_name);
+                $upload[] = $file_name;
+            }
+        } else {
+            $upload[] = $request['file'];
+        }
 
-        try {
+        // try {
             $exports = Export::find($id);
             if (!$exports) {
                 return redirect()->route('admin.exports.edit', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
@@ -149,20 +157,20 @@ class ExportController extends Controller
                 $request->request->add(['active' => 0]);
             $exports -> update(([
                 'name' => $request['name'],
-                'send_to' => $request['send_to'],
+                'topic_id'  => $request['topic_id'],
                 'send_date' => $request['send_date'],
                 'export_no' => $request['export_no'],
+                'side_id' => $request ['side_id'],
                 'details' => $request ['details'],
-                'state' => $request ['state'],
                 'cat_name' => $request ['cat_name'],
-                'upload_f' => $file_name
+                'upload_f'  =>implode('|', $upload),
             ]));
 
             return redirect()->route('exports')->with(['success' => 'تم تعديل الملف الصادر بنجاح']);
 
-        } catch (\Exception $ex) {
-            return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        }
+        // } catch (\Exception $ex) {
+        //     return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        // }
 
 
     }

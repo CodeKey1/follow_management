@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title></title>
+    <title>مكتب السيد المحافظ</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="assets/css/app.min.css">
     <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
 <body class="light theme-white dark-sidebar">
@@ -58,12 +58,12 @@
                                 </div>
                                 <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h4>Personal Details</h4>
+                                        <h4> إحصائيات الجهة </h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="py-4">
                                             <p class="clearfix">
-                                                <span class="float-left text-bold-700">
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
                                                     {{$topics->count()}}
                                                 </span>
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
@@ -71,7 +71,7 @@
                                                 </span>
                                             </p>
                                             <p class="clearfix">
-                                                <span class="float-left text-bold-700">
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
                                                     {{$export->count()}}
                                                 </span>
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
@@ -79,7 +79,7 @@
                                                 </span>
                                             </p>
                                             <p class="clearfix">
-                                                <span class="float-left text-bold-700">
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
                                                     {{$export->where('topic_id','==', null)->count()}}
                                                 </span>
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
@@ -88,7 +88,7 @@
                                             </p>
                                             <p class="clearfix">
                                                 @if ($export && $export < $topics)
-                                                <span class="float-left text-bold-700">
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
                                                     {{ $export->count()/$topics->count() *100 }}%
                                                 </span>
                                                 @endif
@@ -227,7 +227,7 @@
                                                                                     {{ $exports->details }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->topic_export->responsename->name }}
+                                                                                    {{ $exports->topic_export->responsename->name ?? ''}}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
                                                                                     @if (auth()->user()->hasRole('admin') ||

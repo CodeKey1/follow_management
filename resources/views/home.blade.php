@@ -22,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
         // Enable pusher logging - don't include this in production
@@ -155,19 +155,9 @@
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>المشاريع</h4>
+                                    <h4>المكاتبات الواردة</h4>
 
                                     <div class="card-header-action">
-                                        {{-- <div class="dropdown">
-                                      <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Options</a>
-                                      <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item has-icon"><i class="fas fa-eye"></i> View</a>
-                                        <a href="#" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item has-icon text-danger"><i class="far fa-trash-alt"></i>
-                                          Delete</a>
-                                      </div>
-                                    </div> --}}
                                         <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات الواردة </a>
                                     </div>
                                 </div>
@@ -182,7 +172,7 @@
                         <div class="col-12 col-md-6 col-lg-6">
                             <div class="card">
                               <div class="card-header">
-                                <h4>Line Chart</h4>
+                                <h4> المكاتبات الصادرة </h4>
                               </div>
                               <div class="card-body">
                                 <canvas id="line-chart"></canvas>
@@ -193,23 +183,13 @@
                           </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>طلبات الإستثمار المتأخرة</h4>
 
                                     <div class="card-header-action">
-                                        {{-- <div class="dropdown">
-                                      <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Options</a>
-                                      <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item has-icon"><i class="fas fa-eye"></i> View</a>
-                                        <a href="#" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item has-icon text-danger"><i class="far fa-trash-alt"></i>
-                                          Delete</a>
-                                      </div>
-                                    </div> --}}
                                         <a href="#" class="btn btn-primary">View All</a>
                                     </div>
                                 </div>
@@ -232,34 +212,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>المشاريع</h4>
 
-                                <div class="card-header-action">
-                                    <div class="dropdown">
-                                      <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Options</a>
-                                      <div class="dropdown-menu">
-                                        <a href="#" class="dropdown-item has-icon"><i class="fas fa-eye"></i> View</a>
-                                        <a href="#" class="dropdown-item has-icon"><i class="far fa-edit"></i> Edit</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item has-icon text-danger"><i class="far fa-trash-alt"></i>
-                                          Delete</a>
-                                      </div>
-                                    </div>
-                                    <a href="#" class="btn btn-primary">View All</a>
-                                  </div>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="lineChartFill"></canvas>
-                                    <input type="hidden" name="users" value="">
-                                    <input type="hidden" name="service" value="">
-                                    <input type="hidden" name="month" value="">
-                                </div>
-                            </div>
-                        </div> --}}
-                    </div>
+                    </div> --}}
                 </section>
             </div>
             Main Content

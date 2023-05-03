@@ -2,7 +2,7 @@
 </div>
 <nav class="navbar navbar-expand-lg main-navbar sticky">
     <ul class="navbar-nav navbar-left">
-        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+        {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
                 class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
                 <span class="badge headerBadge1">
                     * </span> </a>
@@ -30,16 +30,16 @@
                     <a href="#">عرض الكل <i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
-        </li>
+        </li> --}}
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
-                    src="assets/img/user.png" class="user-img-radious-style"> <span
+                    src="assets/img/user.jpg" class="user-img-radious-style"> <span
                     class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-left pullDown">
                 <div class="dropdown-title"> {{ Auth::user()->name }} : مرحبا</div>
-                <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
+                {{-- <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
                     الإعدادات
-                </a>
+                </a> --}}
                 <div class="dropdown-divider"></div>
 
                 <div>
@@ -62,8 +62,19 @@
 
             </a>
         </li>
+
     </ul>
 
+    <div class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar"
+                    class="nav-link nav-link-lg
+                            collapse-btn">
+                    <i data-feather="align-justify"></i></a>
+            </li>
+
+        </ul>
+    </div>
 </nav>
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">

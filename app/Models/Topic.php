@@ -18,7 +18,7 @@ class Topic extends Model
         return $query -> select('id','import_id','name','responsibles_id', 'side_id', 'vic_sign','recived_date','state','users_name','notes','file','cat_name');
     }
     protected $casts = [ 'recived_date'=>'datetime'];
-    
+
     public function sidename(){
 
         return  $this->belongsTo(Side::class ,'side_id');
@@ -29,6 +29,6 @@ class Topic extends Model
     }
     public function export_topic(){
 
-        return  $this->hasMany(Topic::class ,'topic_id');
+        return  $this->hasMany(Export::class ,'topic_id');
     }
 }

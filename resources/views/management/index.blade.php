@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title></title>
+    <title>مكتب السيد المحافظ</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="assets/css/app.min.css">
     <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
@@ -23,7 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
 <body class="light theme-white dark-sidebar">
@@ -60,7 +60,7 @@
                                                         <th> # </th>
                                                         <th>اسم الإدارة</th>
                                                         <th> عدد ملفات المتابعة </th>
-                                                        <th>تفاصيل</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -68,16 +68,10 @@
                                                     @foreach ($responsibles as $respon)
                                                         <tr>
                                                             <td class="text-bold-700"> {{ $respon->id }}</td>
-                                                            <td class="text-bold-700" style="text-align: right;"> {{ $respon->name }}</td>
+                                                            <td class="text-bold-700" style="text-align: right;">
+                                                                <a href="{{route('manage.profile', $respon->id)}}"> {{ $respon->name }} </a></td>
                                                             <td class="text-bold-700"> {{ $respon->Respone_topic->count() }}</td>
-                                                            <td >
-                                                                <a class="btn btn-icon btn-primary"href="{{ route('manage.edit',$respon->id) }}"ata-toggle="tooltip" data-placement="top"title="عرض وتعديل">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                {{-- <a class="btn btn-icon btn-danger"href="#"ata-toggle="tooltip" data-placement="top"title=" حذف ">
-                                                                    <i class="fas fa-times"></i>
-                                                                </a> --}}
-                                                            </td>
+
                                                         </tr>
                                                     @endforeach
                                                 @endisset

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Responsible;
 use App\Http\Controllers\Controller;
+use App\Models\Export;
+use App\Models\Side;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class ManagController extends Controller
@@ -47,11 +50,13 @@ class ManagController extends Controller
     public function show(string $id)
     {
         //
-        $responsible = Responsible::select()->find($id);
+        $topics = Topic::select()->where('responsibles_id',$id)->get();
+        $export = Export::select()->with('topic_export.responsename')->get();
+        $responsible = Responsible::select()->with('Respone_topic','Respone_topic.export_topic')->find($id);
         if (!$responsible) {
             return redirect()->route('manage')->with(['error' => 'هذه الإدارة غير موجوده']);
         }
-        return view('management.profile',compact('responsible'));
+        return view('management.profile',compact('responsible','export','topics'));
     }
 
     /**
@@ -86,10 +91,10 @@ class ManagController extends Controller
                 'name' => $request['name'],
             ]));
 
-            return redirect()->route('manage')->with(['success' => 'تم تعديل الإدارة بنجاح']);
+            return redirect()->route('manage.profile', $id)->with(['success' => 'تم تعديل الإدارة بنجاح']);
 
         } catch (\Exception $ex) {
-            return redirect()->route('manage')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()->route('manage.profile', $id)->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
 

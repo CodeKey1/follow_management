@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title></title>
+    <title>مكتب السيد المحافظ</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="../assets/css/app.min.css">
     <link rel="stylesheet" href="../assets/bundles/izitoast/css/iziToast.min.css">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../assets/css/components.css">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel='shortcut icon' type='../image/x-icon' href='../assets/img/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
 <body class="light theme-white dark-sidebar">
@@ -43,15 +43,17 @@
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4> عرض وتعديل ملف صادر  : <span style="color: crimson;
-                                                font-size: larger;">{{ $exports->name }}</span></h4>
+                                            <h4> عرض وتعديل ملف صادر : <span
+                                                    style="color: crimson;
+                                                font-size: larger;">{{ $exports->name }}</span>
+                                            </h4>
                                             <div class="card-header-action">
-                                                <a href="{{ route('exports') }}" class="btn btn-warning">كل الوارد</a>
+                                                <a href="{{ route('exports') }}" class="btn btn-warning">كل الصادر</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
                                         <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name"
-                                        value="{{ Auth::user()->cat_name }}">
+                                            value="{{ Auth::user()->cat_name }}">
                                     </div>
                                     <div class="card card-secondary">
                                         <div class="card-body">
@@ -60,15 +62,29 @@
                                                     <input class="user-name text-bold-700 float-left" type="hidden"
                                                         name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الوارد</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->topic_export->import_id }}" name="topic_id" class="form-control" disabled>
+                                                    <select class="form-control" name="topic_id" @readonly(true)>
+                                                        @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                <option value="{{ $exports->topic_export->id ?? ''}}" selected>
+                                                                    {{ $exports->topic_export->import_id ?? 'لايوجد'}}
+                                                                </option>
+                                                            @endif
+                                                        @endisset
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الوارد منها </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->sidename_export->side_name }}" name="side_id" class="form-control" disabled>
+                                                    <select class="form-control" @readonly(true)>
+                                                        <option value="{{ $exports->sidename_export->id }}" selected>
+                                                            {{ $exports->sidename_export->side_name }}
+                                                        </option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label>عنوان الملف الصادر</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->name }}" name="name" class="form-control" disabled>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        value="{{ $exports->name }}" name="name"
+                                                        class="form-control" readonly="true">
                                                 </div>
                                             </div>
                                         </div>
@@ -77,40 +93,54 @@
                                         <div class="card-body">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <input class="user-name text-bold-700 float-left" type="hidden"
-                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الصادر</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number" value="{{ $exports->export_no }}" name="export_no[]" class="form-control"  disabled>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number"
+                                                        value="{{ $exports->export_no }}" class="form-control"
+                                                        readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number"
+                                                        value="{{ $exports->export_no }}" name="export_no"
+                                                        class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الصادر اليها</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text" value="{{ $exports->sidename_export->side_name }}" name="side_id[]" class="form-control" disabled>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        value="{{ $exports->sidename_export->side_name }}"
+                                                        class="form-control" readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        value="{{ $exports->sidename_export->id }}" name="side_id"
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label> تاريخ الإرسال </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="date" value="{{ $exports->send_date }}" name="send_date" class="form-control" disabled>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        value="{{ $exports->send_date->format('d-M-y') }}"
+                                                        class="form-control" readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                        value="{{ $exports->send_date }}" name="send_date"
+                                                        class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> الملف المرفق</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="file" disabled
-                                                        multiple name="upload_f[]" class="form-control">
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        value="{{ $exports->upload_f }}" name="file" multiple
+                                                        class="form-control" readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="file"
+                                                        multiple name="upload_f" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label>اضافة ملاحظات</label>
-                                                    <textarea class="form-control" cols="10" rows="5" name="details[]" disabled> {{  $exports->details }}</textarea>
+                                                    <textarea class="form-control" cols="10" rows="5" readonly> {{ $exports->details }}</textarea>
+                                                    <textarea class="form-control" cols="10" rows="5" name="details"> {{ $exports->details }}</textarea>
 
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
-                                            <div class="">
-                                                <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
-                                                    id="addWork-btn" class="btn btn-primary form-label"
-                                                    onclick="addWorkRow()">+</a>
-                                            </div>
+                                            <button type="submit" class="btn btn-success"
+                                                style="float: left;">حفظ</button>
+
                                         </div>
                                     </div>
                                 </form>

@@ -79,12 +79,12 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 
         ///////////////////////////////////////////// role view ///////////////////////////////////////////
 
-        Route::get('/role', [App\Http\Controllers\Admin\RoleController::class, 'index'])->name('role');
-Route::get('/role-create', [App\Http\Controllers\Admin\RoleController::class, 'create'])->name('role.Create');
-Route::POST('/role-store', [App\Http\Controllers\Admin\RoleController::class, 'store'])->name('role.store');
-Route::get('/role-delete{id}', [App\Http\Controllers\Admin\RoleController::class, 'destroy'])->name('role.delete');
-Route::get('/role-edit{id}', [App\Http\Controllers\Admin\RoleController::class, 'edit'])->name('role.edite');
-Route::post('/role-update{id}', [App\Http\Controllers\Admin\RoleController::class, 'update'])->name('role.update');
+    Route::get('/role', [App\Http\Controllers\Admin\RoleController::class, 'index'])->name('role');
+    Route::get('/role-create', [App\Http\Controllers\Admin\RoleController::class, 'create'])->name('role.Create');
+    Route::POST('/role-store', [App\Http\Controllers\Admin\RoleController::class, 'store'])->name('role.store');
+    Route::get('/role-delete{id}', [App\Http\Controllers\Admin\RoleController::class, 'destroy'])->name('role.delete');
+    Route::get('/role-edit{id}', [App\Http\Controllers\Admin\RoleController::class, 'edit'])->name('role.edite');
+    Route::post('/role-update{id}', [App\Http\Controllers\Admin\RoleController::class, 'update'])->name('role.update');
 
 });
 

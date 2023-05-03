@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title></title>
+    <title>مكتب السيد المحافظ</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="assets/css/app.min.css">
     <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
@@ -23,7 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
 <body class="light theme-white dark-sidebar">
@@ -51,69 +51,34 @@
                                 </div>
                                 <div class="section-body">
                                     <div class="row ">
-                                        <div class="col-xl-3 col-lg-6">
+                                        <div class="col-xl-2 col-lg-6">
+
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6">
                                           <div class="card l-bg-green">
                                             <div class="card-statistic-3">
                                               <div class="card-icon card-icon-large"></div>
                                               <div class="card-content">
-                                                <h4 class="card-title">New Orders</h4>
-                                                <span>524</span>
+                                                <h4 class="card-title"> أرشيف الصادر </h4>
+                                                <span> إجمالي أرشيف الصادر </span>
+                                                <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports_trash }}</span>
                                                 <div class="progress mt-1 mb-1" data-height="8">
-                                                  <div class="progress-bar l-bg-purple" role="progressbar" data-width="25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                  @if ($exports_trash && $exports_trash > 0)
+                                                    <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports_trash/$exports_trash *100 }}%" aria-valuenow="{{ $exports->count() }}"
+                                                        aria-valuemin="{{ $exports_trash }}" aria-valuemax="{{ $exports_trash }}"></div>
+                                                        @endif
                                                 </div>
                                                 <p class="mb-0 text-sm">
-                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                                                  <span class="text-nowrap">Since last month</span>
+                                                  @if ($exports_trash && $exports_trash > 0)
+                                                    <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> </span>
+                                                    @endif
+                                                    <span class="text-nowrap">   </span>
                                                 </p>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="col-xl-3 col-lg-6">
-                                          <div class="card l-bg-cyan">
-                                            <div class="card-statistic-3">
-                                              <div class="card-icon card-icon-large"></div>
-                                              <div class="card-content">
-                                                <h4 class="card-title">New Booking</h4>
-                                                <span>1,258</span>
-                                                <div class="progress mt-1 mb-1" data-height="8">
-                                                  <div class="progress-bar l-bg-orange" role="progressbar" data-width="25%" aria-valuenow="25"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <p class="mb-0 text-sm">
-                                                  <span class="mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
-                                                  <span class="text-nowrap">Since last month</span>
-                                                </p>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-6">
-                                            <div class="card l-bg-purple">
-                                              <div class="card-statistic-3">
-                                                <div class="card-icon card-icon-large"></div>
-                                                <div class="card-content">
-                                                  <h4 class="card-title"> أرشيف الصادر </h4>
-                                                  <span> إجمالي أرشيف الصادر </span>
-                                                  <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports_trash }}</span>
-                                                  <div class="progress mt-1 mb-1" data-height="8">
-                                                    @if ($exports_trash && $exports_trash > 0)
-                                                      <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports_trash/$exports_trash *100 }}%" aria-valuenow="{{ $exports->count() }}"
-                                                          aria-valuemin="{{ $exports_trash }}" aria-valuemax="{{ $exports_trash }}"></div>
-                                                          @endif
-                                                  </div>
-                                                  <p class="mb-0 text-sm">
-                                                    @if ($exports_trash && $exports_trash > 0)
-                                                      <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> </span>
-                                                      @endif
-                                                      <span class="text-nowrap">   </span>
-                                                  </p>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        <div class="col-xl-3 col-lg-6">
+                                        <div class="col-xl-4 col-lg-6">
                                             <div class="card l-bg-orange">
                                               <div class="card-statistic-3">
                                                 <div class="card-icon card-icon-large"></div>
@@ -134,6 +99,9 @@
                                               </div>
                                             </div>
                                           </div>
+                                      </div>
+                                      <div class="col-xl-2 col-lg-6">
+
                                       </div>
                                 </div>
                                 <div class="card card-secondary">

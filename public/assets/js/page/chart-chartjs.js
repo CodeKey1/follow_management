@@ -116,14 +116,14 @@ if (ctx) {
 			labels: JSON.parse($('input[name=month]').val()),
 			datasets: [
 				{
-					label: "اجمالي المشاريع",
+					label: "اجمالي المكاتبات الواردة",
 					borderColor: "rgba(239, 108, 0, 0.7",
 					borderWidth: "1",
 					backgroundColor: "rgba(239, 108, 0, 0.5",
 					data: JSON.parse($('input[name=users]').val())
 				},
 				{
-					label: "المشاريع المنتهية",
+					label: "المكاتبات الواردة المنتهية",
 					borderColor: "rgba(0, 123, 255, 0.9)",
 					borderWidth: "1",
 					backgroundColor: "rgba(0, 123, 255, 0.5)",
