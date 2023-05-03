@@ -243,68 +243,76 @@
 
         {{-- /* user permission and role for sidebar*/ --}}
         @if (auth()->user()->hasRole('export_user'))
-            <ul class="sidebar-menu">
-                <li class="dropdown active">
-                    <a href="{{ route('home') }}" class="nav-link"><span>الرئيسية</span><i
-                            data-feather="monitor"></i></a>
-                </li>
+        <ul class="sidebar-menu">
+            <li class="dropdown active">
+                <a href="{{ route('home') }}" class="nav-link"><span>الرئيسية</span><i
+                        data-feather="monitor"></i></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><span> الإدارت المسؤلة للمتابعة
+                    </span>
+                    <i data-feather="chevrons-right"></i></a>
+                <ul class="dropdown-menu">
 
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> الجهات الوارد منها
-                        </span>
-                        <i data-feather="chevrons-right"></i></a>
-                    <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('manage') }}"> كل الإدارات </a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><span> الجهات الوارد منها
+                    </span>
+                    <i data-feather="chevrons-right"></i></a>
+                <ul class="dropdown-menu">
 
-                        <li><a class="nav-link" href="{{ route('side') }}"> كل الجهات</a></li>
-                    </ul>
-                </li>
-                <li class="menu-header">
-                    <hr />
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><span>متابعة الوارد
-                        </span>
-                        <i data-feather="chevrons-left"></i></a>
-                    <ul class="dropdown-menu">
-                        {{-- <li><a class="nav-link" href="{{ route('topics.create') }}"> اضافة وارد</a></li> --}}
-                        <li><a class="nav-link" href="{{ route('topic.index') }}">كل الوارد</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><span>متابعة الصادر
-                        </span>
-                        <i data-feather="chevrons-right"></i></a>
+                    <li><a class="nav-link" href="{{ route('side') }}"> كل الجهات</a></li>
+                </ul>
+            </li>
+            <li class="menu-header">
+                <hr />
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><span>متابعة الوارد
+                    </span>
+                    <i data-feather="chevrons-left"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('topics.create') }}"> اضافة وارد</a></li>
+                    <li><a class="nav-link" href="{{ route('topic.index') }}">كل الوارد</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><span>متابعة الصادر
+                    </span>
+                    <i data-feather="chevrons-right"></i></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('exports') }}"> كل الصادر</a></li>
-                        <li><a class="nav-link" href="{{ route('export_internal') }}">اضافة صادر</a></li>
+                        <li><a class="nav-link" href="{{ route('export.internal') }}">اضافة صادر</a></li>
                         <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر لوارد</a></li>
                     </ul>
-                </li>
+            </li>
 
-                <li class="menu-header">
-                    <hr />
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> التقارير </span>
-                        <i data-feather="briefcase"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="">تقرير الطلبات</a></li>
-                        <li><a class="nav-link" href="">تقرير المزادات</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="menu-toggle nav-link has-dropdown"><span> الأرشيف </span>
-                        <i data-feather="briefcase"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('archive') }}"> أرشيف متابعة الوارد </a></li>
-                        <li><a class="nav-link" href="{{ route('Ex.archive') }}"> أرشيف متابعة الصادر </a></li>
-                    </ul>
-                </li>
-                <li class="menu-header">
-                    <hr />
-                </li>
-
-            </ul>
+            <li class="menu-header">
+                <hr />
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><span> التقارير </span>
+                    <i data-feather="briefcase"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="">تقرير الطلبات</a></li>
+                    <li><a class="nav-link" href="">تقرير المزادات</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><span> الأرشيف </span>
+                    <i data-feather="briefcase"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('archive') }}"> أرشيف متابعة الوارد </a></li>
+                    <li><a class="nav-link" href="{{ route('Ex.archive') }}"> أرشيف متابعة الصادر </a></li>
+                </ul>
+            </li>
+            <li class="menu-header">
+                <hr />
+            </li>
+            
+        </ul>
         @endif
         {{-- /* user permission and role for sidebar*/ --}}
 
