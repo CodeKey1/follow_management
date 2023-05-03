@@ -113,13 +113,11 @@
                                                                 @endif
                                                         </div>
                                                         <p class="mb-0 text-sm">
-                                                            @if ($topics_trash && $topics_trash > 0)
+                                                            
                                                                 <span class="mr-2"
-                                                                    style="color: black;font-size: 16px;font-weight: 800;"><i
-                                                                        class="fa fa-arrow-up"></i>
-                                                                    {{ ($topics_trash / $topics_trash) * 100 }}%</span>
-                                                            @endif
-                                                            <span class="text-nowrap"> نسبة الإكتمال </span>
+                                                                    style="color: black;font-size: 16px;font-weight: 800;"></span>
+
+                                                            <span class="text-nowrap">   </span>
                                                         </p>
                                                     </div>
                                                 </div>

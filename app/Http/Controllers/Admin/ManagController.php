@@ -47,6 +47,11 @@ class ManagController extends Controller
     public function show(string $id)
     {
         //
+        $responsible = Responsible::select()->find($id);
+        if (!$responsible) {
+            return redirect()->route('manage')->with(['error' => 'هذه الإدارة غير موجوده']);
+        }
+        return view('management.profile',compact('responsible'));
     }
 
     /**

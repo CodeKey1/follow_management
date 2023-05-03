@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Side;
+use App\Models\Export;
+use App\Models\Topic;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -48,6 +50,13 @@ class SideController extends Controller
     public function show(string $id)
     {
         //
+        $topics = Topic::select()->where('side_id',$id)->get();
+        $export = Export::select()->with('sidename_export')->where('side_id',$id)->get();
+        $side = Side::select()->with('side_topic','side_export')->find($id);
+        if (!$side) {
+            return redirect()->route('side')->with(['error' => 'هذه الإدارة غير موجوده']);
+        }
+        return view('sides.profile', compact('side','export','topics'));
     }
 
     /**
@@ -69,10 +78,10 @@ class SideController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        try {
+        // try {
             $side = Side::find($id);
             if (!$side) {
-                return redirect()->route('side.edit', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
+                return redirect()->route('side.profile', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
             }
 
 
@@ -82,11 +91,11 @@ class SideController extends Controller
                 'side_name' => $request['side_name'],
             ]));
 
-            return redirect()->route('side')->with(['success' => 'تم تعديل الجهة بنجاح']);
+            return redirect()->route('side.profile', $id)->with(['success' => 'تم تعديل الجهة بنجاح']);
 
-        } catch (\Exception $ex) {
-            return redirect()->route('side')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        }
+        // } catch (\Exception $ex) {
+        //     return redirect()->route('side.profile', $id)->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        // }
     }
 
     /**

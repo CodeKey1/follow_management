@@ -50,7 +50,38 @@
                                     </div>
                                 </div>
                                 <div class="card card-secondary">
-                                    <div class="card-body" style="direction: rtl;">
+                                    <div class="card-body" id="top-8-scroll" style="direction: rtl;">
+                                        <ul class="list-unstyled user-details list-unstyled-border list-unstyled-noborder" style="direction: rtl;height: 100% !important;">
+                                            @isset($side)
+                                                    @foreach ($side as $Side)
+                                            <li class="media">
+                                              <img alt="image" class="mr-2 rounded-circle" width="60" src="../assets/img/2.jpg" style="margin-left: 1rem !important;">
+                                              <div class="media-body">
+                                                <div class="media-title">
+                                                    <a href="{{route('side.profile',$Side->id)}}"> {{ $Side->side_name }} </a>
+                                                </div>
+                                                <div class="text-job" style="color: red"> محافظة أسوان </div>
+                                              </div>
+                                              <div class="media-items">
+                                                <div class="media-item">
+                                                  <div class="media-value">{{ $Side->side_topic->count() }}</div>
+                                                  <div class="media-label"> عدد الوارد </div>
+                                                </div>
+                                                <div class="media-item">
+                                                  <div class="media-value">{{ $Side->side_export->count() }}</div>
+                                                  <div class="media-label">عدد الصادر</div>
+                                                </div>
+                                                <div class="media-item">
+                                                  <div class="media-value">{{ $Side->side_export->where('topic_id','==', null)->count() }} </div>
+                                                  <div class="media-label">المتبقي</div>
+                                                </div>
+                                              </div>
+                                            </li>
+                                            @endforeach
+                                                @endisset
+                                          </ul>
+                                    </div>
+                                    {{-- <div class="card-body" style="direction: rtl;">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover" id="save-stage"
                                                 style="width:100%;">
@@ -67,8 +98,10 @@
                                                     @isset($side)
                                                     @foreach ($side as $Side)
                                                         <tr>
-                                                            <td class="text-bold-700"> {{ $Side->id }}</td>
-                                                            <td class="text-bold-700" style="text-align: right;"> {{ $Side->side_name }}</td>
+                                                            <td class="text-bold-700">
+                                                                 {{ $Side->id }}</td>
+                                                            <td class="text-bold-700" style="text-align: right;">
+                                                                <a href="{{route('side.profile',$Side->id)}}"> {{ $Side->side_name }} </a> </td>
                                                             <td class="text-bold-700"> {{ $Side->side_topic->count() }}</td>
                                                             <td class="text-bold-700"> {{ $Side->side_export->count() }}</td>
                                                             <td style="width: 15%">
@@ -82,7 +115,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

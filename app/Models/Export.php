@@ -16,6 +16,9 @@ class Export extends Model
 
         return $query -> select('id','name','side_id','send_date','export_no','upload_f','details','topic_id');
     }
+
+    protected $casts = [ 'send_date'=>'datetime'];
+
     public function sidename_export(){
 
         return  $this->belongsTo(Side::class ,'side_id');

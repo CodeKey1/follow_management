@@ -60,6 +60,7 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 
     ///////////////////////////////////////////// management view ///////////////////////////////////////////
 
+    Route::get('/manage-profile{id}' ,[App\Http\Controllers\Admin\ManagController::class,'show'])    -> name('manage.profile');
     Route::get('/managemente' ,[App\Http\Controllers\Admin\ManagController::class,'index'])    -> name('manage');
     Route::get('/managemente-create' ,[App\Http\Controllers\Admin\ManagController::class,'create'])    -> name('manage.create');
     Route::post('/manage-store' ,[App\Http\Controllers\Admin\ManagController::class,'store'])    -> name('manage.store');
@@ -68,6 +69,7 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 
     ///////////////////////////////////////////// side view ///////////////////////////////////////////
 
+    Route::get('/side-profile{id}'        ,[App\Http\Controllers\Admin\SideController::class,'show'])    -> name('side.profile');
     Route::get('/side'        ,[App\Http\Controllers\Admin\SideController::class,'index'])    -> name('side');
     Route::get('/side-create'        ,[App\Http\Controllers\Admin\SideController::class,'create'])    -> name('side.create');
     Route::post('/side-store' ,[App\Http\Controllers\Admin\SideController::class,'store'])    -> name('side.store');

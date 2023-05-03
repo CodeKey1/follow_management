@@ -57,11 +57,13 @@
                                         <span> إجمالي أرشيف الصادر </span>
                                         <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports_trash }}</span>
                                         <div class="progress mt-1 mb-1" data-height="8">
-                                            <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports_trash/ $exports_trash*100 }}%" aria-valuenow="{{ $exports->count() }}"
+                                            @if ($exports_trash && $exports_trash > 0)
+                                            <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports_trash / $exports_trash *100 }}%" aria-valuenow="{{ $exports->count() }}"
                                                 aria-valuemin="{{ $exports_trash }}" aria-valuemax="{{ $exports_trash }}"></div>
+                                                @endif
                                         </div>
                                         <p class="mb-0 text-sm">
-                                          @if ($exports_trash && $exports_trash > 0)
+                                            @if ($exports_trash && $exports_trash > 0)
                                             <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"><i class="fa fa-arrow-up"></i> {{ $exports_trash/ $exports_trash*100 }}%</span>
                                             @endif
                                             <span class="text-nowrap"> نسبة الإكتمال </span>
