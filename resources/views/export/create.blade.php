@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <!-- forms-validation.html  21 Nov 2019 03:55:16 GMT -->
 
 <head>
@@ -22,12 +21,10 @@
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
-
 <body class="light theme-white dark-sidebar">
-    <div class="loader"></div>E
+    <div class="loader"></div>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
-
             @include('layouts.sidbar')
             <!-- Main Content -->
             <div class="main-content">
@@ -147,7 +144,6 @@
                                                 <div class="form-group col-md-12">
                                                     <label>اضافة ملاحظات</label>
                                                     <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
-
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
@@ -274,8 +270,5 @@
     </script>
 
 </body>
-
-
 <!-- forms-validation.html  21 Nov 2019 03:55:16 GMT -->
-
 </html>

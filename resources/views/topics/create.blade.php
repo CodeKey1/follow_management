@@ -121,7 +121,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label> الملف المرفق</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                        name="file[]" class="form-control" required>
+                                                        name="file[]" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row">
