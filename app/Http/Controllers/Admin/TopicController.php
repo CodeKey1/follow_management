@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicsRequest;
 use App\Models\Responsible;
 use App\Models\Side;
+use App\Models\Response_Topic;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,11 +52,9 @@ class TopicController extends Controller
             $upload[] = "";
         }
         try {
-
-            Topic::create(([
+            $topics = Topic::create(([
                 'import_id' => $request['import_id'],
                 'name' => $request['name'],
-                'responsibles_id' => $request['responsibles_id'],
                 'side_id' => $request['side_id'],
                 'file' => implode('|', $upload),
                 'vic_sign' => $request['vic_sign'],
@@ -66,6 +65,14 @@ class TopicController extends Controller
                 'cat_name' => $request['cat_name'],
 
             ]));
+            for ($i = 0; $i < count($request->responsibles_id); $i++) {
+                $responsibles_id[] = $request->responsibles_id[$i];
+
+            Response_Topic::create(([
+                'responsible_id' => $responsibles_id[$i],
+                'topic_id' => $topics->id,
+            ]));
+        }
             return redirect()->route('topic.index')->with(['success' => 'تم حفظ الموضوع بنجاح']);
         } catch (\Exception $ex) {
             return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);

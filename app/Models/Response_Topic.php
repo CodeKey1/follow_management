@@ -9,8 +9,8 @@ class Response_Topic extends Model
 {
     use HasFactory;
 
-    protected $table = 'response_topic';
-    protected $fillable = ['id','response_id','topic_id','side_id'];
+    protected $table = 'responsible_topic';
+    protected $fillable = ['id','responsible_id','topic_id','side_id'];
     protected $hidden = ['deleted_at','created_at', 'updated_at'];
 
 
@@ -19,7 +19,7 @@ class Response_Topic extends Model
         return $this->belongsTo(Topic::class ,'topic_id');
     }
     public function Res_topic(){
-        return $this->belongsTo(Responsible::class ,'responsibles_id');
+        return $this->belongsTo(Responsible::class ,'responsible_id');
     }
     public function S_topic(){
         return $this->belongsTo(Side::class ,'side_id');
