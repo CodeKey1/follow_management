@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 05:22 PM
+-- Generation Time: May 07, 2023 at 04:24 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -159,7 +159,7 @@ CREATE TABLE `exports` (
   `export_no` bigint(20) NOT NULL,
   `state` varchar(100) DEFAULT '1',
   `details` varchar(1000) DEFAULT NULL,
-  `upload_f` varchar(1000) NOT NULL,
+  `upload_f` varchar(1000) DEFAULT NULL,
   `topic_id` int(11) DEFAULT NULL,
   `cat_name` varchar(255) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -167,17 +167,20 @@ CREATE TABLE `exports` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `exports`
+-- Table structure for table `export_responsible`
 --
 
-INSERT INTO `exports` (`id`, `name`, `side_id`, `send_date`, `export_no`, `state`, `details`, `upload_f`, `topic_id`, `cat_name`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(21, 'يييييييييييييي', 1, '2021-09-10', 20210918, '1', 'يييييييييييييييييييييييي', 'C:\\xampp\\tmp\\phpE448.tmp', 1, 'مكتب المحافظ', NULL, '2023-05-01 12:54:00', '2021-09-20 23:04:24'),
-(30, 'ddddddddd', 1, '2021-09-04', 20210911, '1', NULL, '1632266736.jpeg', 1, 'مكتب المحافظ', '2023-05-02 14:48:44', '2023-05-01 12:53:56', '2023-04-30 10:12:35'),
-(46, 'ملف وارد رقم واحد 2244444', 2, '2023-06-09', 20230610, '1', 'dsdfsdfsd', '1682954990.favicon.ico', 49, 'مكتب المحافظ', NULL, '2023-05-01 12:29:50', '2023-05-01 12:29:50'),
-(76, 'ملف وارد رقم واحد', 1, '2023-05-02', 543345, '1', 'cxvxcvxcv', '1683038154..editorconfig|1683038154..env|1683038154..env.example|1683038154..gitattributes', 49, 'مكتب المحافظ', NULL, '2023-05-02 11:35:54', '2023-05-02 11:35:54'),
-(77, 'ملف وارد رقم واحد', 3, '2023-05-02', 5456456, '1', 'gfghfghfgh', '1683038154..editorconfig|1683038154..env|1683038154..env.example|1683038154..gitattributes', 49, 'مكتب المحافظ', NULL, '2023-05-02 11:35:55', '2023-05-02 11:35:55'),
-(78, 'ملف وارد رقم واحد', 15, '2023-05-02', 56456456, '1', 'gfhfghfgh', '1683038154..editorconfig|1683038154..env|1683038154..env.example|1683038154..gitattributes', 49, 'مكتب المحافظ', NULL, '2023-05-02 11:35:55', '2023-05-02 11:35:55');
+CREATE TABLE `export_responsible` (
+  `id` int(11) NOT NULL,
+  `export_id` int(11) NOT NULL,
+  `responsible_id` int(11) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -310,8 +313,7 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`, `created_at`, `updated_at`) VALUES
 (1, 'App\\Models\\User', 1, NULL, NULL),
-(2, 'App\\Models\\User', 58, NULL, NULL),
-(3, 'App\\Models\\User', 58, NULL, NULL),
+(3, 'App\\Models\\User', 58, NULL, '2023-05-03 08:21:20'),
 (3, 'App\\Models\\User', 65, '2023-05-02 07:05:18', '2023-05-02 07:08:44');
 
 -- --------------------------------------------------------
@@ -484,13 +486,37 @@ CREATE TABLE `responsibles` (
 
 INSERT INTO `responsibles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'السيد النائب المحافظ', '2021-10-28 09:17:05', '2023-05-01 09:33:52'),
-(4, 'السيد اللواء / السكرتير العام', '2021-10-28 09:17:32', '2021-10-28 09:17:32'),
+(4, 'السيد اللواء / السكرتير العام 3', '2021-10-28 09:17:32', '2023-05-03 07:01:42'),
 (5, 'ش . مالية', '2021-10-28 09:17:46', '2021-10-28 09:17:46'),
 (6, 'رؤساء المدن والمراكز', '2021-10-28 09:18:11', '2021-10-28 09:18:11'),
 (7, 'مركز شبكات المعلومات', '2021-10-28 09:18:29', '2021-10-28 09:18:29'),
 (8, 'نظم المعلومات', '2021-10-28 09:18:42', '2021-10-28 09:18:42'),
 (9, 'المكتب الفني(1)', '2021-10-28 09:18:55', '2021-10-28 09:18:55'),
 (18, 'مديرية الطرق', '2022-01-31 08:17:47', '2022-01-31 08:17:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `responsible_topic`
+--
+
+CREATE TABLE `responsible_topic` (
+  `id` int(11) NOT NULL,
+  `responsible_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `responsible_topic`
+--
+
+INSERT INTO `responsible_topic` (`id`, `responsible_id`, `topic_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(11, 1, 69, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
+(12, 4, 69, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
+(13, 5, 69, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00');
 
 -- --------------------------------------------------------
 
@@ -560,8 +586,6 @@ CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
   `import_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `side_id` int(11) DEFAULT NULL,
-  `responsibles_id` int(11) DEFAULT NULL,
   `vic_sign` varchar(255) DEFAULT NULL,
   `recived_date` date DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
@@ -569,6 +593,7 @@ CREATE TABLE `topics` (
   `notes` varchar(1000) DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
   `cat_name` varchar(255) DEFAULT NULL,
+  `side_id` int(11) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -578,10 +603,8 @@ CREATE TABLE `topics` (
 -- Dumping data for table `topics`
 --
 
-INSERT INTO `topics` (`id`, `import_id`, `name`, `side_id`, `responsibles_id`, `vic_sign`, `recived_date`, `state`, `users_name`, `notes`, `file`, `cat_name`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 31648, 'ملف وارد رقم واحد 0000', 2, 4, 'العرض والنشرertertert', '2023-06-08', '1', 'mohamed mokhtar', 'gh', '1682947588.favicon.ico', 'مكتب المحافظ', NULL, '2023-02-02 11:26:28', '2023-05-01 10:26:28'),
-(49, 123456, 'ملف وارد رقم واحد 2244444', 2, 1, 'العرض والنشرertertert444', '2023-06-08', '1', 'mohamed mokhtar', 'dfdfdf', '1682935972.composer.json', 'مكتب المحافظ', NULL, '2023-05-01 07:12:52', '2023-05-01 07:12:52'),
-(57, 12345978, 'ملف وارد رقم واحد', 1, 1, 'العرض والنشر', '2023-05-31', '1', 'mohamed mokhtar', 'gh', '1682955343..editorconfig|1682955343..env|1682955343..env.example', 'مكتب المحافظ', NULL, '2023-05-01 12:35:43', '2023-05-01 12:36:17');
+INSERT INTO `topics` (`id`, `import_id`, `name`, `vic_sign`, `recived_date`, `state`, `users_name`, `notes`, `file`, `cat_name`, `side_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(69, 123, 'ffffff', 'fffff', '2023-05-07', '2', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00');
 
 -- --------------------------------------------------------
 
@@ -3529,8 +3552,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `cat_name`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'mohamed mokhtar', 'mohamed.mokhtar92@hotmail.com', 1, 'مكتب المحافظ', '2021-08-31 22:59:10', '$2y$10$5TwdYoMLkt/pyAJ2epImze1.wJ6gejEPl6tsbkkBD186II.lwCD1u', '7rzgeaL9pTJqhsnYfUA7wsfl1rnbrmSHjlcQEv9IUZOg6HCjMYpRAm5Z4L36', '2021-09-17 15:07:53', '2021-09-21 03:16:49'),
-(58, 'علي', 'export@isdt.com', 3, 'مكتب المحافظ', NULL, '$2y$10$hLNRGW.Q5ydSqxUt7424YuYTslxgW0E.bVH5QzJ.dyYvYF6B/qFCW', NULL, '2023-05-01 13:02:16', '2023-05-02 05:44:40'),
+(1, 'mohamed mokhtar', 'mohamed.mokhtar92@hotmail.com', 1, 'مكتب المحافظ', '2021-08-31 22:59:10', '$2y$10$5TwdYoMLkt/pyAJ2epImze1.wJ6gejEPl6tsbkkBD186II.lwCD1u', 'qgyaNGQRHgVTLKUVX9FMtObFlBv6vvBmpQDaeFdwWrRJRphz9sK0IRg6lwMC', '2021-09-17 15:07:53', '2021-09-21 03:16:49'),
+(58, 'مستخدم الصادرات 1', 'export@isdt.aswan.gov', 3, 'مكتب المحافظ', NULL, '$2y$10$0JaIQCnYkaxFK6u7l.7XOuIZWsGBC3vCwlKuPHSQz7xi/bfNbMY12', NULL, '2023-05-01 13:02:16', '2023-05-03 08:21:20'),
 (65, 'احمد عليggg', 'mohamed@mail.com', 3, 'مكتب المحافظ', NULL, '$2y$10$GjoJSgnVIb4v2rrWSgLbV.VufkrpI3gpiwPUcyKtbgb25.ji8qGwq', NULL, '2023-05-02 07:05:18', '2023-05-02 07:08:44');
 
 --
@@ -3572,8 +3595,17 @@ ALTER TABLE `events`
 --
 ALTER TABLE `exports`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `export_no` (`export_no`),
   ADD KEY `side_id` (`side_id`),
   ADD KEY `topic_id` (`topic_id`);
+
+--
+-- Indexes for table `export_responsible`
+--
+ALTER TABLE `export_responsible`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `export_id` (`export_id`),
+  ADD KEY `responsible_id` (`responsible_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -3654,6 +3686,14 @@ ALTER TABLE `responsibles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `responsible_topic`
+--
+ALTER TABLE `responsible_topic`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `response_id` (`responsible_id`),
+  ADD KEY `topic_id` (`topic_id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -3678,8 +3718,8 @@ ALTER TABLE `sides`
 --
 ALTER TABLE `topics`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `side_id` (`side_id`),
-  ADD KEY `responsibles_id` (`responsibles_id`);
+  ADD UNIQUE KEY `import_id` (`import_id`),
+  ADD KEY `side_id` (`side_id`);
 
 --
 -- Indexes for table `units`
@@ -3732,7 +3772,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `exports`
 --
 ALTER TABLE `exports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- AUTO_INCREMENT for table `export_responsible`
+--
+ALTER TABLE `export_responsible`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -3783,6 +3829,12 @@ ALTER TABLE `responsibles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `responsible_topic`
+--
+ALTER TABLE `responsible_topic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -3798,7 +3850,7 @@ ALTER TABLE `sides`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -3824,6 +3876,13 @@ ALTER TABLE `exports`
   ADD CONSTRAINT `exports_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
 
 --
+-- Constraints for table `export_responsible`
+--
+ALTER TABLE `export_responsible`
+  ADD CONSTRAINT `export_responsible_ibfk_1` FOREIGN KEY (`export_id`) REFERENCES `exports` (`id`),
+  ADD CONSTRAINT `export_responsible_ibfk_2` FOREIGN KEY (`responsible_id`) REFERENCES `responsibles` (`id`);
+
+--
 -- Constraints for table `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
@@ -3837,6 +3896,13 @@ ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `responsible_topic`
+--
+ALTER TABLE `responsible_topic`
+  ADD CONSTRAINT `responsible_topic_ibfk_1` FOREIGN KEY (`responsible_id`) REFERENCES `responsibles` (`id`),
+  ADD CONSTRAINT `responsible_topic_ibfk_3` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
+
+--
 -- Constraints for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
@@ -3847,8 +3913,7 @@ ALTER TABLE `role_has_permissions`
 -- Constraints for table `topics`
 --
 ALTER TABLE `topics`
-  ADD CONSTRAINT `topics_ibfk_1` FOREIGN KEY (`side_id`) REFERENCES `sides` (`id`),
-  ADD CONSTRAINT `topics_ibfk_2` FOREIGN KEY (`responsibles_id`) REFERENCES `responsibles` (`id`);
+  ADD CONSTRAINT `topics_ibfk_1` FOREIGN KEY (`side_id`) REFERENCES `sides` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
