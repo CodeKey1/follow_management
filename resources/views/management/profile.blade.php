@@ -64,7 +64,7 @@
                                         <div class="py-4">
                                             <p class="clearfix">
                                                 <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{$topics->count()}}
+                                                    {{$responsible->Responetopic->count()}}
                                                 </span>
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
                                                     عدد المكاتبات الواردة
@@ -72,24 +72,25 @@
                                             </p>
                                             <p class="clearfix">
                                                 <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{$export->count()}}
+                                                    {{$responsible->Responexport->count()}}
                                                 </span>
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
                                                     عدد المكاتبات الصادرة
                                                 </span>
                                             </p>
+
                                             <p class="clearfix">
+                                                @if ($responsible->Responexport && $responsible->Responexport->count() != 0 && $responsible->Responexport < $responsible->Responetopic)
                                                 <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{$export->where('topic_id','==', null)->count()}}
+                                                    {{ $responsible->Responetopic->count()/$responsible->Responexport->count() *100 }}%
                                                 </span>
-                                                <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
-                                                    عدد المكاتبات لم يتم الرد
-                                                </span>
-                                            </p>
-                                            <p class="clearfix">
-                                                @if ($export && $export < $topics)
+                                                @elseif ($responsible->Responetopic->count() != 0)
                                                 <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{ $export->count()/$topics->count() *100 }}%
+                                                    {{ $responsible->Responexport->count()/$responsible->Responetopic->count() *100 }}%
+                                                </span>
+                                                @else
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                    0%
                                                 </span>
                                                 @endif
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
@@ -138,33 +139,33 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @isset($topics)
-                                                                @foreach ($topics as $topic)
+                                                            @isset($responsible)
+                                                                @foreach ($responsible->Responetopic as $respon)
                                                                     <tr>
-                                                                        <td class="text-bold-700">{{ $topic->id }} </td>
-                                                                        <td class="text-bold-700">{{ $topic->name }} </td>
+                                                                        <td class="text-bold-700">{{ $respon->id }} </td>
+                                                                        <td class="text-bold-700">{{ $respon->name }} </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $topic->recived_date->format('d-M-y') }}
+                                                                            {{ $respon->recived_date->format('d-M-y') }}
                                                                         </td>
 
                                                                         <td class="text-bold-700">
-                                                                            @if ($topic->state == 0)
+                                                                            @if ($respon->state == 0)
                                                                                 <div class="badge badge-danger"> لم يتم
                                                                                 </div>
-                                                                            @elseif($topic->state == 1)
+                                                                            @elseif($respon->state == 1)
                                                                                 <div class="badge badge-success"> تم </div>
-                                                                            @elseif($topic->state == 2)
+                                                                            @elseif($respon->state == 2)
                                                                                 <div class="badge badge-danger"> جاري
                                                                                     المتابعة </div>
                                                                             @endif
                                                                         </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $topic->recived_date->diffForHumans($topic->updated_at) }}
+                                                                            {{ $respon->recived_date->diffForHumans($respon->updated_at) }}
                                                                         </td>
                                                                         <td class="text-bold-700">
                                                                             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))
                                                                                 <div class="row">
-                                                                                    @foreach (explode('|', $topic->file) as $file)
+                                                                                    @foreach (explode('|', $respon->file) as $file)
                                                                                         <a href="{{ URL::to('attatch_office/import_follow/' . $file) }}"
                                                                                             class="portfolio-box"
                                                                                             target="_blank">
@@ -209,31 +210,31 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @isset($export)
-                                                                    @if ($export && $export->count() > 0)
-                                                                        @foreach ($export as $exports)
+                                                                @isset($responsible)
+
+                                                                        @foreach ($responsible->Responexport as $expo)
                                                                             <tr>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->id }}
+                                                                                    {{ $expo->id }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->name }}
+                                                                                    {{ $expo->name }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->send_date->format('d-M-y') }}
+                                                                                    {{ $expo->send_date->format('d-M-y') }}
                                                                                 </td>
 
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->details }}
+                                                                                    {{ $expo->details }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->topic_export->responsename->name ?? ''}}
+                                                                                    {{-- {{ $exports->topic_export->responsename->name ?? ''}} --}}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
                                                                                     @if (auth()->user()->hasRole('admin') ||
                                                                                             auth()->user()->hasRole('export_user'))
                                                                                         <div class="row">
-                                                                                            @foreach (explode('|', $exports->upload_f) as $images)
+                                                                                            @foreach (explode('|', $expo->upload_f) as $images)
                                                                                                 <a href="{{ URL::to('attatch_office/export_follow/' . $images) }}"
                                                                                                     class="portfolio-box"
                                                                                                     target="_blank">
@@ -254,7 +255,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         @endforeach
-                                                                    @endif
+                                                                   
                                                                 @endisset
                                                             </tbody>
                                                         </table>

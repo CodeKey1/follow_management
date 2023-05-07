@@ -70,7 +70,7 @@
                                                             <td class="text-bold-700"> {{ $respon->id }}</td>
                                                             <td class="text-bold-700" style="text-align: right;">
                                                                 <a href="{{route('manage.profile', $respon->id)}}"> {{ $respon->name }} </a></td>
-                                                            <td class="text-bold-700"> {{ $respon->Respone_topic->count() }}</td>
+                                                            <td class="text-bold-700"> {{ $respon->Responetopic->count() }}</td>
 
                                                         </tr>
                                                     @endforeach

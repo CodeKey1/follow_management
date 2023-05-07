@@ -136,7 +136,8 @@
                                                                 <td class="text-bold-700" style="text-align: right;">
                                                                     {{ $Topic->name }}</td>
                                                                 <td class="text-bold-700">
-                                                                    {{ $Topic->sidename->side_name }}
+                                                                   {{$Topic->name_side->side_name}}
+
                                                                 </td>
 
                                                                 <td style="width: 15%">

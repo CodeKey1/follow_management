@@ -17,7 +17,7 @@ class TopicController extends Controller
     {
 
         $topics_trash = Topic::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
-        $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
+        $topics = Topic::select()->with('rsename')->where('cat_name', Auth::user()->cat_name)->get();
         return view('topics.index', compact('topics','topics_trash'));
     }
 
@@ -77,7 +77,7 @@ class TopicController extends Controller
     {
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        $topics = Topic::select()->find($id);
+        $topics = Topic::select()->with('rsename')->find($id);
         if (!$topics) {
             return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
         }

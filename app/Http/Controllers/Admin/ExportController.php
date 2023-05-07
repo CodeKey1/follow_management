@@ -28,14 +28,14 @@ class ExportController extends Controller
 
     public function create()
     {
-        $topics = Topic::select()->with('sidename')->where('state', 1)->get();
+        $topics = Topic::select()->with('name_side')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
         return view('export.create', compact('responsibles','topics','side'));
     }
     public function export_internal()
     {
-        $topics = Topic::select()->with('sidename')->where('state', 1)->get();
+        $topics = Topic::select()->with('name_side')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
         return view('export.export', compact('responsibles','topics','side'));
@@ -120,7 +120,7 @@ class ExportController extends Controller
 
     public function edit($id)
     {
-        $topics = Topic::select()->with('sidename')->where('state', 1)->get();
+        $topics = Topic::select()->with('name_side')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
         $exports = Export::select()->with('topic_export','sidename_export')->find($id);

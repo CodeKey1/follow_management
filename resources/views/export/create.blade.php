@@ -82,8 +82,8 @@
                                                             @if ($topics && $topics->count() > 0)
                                                                 @foreach ($topics as $topic)
                                                                     <option class="option cat-{{ $topic->id }}"
-                                                                        value="{{ $topic->sidename->id }}">
-                                                                        {{ $topic->sidename->side_name }}
+                                                                        value="{{ $topic->name_side->id }}">
+                                                                        {{ $topic->name_side->side_name }}
                                                                     </option>
                                                                 @endforeach
                                                             @endif

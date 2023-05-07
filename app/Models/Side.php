@@ -14,7 +14,7 @@ class Side extends Model
     protected $fillable = ['id','side_name','created_at','updated_at'];
 
     public function side_topic(){
-        return $this->hasMany(Topic::class ,'side_id');
+        return $this->hasMany(Topic::class,'side_id');
     }
     public function side_export(){
         return $this->hasMany(Export::class ,'side_id');
