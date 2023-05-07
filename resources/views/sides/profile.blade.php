@@ -87,11 +87,20 @@
                                                 </span>
                                             </p>
                                             <p class="clearfix">
-                                                @if ($export && $export < $topics)
+                                                @if ($export && $export->count() != 0 && $export < $topics)
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                    {{ $topics->count()/$export->count() *100 }}%
+                                                </span>
+                                                @elseif ($topics->count() != 0)
                                                 <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
                                                     {{ $export->count()/$topics->count() *100 }}%
                                                 </span>
+                                                @else
+                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                    0%
+                                                </span>
                                                 @endif
+
                                                 <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
                                                      نسبة الإكتمال
                                                 </span>

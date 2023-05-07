@@ -16,8 +16,11 @@ class Responsible extends Model
         return $query -> select('id','name');
     }
 
-    public function Respone_topic(){
-        return $this->hasMany(Topic::class ,'responsibles_id');
+    public function Responetopic(){
+        return $this->belongsToMany(Topic::class);
+    }
+    public function Responexport(){
+        return $this->belongsToMany(Export::class);
     }
 
 

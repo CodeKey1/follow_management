@@ -94,16 +94,32 @@
                                                         <span
                                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($topics->count() != 0)
                                                             <div class="progress-bar l-bg-green" role="progressbar"
                                                                 data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
                                                                 aria-valuenow="{{ $topics->count() }}"
                                                                 aria-valuemin="{{ $topics->count() }}"
                                                                 aria-valuemax="{{ $topics->count() }}"></div>
+                                                                @else
+                                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                                    0%
+                                                                </span>
+                                                                @endif
                                                         </div>
-                                                        <p class="mb-0 text-sm">
-                                                            <span class="mr-2"
-                                                                style="color: black;font-size: 16px;font-weight: 800;"></i>
-                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%</span>
+                                                        <p class="clearfix">
+                                                            @if ($topics && $topics->count() != 0 && $topics < $topics)
+                                                            <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                                {{ $topics->count()/$topics->count() *100 }}%
+                                                            </span>
+                                                            @elseif ($topics->count() != 0)
+                                                            <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                                {{ $topics->count()/$topics->count() *100 }}%
+                                                            </span>
+                                                            @else
+                                                            <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                                0%
+                                                            </span>
+                                                            @endif
                                                             <span class="text-nowrap"> نسبة الإكتمال </span>
                                                         </p>
                                                     </div>
@@ -136,7 +152,8 @@
                                                                 <td class="text-bold-700" style="text-align: right;">
                                                                     {{ $Topic->name }}</td>
                                                                 <td class="text-bold-700">
-                                                                    {{ $Topic->sidename->side_name }}
+                                                                   {{$Topic->name_side->side_name}}
+
                                                                 </td>
 
                                                                 <td style="width: 15%">

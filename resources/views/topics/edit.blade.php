@@ -69,13 +69,17 @@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> الإدارة المسؤلة </label>
-                                                    <select class="form-control"  disabled>
-                                                        <option value="{{ $topics->responsibles_id }}" selected>
-                                                            {{ $topics->responsename->name }}
+                                                    <select class="form-control select2" multiple  disabled style="width: 100%;">
+                                                        @foreach ($topics->rsename as $value)
+                                                        <option value="{{ $value->id }}" selected>
+                                                            {{ $value->name }}
                                                         </option>
+                                                        @endforeach
                                                     </select>
-                                                    <select class="form-control" name="responsibles_id">
-                                                        <option value="{{ $topics->responsename->name }}" disabled selected> {{ $topics->responsename->name }}</option>
+                                                    <select class="form-control select2" multiple name="responsibles_id[]" style="width: 100%;">
+                                                        @foreach ($topics->rsename as $svalue)
+                                                        <option value="{{ $svalue->id }}" disabled selected> {{ $svalue->name }}</option>
+                                                        @endforeach
                                                         @isset($responsibles)
                                                             @if ($responsibles && $responsibles->count() > 0)
                                                                 @foreach ($responsibles as $Response)
@@ -92,10 +96,10 @@
                                                     <label> اسم الجهة الوارد منها</label>
                                                     <select class="form-control" id="city"  disabled>
                                                         <option value="{{ $topics->side_id }}" disabled selected>
-                                                            {{ $topics->sidename->side_name }}</option>
+                                                            {{ $topics->name_side->side_name }}</option>
                                                     </select>
                                                     <select class="form-control" id="city" name="side_id">
-                                                        <option value="{{ $topics->side_id }}" disabled selected> {{ $topics->sidename->side_name }}</option>
+                                                        <option value="{{ $topics->side_id }}" disabled selected> {{ $topics->name_side->side_name }}</option>
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
                                                                 @foreach ($side as $sides)

@@ -50,13 +50,13 @@ class ManagController extends Controller
     public function show(string $id)
     {
         //
-        $topics = Topic::select()->where('responsibles_id',$id)->get();
-        $export = Export::select()->with('topic_export.responsename')->get();
-        $responsible = Responsible::select()->with('Respone_topic','Respone_topic.export_topic')->find($id);
+        $topics = Topic::select()->with('rsename')->get();
+        $export = Export::select()->get();
+        $responsible = Responsible::select()->with('Responetopic','Responexport')->find($id);
         if (!$responsible) {
             return redirect()->route('manage')->with(['error' => 'هذه الإدارة غير موجوده']);
         }
-        return view('management.profile',compact('responsible','export','topics'));
+        return view('management.profile',compact('responsible','export','topics','id'));
     }
 
     /**

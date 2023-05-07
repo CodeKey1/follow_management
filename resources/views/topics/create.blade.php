@@ -64,8 +64,8 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> الإدارة المسؤلة </label>
-                                                    <select class="form-control"  name="responsibles_id">
-                                                        <option value="" disabled selected> الإدارة المسؤلة للمتابعة </option>
+                                                    <select class="form-control select2"  name="responsibles_id[]" multiple style="    width: 100%;">
+                                                        <option value="" disabled > الإدارة المسؤلة للمتابعة </option>
                                                         @isset($responsibles)
                                                             @if ($responsibles && $responsibles->count() > 0)
                                                                 @foreach ($responsibles as $Response)
