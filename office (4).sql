@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2023 at 04:24 PM
+-- Generation Time: May 08, 2023 at 04:44 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -166,6 +166,15 @@ CREATE TABLE `exports` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exports`
+--
+
+INSERT INTO `exports` (`id`, `name`, `side_id`, `send_date`, `export_no`, `state`, `details`, `upload_f`, `topic_id`, `cat_name`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(80, 'ffffff', 1, '2023-05-08', 1234, '1', 'لا يوجد', '', 69, 'مكتب المحافظ', NULL, '2023-05-08 05:49:34', '2023-05-08 05:49:34'),
+(81, 'ffffff', 2, '2023-05-19', 78798, '1', 'sdsfsdfsdf', '', 69, 'مكتب المحافظ', NULL, '2023-05-08 07:02:19', '2023-05-08 07:02:19'),
+(85, 'ffffff', 16, '2023-05-08', 657656, '1', 'ghjhg', '', 69, 'مكتب المحافظ', NULL, '2023-05-08 07:06:18', '2023-05-08 07:06:18');
 
 -- --------------------------------------------------------
 
@@ -504,6 +513,7 @@ CREATE TABLE `responsible_topic` (
   `id` int(11) NOT NULL,
   `responsible_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
+  `state` int(11) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -513,10 +523,14 @@ CREATE TABLE `responsible_topic` (
 -- Dumping data for table `responsible_topic`
 --
 
-INSERT INTO `responsible_topic` (`id`, `responsible_id`, `topic_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(11, 1, 69, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
-(12, 4, 69, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
-(13, 5, 69, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00');
+INSERT INTO `responsible_topic` (`id`, `responsible_id`, `topic_id`, `state`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(11, 1, 71, 1, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
+(12, 4, 71, 2, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
+(13, 5, 71, 0, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
+(14, 4, 69, 1, NULL, NULL, NULL),
+(15, 8, 69, 1, NULL, NULL, NULL),
+(16, 18, 69, 1, NULL, NULL, NULL),
+(17, 7, 69, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -570,11 +584,38 @@ CREATE TABLE `sides` (
 --
 
 INSERT INTO `sides` (`id`, `side_name`, `created_at`, `updated_at`) VALUES
-(1, 'وحدة المتابعة لمكتب المحافظ', '2021-09-13 17:51:16', '2023-05-01 09:50:56'),
-(2, 'شركة الكهرباء', '2021-09-13 17:52:16', '2021-09-13 17:52:16'),
-(3, 'شركة المياة', '2021-09-13 17:53:17', '2021-09-13 17:53:17'),
-(15, 'أمين عام رئاسة الوزراء', '2023-05-01 09:45:44', '2023-05-02 06:20:22'),
-(16, 'أمبن عام وزارة الدفاع', '2023-05-02 06:19:29', '2023-05-02 06:19:29');
+(1, 'رئاسة الجمهورية - هيئة مستشاري رئاسة الجمهورية', '2021-09-13 17:51:16', '2023-05-08 08:22:18'),
+(2, 'رئاسة مجلس الوزراء', '2021-09-13 17:52:16', '2023-05-08 08:22:56'),
+(3, 'وزارة التنمية المحلية', '2021-09-13 17:53:17', '2023-05-08 08:23:18'),
+(15, 'كافة الوزارات الأخري', '2023-05-01 09:45:44', '2023-05-08 08:24:14'),
+(16, 'رئاسة مجلس النواب', '2023-05-02 06:19:29', '2023-05-08 08:24:36'),
+(17, 'هيئات - شركات', '2023-05-08 08:24:57', '2023-05-08 08:24:57'),
+(18, 'جهات أخري', '2023-05-08 08:25:26', '2023-05-08 08:25:26'),
+(25, 'test', '2023-05-08 09:52:07', '2023-05-08 09:52:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `side_branch`
+--
+
+CREATE TABLE `side_branch` (
+  `id` int(11) NOT NULL,
+  `name` varchar(11) NOT NULL,
+  `sides_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `side_branch`
+--
+
+INSERT INTO `side_branch` (`id`, `name`, `sides_id`, `created_at`, `updated_at`) VALUES
+(4, 't', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
+(5, 'cxv', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
+(6, 'xcv', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
+(7, 'xcv', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07');
 
 -- --------------------------------------------------------
 
@@ -604,7 +645,8 @@ CREATE TABLE `topics` (
 --
 
 INSERT INTO `topics` (`id`, `import_id`, `name`, `vic_sign`, `recived_date`, `state`, `users_name`, `notes`, `file`, `cat_name`, `side_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(69, 123, 'ffffff', 'fffff', '2023-05-07', '2', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00');
+(69, 123, 'ffffff', 'fffff', '2023-05-07', '1', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-08 05:49:09'),
+(71, 454554, 'dgdfgdf', 'dfgdfg', '2023-05-08', '1', 'mohamed mokhtar', 'dfg', 'fg', 'مكتب المحافظ', 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3714,6 +3756,13 @@ ALTER TABLE `sides`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `side_branch`
+--
+ALTER TABLE `side_branch`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sides_id` (`sides_id`);
+
+--
 -- Indexes for table `topics`
 --
 ALTER TABLE `topics`
@@ -3772,7 +3821,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `exports`
 --
 ALTER TABLE `exports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `export_responsible`
@@ -3832,7 +3881,7 @@ ALTER TABLE `responsibles`
 -- AUTO_INCREMENT for table `responsible_topic`
 --
 ALTER TABLE `responsible_topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -3844,13 +3893,19 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sides`
 --
 ALTER TABLE `sides`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `side_branch`
+--
+ALTER TABLE `side_branch`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -3908,6 +3963,12 @@ ALTER TABLE `responsible_topic`
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `side_branch`
+--
+ALTER TABLE `side_branch`
+  ADD CONSTRAINT `side_branch_ibfk_1` FOREIGN KEY (`sides_id`) REFERENCES `sides` (`id`);
 
 --
 -- Constraints for table `topics`
