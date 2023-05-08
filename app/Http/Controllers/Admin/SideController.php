@@ -5,6 +5,7 @@ use App\Models\Side;
 use App\Models\Export;
 use App\Models\Topic;
 use App\Http\Controllers\Controller;
+use App\Models\Side_brach;
 use Illuminate\Http\Request;
 
 class SideController extends Controller
@@ -35,13 +36,23 @@ class SideController extends Controller
     public function store(Request $request)
     {
         //
-        try {
+        // try {
 
-            Side::create(([ 'side_name' => $request['side_name']]));
+            $side = Side::create(([
+                'side_name' => $request['side_name']
+            ]));
+            for ($i = 0; $i < count($request->name); $i++) {
+                $name[] = $request->name[$i];
+
+                Side_brach::create(([
+                    'name' => $name[$i],
+                    'sides_id' => $side->id,
+                ]));
+            }
             return redirect()->route('side')->with(['success' => 'تم حفظ الجهة']);
-        } catch (\Exception $ex) {
-            return redirect()->route('side')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        }
+        // } catch (\Exception $ex) {
+        //     return redirect()->route('side')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        // }
     }
 
     /**
@@ -90,6 +101,14 @@ class SideController extends Controller
             $side -> update(([
                 'side_name' => $request['side_name'],
             ]));
+            for ($i = 0; $i < count($request->name); $i++) {
+                $name[] = $request->name[$i];
+
+                Side_brach::where('sides_id',$id)->update(([
+                    'name' => $name[$i],
+                    'sides_id' => $side->id,
+                ]));
+            }
 
             return redirect()->route('side.profile', $id)->with(['success' => 'تم تعديل الجهة بنجاح']);
 

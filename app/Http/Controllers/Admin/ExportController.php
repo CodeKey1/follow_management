@@ -7,6 +7,7 @@ use App\Models\Responsible;
 use App\Models\Side;
 use App\Models\Topic;
 use App\Models\Export;
+use App\Models\Ts_Export;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -99,7 +100,7 @@ class ExportController extends Controller
                 $side_id[] = $request->side_id[$i];
                 $export_no[]  = $request->export_no[$i];
                 $details[]  = $request->details[$i];
-                Export::create(([
+                $export = Export::create(([
                     'name'      => $request['name'],
                     'topic_id'  => $request['topic_id'],
                     'cat_name'  => $request ['cat_name'],
@@ -109,6 +110,14 @@ class ExportController extends Controller
                     'details'   => $details[$i],
                     'upload_f'  =>implode('|', $upload),
                 ]));
+                // for ($i = 0; $i < count($request->responsible_id); $i++) {
+                //     $responsible_id[] = $request->responsible_id[$i];
+
+                //     Ts_Export::create(([
+                //     'responsible_id' => $responsible_id[$i],
+                //     'export_id' => $export->id,
+                // ]));
+            
 
             }
             return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
@@ -118,19 +127,19 @@ class ExportController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(string $id)
     {
-        $topics = Topic::select()->with('name_side')->where('state', 1)->get();
+        $topics = Topic::select()->with('name_side','rsename')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
         $exports = Export::select()->with('topic_export','sidename_export')->find($id);
         if (!$exports) {
-            return redirect()->route('export.index')->with(['error' => 'هذه الملف غير موجوده']);
+            return redirect()->route('exports')->with(['error' => 'هذه الملف غير موجوده']);
         }
         return view('export.edit', compact('exports','responsibles','side','topics'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id )
     {
 
         $upload_f = array();
@@ -163,6 +172,14 @@ class ExportController extends Controller
                 'cat_name' => $request ['cat_name'],
                 'upload_f'  =>implode('|', $upload),
             ]));
+            // for ($i = 0; $i < count($request->responsible_id); $i++) {
+            //     $responsible_id[] = $request->responsible_id[$i];
+
+            //     Ts_Export::update(([
+            //     'responsible_id' => $responsible_id[$i],
+            //     'export_id' => $exports->id,
+            // ]));
+
 
             return redirect()->route('exports')->with(['success' => 'تم تعديل الملف الصادر بنجاح']);
 

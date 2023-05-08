@@ -57,38 +57,43 @@
                                                 <div class="card-statistic-3">
                                                     <div class="card-icon card-icon-large"></div>
                                                     <div class="card-content">
-                                                        <h4 class="card-title" style="color: black;">  نسبة الأكتمال </h4>
+                                                        <h4 class="card-title" style="color: black;"> نسبة الأكتمال
+                                                        </h4>
 
-                                                            @if ($topics && $topics->where('state','<>', 1 )->count() != 0 )
-                                                            <span  style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                                {{ $topics->where('state', 1 )->count()/$topics->count() *100 }}%
+                                                        @if ($topics && $topics->where('state', '<>', 1)->count() != 0)
+                                                            <span
+                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
                                                             </span>
-                                                            @elseif ($topics->where('state', 1 )->count() && $topics->count() != 0)
-                                                            <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                                {{ $topics->where('state', 1 )->count()/$topics->count() *100 }}%
+                                                        @elseif ($topics->where('state', 1)->count() && $topics->count() != 0)
+                                                            <span
+                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
                                                             </span>
-                                                            @else
-                                                            <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                        @else
+                                                            <span
+                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
                                                                 0%
                                                             </span>
-                                                            @endif
-                                                            <span>  نسبة الإكتمال الوارد</span>
+                                                        @endif
+                                                        <span> نسبة الإكتمال الوارد</span>
 
                                                         <div class="progress mt-1 mb-1" data-height="8">
-                                                            @if ($topics->count() &&  $topics->where('state', 1 )->count() != 0)
-                                                            <div class="progress-bar l-bg-green" role="progressbar"
-                                                                data-width="{{ ($topics->where('state', 1 )->count() / $topics->count()) * 100 }}%"
-                                                                aria-valuenow="{{ $topics->count() }}"
-                                                                aria-valuemin="{{ $topics->count() }}"
-                                                                aria-valuemax="{{ $topics->count() }}"></div>
-                                                                @else
-                                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                            @if ($topics->count() && $topics->where('state', 1)->count() != 0)
+                                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                                    data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                    aria-valuenow="{{ $topics->count() }}"
+                                                                    aria-valuemin="{{ $topics->count() }}"
+                                                                    aria-valuemax="{{ $topics->count() }}"></div>
+                                                            @else
+                                                                <span class="float-left text-bold-700"
+                                                                    style="font-size: 16px;font-weight: 600;">
                                                                     0%
                                                                 </span>
-                                                                @endif
+                                                            @endif
                                                         </div>
 
-                                                      </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,17 +102,19 @@
                                                 <div class="card-statistic-3">
                                                     <div class="card-icon card-icon-large"></div>
                                                     <div class="card-content">
-                                                        <h4 class="card-title" style="color: black;">  وارد لم يتم الرد </h4>
-                                                        <span> إجمالي وارد لم يتم الرد   </span>
-                                                        <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
+                                                        <h4 class="card-title" style="color: black;"> وارد لم يتم الرد
+                                                        </h4>
+                                                        <span> إجمالي وارد لم يتم الرد </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
                                                             @if ($topics_trash && $topics_trash > 0)
-                                                            <div class="progress-bar l-bg-green" role="progressbar"
-                                                                data-width="{{ ($topics_trash / $topics->count()) * 100 }}%"
-                                                                aria-valuenow="{{ $topics_trash }}"
-                                                                aria-valuemin="{{ $topics_trash }}"
-                                                                aria-valuemax="{{ $topics_trash }}"></div>
-                                                                @endif
+                                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                                    data-width="{{ ($topics_trash / $topics->count()) * 100 }}%"
+                                                                    aria-valuenow="{{ $topics_trash }}"
+                                                                    aria-valuemin="{{ $topics_trash }}"
+                                                                    aria-valuemax="{{ $topics_trash }}"></div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,17 +130,18 @@
                                                         <span
                                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
-                                                            @if ($topics->count() &&  $topics->where('state', 1 )->count() != 0)
-                                                            <div class="progress-bar l-bg-green" role="progressbar"
-                                                                data-width="{{ ($topics->where('state', 1 )->count() / $topics->count()) * 100 }}%"
-                                                                aria-valuenow="{{ $topics->count() }}"
-                                                                aria-valuemin="{{ $topics->count() }}"
-                                                                aria-valuemax="{{ $topics->count() }}"></div>
-                                                                @else
-                                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                            @if ($topics->count() && $topics->where('state', 1)->count() != 0)
+                                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                                    data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                    aria-valuenow="{{ $topics->count() }}"
+                                                                    aria-valuemin="{{ $topics->count() }}"
+                                                                    aria-valuemax="{{ $topics->count() }}"></div>
+                                                            @else
+                                                                <span class="float-left text-bold-700"
+                                                                    style="font-size: 16px;font-weight: 600;">
                                                                     0%
                                                                 </span>
-                                                                @endif
+                                                            @endif
                                                         </div>
 
                                                     </div>
@@ -151,10 +159,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th> # </th>
+                                                        <th> رقم المكاتبة </th>
                                                         <th>اسم الوارد</th>
                                                         <th> جهة الوارد</th>
-                                                        <th>  حالة الرد</th>
-                                                        <th> رقم الصادر  </th>
+                                                        <th> حالة الرد</th>
+                                                        <th> الإدارات المسؤلة </th>
+                                                        <th> رقم الصادر </th>
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
@@ -163,10 +173,11 @@
                                                         @foreach ($topics as $Topic)
                                                             <tr>
                                                                 <td class="text-bold-700"> {{ $Topic->id }}</td>
+                                                                <td class="text-bold-700"> {{ $Topic->import_id }}</td>
                                                                 <td class="text-bold-700" style="text-align: right;">
                                                                     {{ $Topic->name }}</td>
                                                                 <td class="text-bold-700">
-                                                                   {{$Topic->name_side->side_name}}
+                                                                    {{ $Topic->name_side->side_name }}
 
                                                                 </td>
                                                                 <td>
@@ -178,15 +189,35 @@
                                                                         <div class="badge badge-warning"> </div>
                                                                     @endif
                                                                 </td>
-                                                                <td class="text-bold-700">
-                                                                    @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))
-                                                                    @foreach ($Topic->t_export as $Num)
-                                                                    <a href="{{ route('exports.edit', $Num->id) }}"> {{$Num->export_no}} , </a>
+                                                                <td>
+                                                                    @foreach ($response->where('topic_id', $Topic->id) as $value)
+
+                                                                            @if ($value->state == 1)
+                                                                                <div class="badge badge-success">
+                                                                                     </div>
+                                                                            @elseif($value->state == 0)
+                                                                                <div class="badge badge-danger">
+                                                                                     </div>
+                                                                            @elseif($value->state == 2)
+                                                                                <div class="badge badge-warning">
+                                                                                     </div>
+                                                                            @endif
+
                                                                     @endforeach
+                                                                </td>
+                                                                <td class="text-bold-700">
+                                                                    @if (auth()->user()->hasRole('admin') ||
+                                                                            auth()->user()->hasRole('export_user'))
+                                                                        @foreach ($Topic->t_export as $Num)
+                                                                            <a
+                                                                                href="{{ route('exports.edit', $Num->id) }}">
+                                                                                {{ $Num->export_no }} , </a>
+                                                                        @endforeach
                                                                     @else
-                                                                    <span class="badge badge-danger"> ليس لديك صلاحية </span>
+                                                                        <span class="badge badge-danger"> ليس لديك صلاحية
+                                                                        </span>
                                                                     @endif
-                                                                 </td>
+                                                                </td>
 
                                                                 <td style="width: 15%">
                                                                     <a class="btn btn-icon btn-success"
@@ -196,7 +227,9 @@
                                                                         <i class="fas fa-user"></i>
                                                                     </a>
                                                                     @if (auth()->user()->hasRole('admin'))
-                                                                    <a class="btn btn-icon btn-danger"href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"data-placement="top" title="حذف"><i class="fas fa-times"></i></a>
+                                                                        <a class="btn btn-icon btn-danger"href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"data-placement="top"
+                                                                            title="حذف"><i
+                                                                                class="fas fa-times"></i></a>
                                                                     @endif
                                                                     <a class="btn btn-icon btn-info"
                                                                         href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"

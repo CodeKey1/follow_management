@@ -10,7 +10,7 @@ class Response_Topic extends Model
     use HasFactory;
 
     protected $table = 'responsible_topic';
-    protected $fillable = ['id','responsible_id','topic_id','side_id'];
+    protected $fillable = ['id','responsible_id','topic_id','state'];
     protected $hidden = ['deleted_at','created_at', 'updated_at'];
 
 

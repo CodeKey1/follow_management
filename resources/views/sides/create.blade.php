@@ -37,12 +37,12 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 @include('layouts.success')
                                 @include('layouts.error')
-                                <form class="needs-validation" id="work_experience" novalidate=""
+                                <form class="needs-validation"  novalidate=""
                                     action="{{ route('side.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4> اضافة جهة  للوارد </h4>
+                                            <h4> اضافة جهة للوارد </h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('side') }}" class="btn btn-warning"> كل الجهات
                                                 </a>
@@ -50,8 +50,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-secondary">
-                                        <div class="card-body">
+                                    <div class="card card-secondary" >
+                                        <div class="card-body " id="work_experience">
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label> اسم الجهة </label>
@@ -59,8 +59,22 @@
                                                         name="side_name" class="form-control">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success"
-                                                style="float: left;">حفظ</button>
+                                            <div class="form-row" id="work_experience">
+
+                                                <div class="form-group col-md-11">
+
+                                                    <input type="text" class="form-control" name="name[]" placeholder=" اسم الجهة الفرعية ">
+                                                </div>
+                                                <div class="form-group col-md-1"  >
+                                                    <a href="javascript:void(0)" style="width:50px; height: 35px;"
+                                                    id="addWork-btn" class="btn btn-primary"
+                                                    onclick="addWorkRow()"> + </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-footer text-right">
+                                            <button class="btn btn-primary" type="submit">حفظ</button>
                                         </div>
                                     </div>
                                 </form>
@@ -88,6 +102,47 @@
     <script src="assets/js/custom.js"></script>
     <script src="assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
     <script src="assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script>
+        function addWorkRow() {
+            var elements = document.getElementsByClassName('work-xp-input');
+            var empty = "no"
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].value == "") {
+                    empty = "yes"
+                }
+            }
+
+            if (empty == "no" && document.getElementsByClassName("work-xp").length < 4) {
+                const div = document.createElement('div');
+                div.className = 'form-row';
+                div.innerHTML = `
+                <div class="form-group col-md-11">
+                    <input type="text" class="form-control" name="name[]" placeholder=" اسم الجهة الفرعية ">
+                </div>
+                <div class="form-group col-md-1"  >
+                <input type="button" class="btn btn-danger" style="width:50px;
+                 height: 35px;" value="x" onclick="removeWorkRow(this)" />
+                 </div>
+                `;
+                document.getElementById('work_experience').appendChild(div);
+                if (document.getElementsByClassName("work-xp").length == 4) {
+                    document.getElementById("addWork-btn").style.display = "none";
+                }
+                if (document.getElementsByClassName("work-xp").length != 4) {
+                    document.getElementById("addWork-btn").style.display = "block";
+                }
+            } else {
+                alert("برجاء ملء البيانات!");
+            }
+        }
+
+        function removeWorkRow(input) {
+            confirm("متأكد؟") ? document.getElementById('work_experience').removeChild(input.parentNode) : 0;
+            if (document.getElementsByClassName("work-xp").length != 4) {
+                document.getElementById("addWork-btn").style.display = "block";
+            }
+        }
+    </script>
     <script>
         $('.option').hide();
         $('#city').on('change', function(e) {

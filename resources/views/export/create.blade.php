@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
+
 <body class="light theme-white dark-sidebar sidebar-gone">
     <div class="loader"></div>
     <div id="app">
@@ -88,6 +89,23 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-12">
+                                                    <label> الإدارة المسؤلة </label>
+                                                    <select class="form-control select2" multiple disabled
+                                                        style="width: 100%;" name="responsible_id[]">
+                                                        @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                @foreach ($topics as $value)
+                                                                    @foreach ($value->rsename as $values)
+                                                                        <option value="{{ $values->id }}" selected>
+                                                                            {{ $values->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-12">
                                                     <label>عنوان الملف الصادر</label>
                                                     @isset($topics)
                                                         @if ($topics && $topics->count() > 0)
@@ -110,7 +128,8 @@
                                                     <input class="user-name text-bold-700 float-left" type="hidden"
                                                         name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الصادر</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" required>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number"
+                                                        name="export_no[]" class="form-control" required>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الصادر اليها</label>
@@ -146,7 +165,8 @@
                                                     <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
+                                            <button type="submit" class="btn btn-success"
+                                                style="float: left;">حفظ</button>
                                             <div class="">
                                                 <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
                                                     id="addWork-btn" class="btn btn-primary form-label"
@@ -271,4 +291,5 @@
 
 </body>
 <!-- forms-validation.html  21 Nov 2019 03:55:16 GMT -->
+
 </html>

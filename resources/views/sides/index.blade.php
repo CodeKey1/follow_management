@@ -39,7 +39,7 @@
                             <div class="col-12">
                                 <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h4>  كل الجهات للوارد </h4>
+                                        <h4> كل الجهات للوارد </h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
                                                 <a href="{{ route('side.create') }}" class="btn btn-warning "> جهة
@@ -50,36 +50,48 @@
                                     </div>
                                 </div>
                                 <div class="card card-secondary">
-                                    <div class="card-body" id="top-8-scroll" style="direction: rtl;">
-                                        <ul class="list-unstyled user-details list-unstyled-border list-unstyled-noborder" style="direction: rtl;height: 100% !important;">
+
+                                    <div class="card-body" style="direction: rtl;">
+                                        
+                                    </div>
+                                </div>
+                                <div class="card card-secondary">
+                                    <div class="card-body" id="top-5-scroll" style="direction: rtl;">
+                                        <ul class="list-unstyled list-unstyled-border">
                                             @isset($side)
-                                                    @foreach ($side as $Side)
-                                            <li class="media">
-                                              <img alt="image" class="mr-2 rounded-circle" width="60" src="../assets/img/2.jpg" style="margin-left: 1rem !important;">
-                                              <div class="media-body">
-                                                <div class="media-title">
-                                                    <a href="{{route('side.profile',$Side->id)}}"> {{ $Side->side_name }} </a>
-                                                </div>
-                                                <div class="text-job" style="color: red"> محافظة أسوان </div>
-                                              </div>
-                                              <div class="media-items">
-                                                <div class="media-item">
-                                                  <div class="media-value">{{ $Side->side_topic->count() }}</div>
-                                                  <div class="media-label"> عدد الوارد </div>
-                                                </div>
-                                                <div class="media-item">
-                                                  <div class="media-value">{{ $Side->side_export->count() }}</div>
-                                                  <div class="media-label">عدد الصادر</div>
-                                                </div>
-                                                <div class="media-item">
-                                                  <div class="media-value">{{ $Side->side_export->where('topic_id','==', null)->count() }} </div>
-                                                  <div class="media-label">المتبقي</div>
-                                                </div>
-                                              </div>
-                                            </li>
-                                            @endforeach
-                                                @endisset
-                                          </ul>
+                                                @foreach ($side as $Side)
+                                                    <li class="media">
+                                                        <img alt="image" class="mr-2 rounded-circle" width="60"
+                                                            src="../assets/img/2.jpg" style="margin-left: 1rem !important;">
+                                                        <div class="media-body">
+                                                            <div class="media-title">
+                                                                <a href="{{ route('side.profile', $Side->id) }}">
+                                                                    {{ $Side->side_name }} </a>
+                                                            </div>
+                                                            <div class="text-job" style="color: red"> محافظة أسوان </div>
+                                                        </div>
+                                                        <div class="media-items">
+                                                            <div class="media-item">
+                                                                <div class="media-value" style="color: green">
+                                                                    {{ $Side->side_topic->count() }}</div>
+                                                                <div class="media-label"> الوارد </div>
+                                                            </div>
+                                                            <div class="media-item">
+                                                                <div class="media-value" style="color: red">
+                                                                    {{ $Side->side_export->count() }}</div>
+                                                                <div class="media-label"> الصادر</div>
+                                                            </div>
+                                                            <div class="media-item">
+                                                                <div class="media-value" style="color: rgb(0, 81, 255)">
+                                                                    {{ $Side->side_export->where('topic_id', '==', null)->count() }}
+                                                                </div>
+                                                                <div class="media-label">المتبقي</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            @endisset
+                                        </ul>
                                     </div>
                                     {{-- <div class="card-body" style="direction: rtl;">
                                         <div class="table-responsive">

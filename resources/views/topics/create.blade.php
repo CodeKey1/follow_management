@@ -58,11 +58,26 @@
                                             <input class="user-name text-bold-700 float-left" type="hidden" name="users_name" value="{{ Auth::user()->name }}">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label>رقم الوارد</label>
+                                                    <label>رقم الوارد المكاتبة</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
                                                         name="import_id" class="form-control"placeholder="" required>
                                                 </div>
                                                 <div class="form-group col-md-6">
+                                                    <label>تاريخ الوارد المكاتبة</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                        name="import_date" class="form-control"placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label> رقم المكتب الداخلي </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number"
+                                                        name="import_id" class="form-control"placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label> تاريخ استلام الوارد </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                        name="recived_date" class="form-control"placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-12">
                                                     <label> الإدارة المسؤلة </label>
                                                     <select class="form-control select2"  name="responsibles_id[]" multiple style="    width: 100%;">
                                                         <option value="" disabled > الإدارة المسؤلة للمتابعة </option>
@@ -108,17 +123,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
                                                     <label> تأشيرة السيد المحافظ </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
                                                         name="vic_sign" class="form-control"placeholder="" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label> تاريخ استلام الوارد </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="recived_date" class="form-control"placeholder="" required>
-                                                </div>
-                                                <div class="form-group col-md-4">
+
+                                                <div class="form-group col-md-6">
                                                     <label> الملف المرفق</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="file" multiple
                                                         name="file[]" class="form-control">

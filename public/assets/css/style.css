@@ -4783,7 +4783,10 @@ h6 .badge {
 }
 
 .media .media-items {
-    display: flex
+    display: flex;
+    background-color: #ffa426;
+    padding: 6px;
+    border-radius: 5px;
 }
 
 .media .media-items .media-item {
@@ -4793,10 +4796,10 @@ h6 .badge {
 }
 
 .media .media-items .media-item .media-label {
-    font-weight: 600;
-    font-size: 12px;
-    color: #34395e;
-    letter-spacing: 0.5px
+    font-weight: 800;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: 0.5px;
 }
 
 .media .media-items .media-item .media-value {

@@ -33,11 +33,14 @@
             <div class="main-content">
                 <nav aria-label="breadcrumb" style="direction: rtl;">
                     <ol class="breadcrumb text-white-all" style="background-color: #353c48 !important;padding: 20px;">
-                      <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-tachometer-alt"></i> الرئيسية</a></li>
-                      <li class="breadcrumb-item"><a href="{{route('side')}}"><i class="far fa-file"></i> كل الجهات </a></li>
-                      <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> متابعة الجهة </li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-tachometer-alt"></i>
+                                الرئيسية</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('side') }}"><i class="far fa-file"></i> كل الجهات
+                            </a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> متابعة الجهة
+                        </li>
                     </ol>
-                  </nav>
+                </nav>
                 <section class="section">
                     <div class="section-body" style="direction: rtl;">
                         <div class="row mt-sm-4">
@@ -63,46 +66,56 @@
                                     <div class="card-body">
                                         <div class="py-4">
                                             <p class="clearfix">
-                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{$topics->count()}}
+                                                <span class="float-left text-bold-700"
+                                                    style="font-size: 16px;font-weight: 600;">
+                                                    {{ $topics->count() }}
                                                 </span>
-                                                <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
+                                                <span class="float-right text-bold-700"
+                                                    style="color:#950202;font-size: 16px;font-weight: 600;">
                                                     عدد المكاتبات الواردة
                                                 </span>
                                             </p>
                                             <p class="clearfix">
-                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{$export->count()}}
+                                                <span class="float-left text-bold-700"
+                                                    style="font-size: 16px;font-weight: 600;">
+                                                    {{ $export->count() }}
                                                 </span>
-                                                <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
+                                                <span class="float-right text-bold-700"
+                                                    style="color:#950202;font-size: 16px;font-weight: 600;">
                                                     عدد المكاتبات الصادرة
                                                 </span>
                                             </p>
                                             <p class="clearfix">
-                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{$export->where('topic_id','==', null)->count()}}
+                                                <span class="float-left text-bold-700"
+                                                    style="font-size: 16px;font-weight: 600;">
+                                                    {{ $export->where('topic_id', '==', null)->count() }}
                                                 </span>
-                                                <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
+                                                <span class="float-right text-bold-700"
+                                                    style="color:#950202;font-size: 16px;font-weight: 600;">
                                                     عدد المكاتبات لم يتم الرد
                                                 </span>
                                             </p>
                                             <p class="clearfix">
                                                 @if ($export && $export->count() != 0 && $export < $topics)
-                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{ $topics->count()/$export->count() *100 }}%
-                                                </span>
+                                                    <span class="float-left text-bold-700"
+                                                        style="font-size: 16px;font-weight: 600;">
+                                                        {{ ($topics->count() / $export->count()) * 100 }}%
+                                                    </span>
                                                 @elseif ($topics->count() != 0)
-                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    {{ $export->count()/$topics->count() *100 }}%
-                                                </span>
+                                                    <span class="float-left text-bold-700"
+                                                        style="font-size: 16px;font-weight: 600;">
+                                                        {{ ($export->count() / $topics->count()) * 100 }}%
+                                                    </span>
                                                 @else
-                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                    0%
-                                                </span>
+                                                    <span class="float-left text-bold-700"
+                                                        style="font-size: 16px;font-weight: 600;">
+                                                        0%
+                                                    </span>
                                                 @endif
 
-                                                <span class="float-right text-bold-700" style="color:#950202;font-size: 16px;font-weight: 600;">
-                                                     نسبة الإكتمال
+                                                <span class="float-right text-bold-700"
+                                                    style="color:#950202;font-size: 16px;font-weight: 600;">
+                                                    نسبة الإكتمال
                                                 </span>
                                             </p>
 
@@ -117,11 +130,13 @@
                                         <ul class="nav nav-tabs" id="myTab2" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="home-tab2" data-toggle="tab"
-                                                    href="#about" role="tab" aria-selected="true"> الملقات والكتبات الواردة </a>
+                                                    href="#about" role="tab" aria-selected="true"> الملقات والكتبات
+                                                    الواردة </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="export-tab2" data-toggle="tab"
-                                                    href="#export" role="tab" aria-selected="false"> الملقات والكتبات الصادرة </a>
+                                                    href="#export" role="tab" aria-selected="false"> الملقات
+                                                    والكتبات الصادرة </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="profile-tab2" data-toggle="tab"
@@ -133,76 +148,82 @@
                                                 aria-labelledby="home-tab2">
                                                 <div class="section-title">الملفات الواردة</div>
                                                 <div class="card-body" style="direction: rtl;">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-hover" id="save-stage"
-                                                        style="width:100%;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th> # </th>
-                                                                <th>اسم المكاتبة الواردة</th>
-                                                                <th> تاريخ الإستلام </th>
-                                                                <th> حالة الرد </th>
-                                                                <th> فترة الزمنية للرد </th>
-                                                                <th> الملف الوارد </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <tr>
-                                                                        <td class="text-bold-700">{{ $topic->id }} </td>
-                                                                        <td class="text-bold-700">{{ $topic->name }} </td>
-                                                                        <td class="text-bold-700">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-hover" id="save-stage"
+                                                            style="width:100%;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th> # </th>
+                                                                    <th>اسم المكاتبة الواردة</th>
+                                                                    <th> تاريخ الإستلام </th>
+                                                                    <th> حالة الرد </th>
+                                                                    <th> فترة الزمنية للرد </th>
+                                                                    <th> الملف الوارد </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @isset($topics)
+                                                                    @if ($topics && $topics->count() > 0)
+                                                                        @foreach ($topics as $topic)
+                                                                            <tr>
+                                                                                <td class="text-bold-700">
+                                                                                    {{ $topic->id }} </td>
+                                                                                <td class="text-bold-700">
+                                                                                    {{ $topic->name }} </td>
+                                                                                <td class="text-bold-700">
 
-                                                                            {{ $topic->recived_date}}
+                                                                                    {{ $topic->recived_date }}
 
-                                                                        </td>
+                                                                                </td>
 
-                                                                        <td class="text-bold-700">
-                                                                            @if ($topic->state == 0)
-                                                                                <div class="badge badge-danger"> لم يتم
-                                                                                </div>
-                                                                            @elseif($topic->state == 1)
-                                                                                <div class="badge badge-success"> تم </div>
-                                                                            @elseif($topic->state == 2)
-                                                                                <div class="badge badge-danger"> جاري
-                                                                                    المتابعة </div>
-                                                                            @endif
-                                                                        </td>
-                                                                        <td class="text-bold-700">
+                                                                                <td class="text-bold-700">
+                                                                                    @if ($topic->state == 0)
+                                                                                        <div class="badge badge-danger"> لم
+                                                                                            يتم
+                                                                                        </div>
+                                                                                    @elseif($topic->state == 1)
+                                                                                        <div class="badge badge-success">
+                                                                                            تم </div>
+                                                                                    @elseif($topic->state == 2)
+                                                                                        <div class="badge badge-danger">
+                                                                                            جاري
+                                                                                            المتابعة </div>
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td class="text-bold-700">
 
-                                                                            {{ $topic->updated_at->diffForHumans($topic->recived_date) ?? ''}}
-                                                                        </td>
-                                                                        <td class="text-bold-700">
-                                                                            @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))
-                                                                                <div class="row">
-                                                                                    @foreach (explode('|', $topic->file) as $file)
-                                                                                        <a href="{{ URL::to('attatch_office/import_follow/' . $file) }}"
-                                                                                            class="portfolio-box"
-                                                                                            target="_blank">
-                                                                                            <img src="../assets/img/icon.png"
-                                                                                                class="img-responsive"
-                                                                                                alt="{{ $file }}"
-                                                                                                ata-toggle="tooltip"
-                                                                                                data-placement="top"
-                                                                                                title="{{ $file }}">
-                                                                                        </a>
-                                                                                    @endforeach
-                                                                                </div>
-                                                                                @else
-                                                                                <span
-                                                                                    style="color: white; background: #950202; padding: 5px; border-radius: 5px;">
-                                                                                    ليس لديك الصلاجية </span>
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                                @endif
-                                                            @endisset
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                                                    {{ $topic->updated_at->diffForHumans($topic->recived_date) ?? '' }}
+                                                                                </td>
+                                                                                <td class="text-bold-700">
+                                                                                    @if (auth()->user()->hasRole('admin') ||
+                                                                                            auth()->user()->hasRole('export_user'))
+                                                                                        <div class="row">
+                                                                                            @foreach (explode('|', $topic->file) as $file)
+                                                                                                <a href="{{ URL::to('attatch_office/import_follow/' . $file) }}"
+                                                                                                    class="portfolio-box"
+                                                                                                    target="_blank">
+                                                                                                    <img src="../assets/img/icon.png"
+                                                                                                        class="img-responsive"
+                                                                                                        alt="{{ $file }}"
+                                                                                                        ata-toggle="tooltip"
+                                                                                                        data-placement="top"
+                                                                                                        title="{{ $file }}">
+                                                                                                </a>
+                                                                                            @endforeach
+                                                                                        </div>
+                                                                                    @else
+                                                                                        <span
+                                                                                            style="color: white; background: #950202; padding: 5px; border-radius: 5px;">
+                                                                                            ليس لديك الصلاجية </span>
+                                                                                    @endif
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    @endif
+                                                                @endisset
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="export" role="tabpanel"
@@ -242,7 +263,7 @@
                                                                                     {{ $exports->details }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->topic_export->responsename->name ?? ''}}
+                                                                                    {{ $exports->topic_export->responsename->name ?? '' }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
                                                                                     @if (auth()->user()->hasRole('admin') ||
@@ -278,8 +299,10 @@
                                             </div>
                                             <div class="tab-pane fade" id="settings" role="tabpanel"
                                                 aria-labelledby="profile-tab2">
-                                                <form class="needs-validation" id="work_experience" novalidate=""action="{{ route('side.update',$side->id) }}" method="POST" enctype="multipart/form-data">
-                                                  @csrf
+                                                <form class="needs-validation" id="work_experience"
+                                                    novalidate=""action="{{ route('side.update', $side->id) }}"
+                                                    method="POST" enctype="multipart/form-data">
+                                                    @csrf
                                                     <div class="card-header">
                                                         <h4>تعديل بيانات الجهة</h4>
                                                     </div>
@@ -288,11 +311,25 @@
                                                             <div class="form-group col-md-12 col-12">
                                                                 <label> اسم الجهة </label>
                                                                 <input type="text" class="form-control"
-                                                                    value="{{ $side->side_name }}" name="side_name" required>
+                                                                    value="{{ $side->side_name }}" name="side_name"
+                                                                    required>
                                                                 <div class="invalid-feedback">
                                                                     Please fill in the first name
                                                                 </div>
                                                             </div>
+                                                            <label> اسم الجهة الفرعية</label>
+                                                            @isset($side)
+                                                                @if ($side && $side->count() > 0)
+                                                                    @foreach ($side->branch as $sides)
+                                                                        <div class="form-group col-md-12 col-6">
+                                                                            <input type="text" class="form-control"
+                                                                                value="{{ $sides->name }}"
+                                                                                name="name">
+
+                                                                        </div>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endisset
                                                         </div>
                                                     </div>
                                                     <div class="card-footer text-right">

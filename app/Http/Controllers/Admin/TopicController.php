@@ -17,10 +17,11 @@ class TopicController extends Controller
     //
     public function index()
     {
-        $topics_trash = Topic::select()->where('state','<>', 1)->where('cat_name',Auth::user()->cat_name )->count();
+        $response = Response_Topic::select()->with('R_topic')->get();
+        $topics_trash = Topic::select()->where('state', '<>', 1)->where('cat_name', Auth::user()->cat_name)->count();
         $topics = Topic::select()->with('rsename','t_export')->where('cat_name', Auth::user()->cat_name)->get();
-        $exports = Export::select()->with('topic_export')->where('cat_name',Auth::user()->cat_name )->get();
-        return view('topics.index', compact('topics','topics_trash','exports'));
+        $exports = Export::select()->with('topic_export')->where('cat_name', Auth::user()->cat_name)->get();
+        return view('topics.index', compact('topics', 'topics_trash', 'exports','response'));
     }
 
     public function T_archive()
@@ -69,11 +70,11 @@ class TopicController extends Controller
             for ($i = 0; $i < count($request->responsibles_id); $i++) {
                 $responsibles_id[] = $request->responsibles_id[$i];
 
-            Response_Topic::create(([
-                'responsible_id' => $responsibles_id[$i],
-                'topic_id' => $topics->id,
-            ]));
-        }
+                Response_Topic::create(([
+                    'responsible_id' => $responsibles_id[$i],
+                    'topic_id' => $topics->id,
+                ]));
+            }
             return redirect()->route('topic.index')->with(['success' => 'تم حفظ الموضوع بنجاح']);
         } catch (\Exception $ex) {
             return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
@@ -89,7 +90,7 @@ class TopicController extends Controller
         if (!$topics) {
             return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
         }
-        return view('topics.edit', compact('topics','responsibles','side'));
+        return view('topics.edit', compact('topics', 'responsibles', 'side'));
     }
 
     public function update(Request $request, $id)
@@ -107,16 +108,15 @@ class TopicController extends Controller
             $upload[] = "";
         }
 
-            $topics = Topic::find($id);
-            if (!$topics) {
-                return redirect()->route('topic.index', $id)->with(['error' => 'هذه الموضوع غير موجوده']);
-            }
-            if (!$request->has('active'))
-                $request->request->add(['active' => 0]);
+        $topics = Topic::find($id);
+        if (!$topics) {
+            return redirect()->route('topic.index', $id)->with(['error' => 'هذه الموضوع غير موجوده']);
+        }
+        if (!$request->has('active'))
+            $request->request->add(['active' => 0]);
 
-            $topics->update($request->except('_token'));
-                return redirect()->route('topic.index')->with(['success' => 'تم تعديل الموضوع بنجاح']);
-
+        $topics->update($request->except('_token'));
+        return redirect()->route('topic.index')->with(['success' => 'تم تعديل الموضوع بنجاح']);
     }
 
     public function destroy(string $id)
