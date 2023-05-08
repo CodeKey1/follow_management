@@ -65,8 +65,9 @@
                                                     <select class="form-control" name="topic_id" @readonly(true)>
                                                         @isset($topics)
                                                             @if ($topics && $topics->count() > 0)
-                                                                <option value="{{ $exports->topic_export->id ?? ''}}" selected>
-                                                                    {{ $exports->topic_export->import_id ?? 'لايوجد'}}
+                                                                <option value="{{ $exports->topic_export->id ?? '' }}"
+                                                                    selected>
+                                                                    {{ $exports->topic_export->import_id ?? 'لايوجد' }}
                                                                 </option>
                                                             @endif
                                                         @endisset
@@ -103,20 +104,33 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> اسم الجهة الصادر اليها</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        value="{{ $exports->sidename_export->side_name }}"
-                                                        class="form-control" readonly>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        value="{{ $exports->sidename_export->id }}" name="side_id"
-                                                        class="form-control">
+                                                    <select class="form-control" @readonly(true)>
+                                                        <option value="{{ $exports->sidename_export->id }}" selected>
+                                                            {{ $exports->sidename_export->side_name }}
+                                                        </option>
+                                                    </select>
+                                                    <select class="form-control" name="side_id">
+                                                        <option value="{{ $exports->sidename_export->id }}"selected>
+                                                            {{ $exports->sidename_export->side_name }}
+                                                        </option>
+                                                        @isset($side)
+                                                            @if ($side && $side->count() > 0)
+                                                                @foreach ($side as $side)
+                                                                    <option value="{{ $side->id }}" >
+                                                                        {{ $side->side_name }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endisset
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label> تاريخ الإرسال </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        value="{{ $exports->send_date }}"
-                                                        class="form-control" readonly>
+                                                        value="{{ $exports->send_date }}" class="form-control"
+                                                        readonly>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
                                                         value="{{ $exports->send_date }}" name="send_date"
                                                         class="form-control">

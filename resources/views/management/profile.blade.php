@@ -145,7 +145,7 @@
                                                                         <td class="text-bold-700">{{ $respon->id }} </td>
                                                                         <td class="text-bold-700">{{ $respon->name }} </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $respon->recived_date->format('d-M-y') }}
+                                                                            {{ $respon->updated_at->format($respon->recived_date) }}
                                                                         </td>
 
                                                                         <td class="text-bold-700">
@@ -160,7 +160,7 @@
                                                                             @endif
                                                                         </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $respon->recived_date->diffForHumans($respon->updated_at) }}
+                                                                            {{ $respon->updated_at->diffForHumans($respon->recived_date) }}
                                                                         </td>
                                                                         <td class="text-bold-700">
                                                                             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))

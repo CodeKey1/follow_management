@@ -146,13 +146,11 @@ class ExportController extends Controller
             $upload[] = $request['file'];
         }
 
-        // try {
+        try {
             $exports = Export::find($id);
             if (!$exports) {
                 return redirect()->route('admin.exports.edit', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
             }
-
-
             if (!$request->has('active'))
                 $request->request->add(['active' => 0]);
             $exports -> update(([
@@ -168,9 +166,9 @@ class ExportController extends Controller
 
             return redirect()->route('exports')->with(['success' => 'تم تعديل الملف الصادر بنجاح']);
 
-        // } catch (\Exception $ex) {
-        //     return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        // }
+        } catch (\Exception $ex) {
+            return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
 
 
     }
