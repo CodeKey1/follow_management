@@ -148,12 +148,15 @@
                                                         </thead>
                                                         <tbody>
                                                             @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
                                                                 @foreach ($topics as $topic)
                                                                     <tr>
                                                                         <td class="text-bold-700">{{ $topic->id }} </td>
                                                                         <td class="text-bold-700">{{ $topic->name }} </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $topic->recived_date->format('d-M-y') }}
+
+                                                                            {{ $topic->recived_date}}
+
                                                                         </td>
 
                                                                         <td class="text-bold-700">
@@ -168,7 +171,8 @@
                                                                             @endif
                                                                         </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $topic->recived_date->diffForHumans($topic->updated_at) }}
+
+                                                                            {{ $topic->updated_at->diffForHumans($topic->recived_date) ?? ''}}
                                                                         </td>
                                                                         <td class="text-bold-700">
                                                                             @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))
@@ -194,6 +198,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
+                                                                @endif
                                                             @endisset
                                                         </tbody>
                                                     </table>
@@ -229,7 +234,8 @@
                                                                                     {{ $exports->name }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
-                                                                                    {{ $exports->send_date->format('d-M-y') }}
+                                                                                    {{ $exports->send_date }}
+
                                                                                 </td>
 
                                                                                 <td class="text-bold-700">

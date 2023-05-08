@@ -21,8 +21,8 @@
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
-<body class="light theme-white dark-sidebar">
-    <div class="loader"></div>E
+<body class="light theme-white dark-sidebar sidebar-gone">
+    <div class="loader"></div>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
 

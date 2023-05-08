@@ -114,8 +114,8 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label> تاريخ الإرسال </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        value="{{ $exports->send_date->format('d-M-y') }}"
+                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                        value="{{ $exports->send_date }}"
                                                         class="form-control" readonly>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
                                                         value="{{ $exports->send_date }}" name="send_date"

@@ -16,7 +16,7 @@ class ExportController extends Controller
     public function index()
     {
         $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
-        $exports_trash = Export::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
+        $exports_trash = Export::select()->where('state','<>',1)->where('cat_name',Auth::user()->cat_name )->count();
         $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
         return view('export.index', compact('exports','exports_trash','topics'));
     }

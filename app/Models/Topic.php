@@ -19,7 +19,8 @@ class Topic extends Model
 
         return $query -> select('id','import_id','name','vic_sign','recived_date','state','users_name','notes','file','cat_name','side_id');
     }
-    protected $casts = [ 'recived_date'=>'datetime'];
+
+    // protected $casts = [ 'recived_date'=>'datetime'];
 
     public function name_side(){
 
@@ -33,5 +34,9 @@ class Topic extends Model
     public function export_topic(){
 
         return  $this->hasMany(Ts_Export::class ,'topic_id');
+    }
+    public function t_export(){
+
+        return  $this->hasMany(Export::class ,'topic_id');
     }
 }

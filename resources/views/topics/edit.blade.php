@@ -23,7 +23,7 @@
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
-<body class="light theme-white dark-sidebar">
+<body class="light theme-white dark-sidebar sidebar-gone">
     <div class="loader"></div>E
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
@@ -113,7 +113,7 @@
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label>عنوان الملف الوارد</label>
-                                                    <textarea cols="10" rows="2" type="text" value="{{ $topics->name }}" class="form-control" disabled>{{ $topics->name }}</textarea>
+                                                    <textarea cols="10" rows="2" type="text" value="{{ $topics->name }}" class="form-control" readonly>{{ $topics->name }}</textarea>
                                                     <textarea cols="10" rows="2" type="text" name="name" value="{{ $topics->name }}" class="form-control">{{ $topics->name }}</textarea>
                                                 </div>
                                             </div>
@@ -121,7 +121,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label> تأشيرة السيد المحافظ </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                         value="{{ $topics->vic_sign }}" class="form-control"placeholder="" disabled>
+                                                         value="{{ $topics->vic_sign }}" class="form-control"placeholder="" readonly>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
                                                         name="vic_sign" value="{{ $topics->vic_sign }}" class="form-control" required>
                                                 </div>
@@ -129,12 +129,12 @@
                                                     <label> تاريخ استلام الوارد </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
                                                      value="{{ $topics->recived_date }}"
-                                                    class="form-control" disabled>
+                                                    class="form-control" readonly>
                                                 <input style="height: calc(2.25rem + 6px);" type="date"
                                                     name="recived_date" value="{{ $topics->recived_date }}"
                                                     class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-2">
                                                     <label> الموقف التنفيذي </label>
                                                     <select class="form-control"  disabled>
                                                         <option value="1"@if($topics ->state == '1') selected @endif>  تم الرد </option>
@@ -148,6 +148,13 @@
                                                         <option value="2"@if($topics ->state == '2') selected @endif> جاري المتابعة   </option>
                                                     </select>
                                                 </div>
+                                                <div class="form-group col-md-2">
+                                                    <label> الملف المرفق</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        value="{{$topics ->file}}" class="form-control" readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="file" multiple
+                                                        name="file[]" class="form-control" >
+                                                </div>
 
                                             </div>
                                             <div class="form-row">
@@ -158,11 +165,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label> الملف المرفق</label>
-                                                <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                    name="file[]" class="form-control" >
-                                            </div>
+
                                             {{-- <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label> الملف المرفق </label>

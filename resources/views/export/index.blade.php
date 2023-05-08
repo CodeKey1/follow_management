@@ -26,7 +26,7 @@
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
-<body class="light theme-white dark-sidebar">
+<body class="light theme-white dark-sidebar sidebar-gone">
     <div class="loader"></div>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
@@ -42,8 +42,10 @@
                                         <h4> كل ملفات متابعة الصادرة </h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
-                                                <a href="{{ route('exports.create') }}" class="btn btn-warning "> صادر جديد لوارد </a>
-                                                <a href="{{ route('export.internal') }}" class="btn btn-danger "> صادر جديد  </a>
+                                                <a href="{{ route('exports.create') }}" class="btn btn-warning "> صادر
+                                                    جديد لوارد </a>
+                                                <a href="{{ route('export.internal') }}" class="btn btn-danger "> صادر
+                                                    جديد </a>
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
@@ -51,99 +53,148 @@
                                 </div>
                                 <div class="section-body">
                                     <div class="row ">
-                                        <div class="col-xl-2 col-lg-6">
 
+                                        <div class="col-xl-4 col-lg-6">
+                                            <div class="card l-bg-green">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> نسبة الأكتمال </h4>
+                                                        @if ($topics && $topics->where('state', '<>', 1)->count() != 0)
+                                                            <span
+                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
+                                                            </span>
+                                                        @elseif ($topics->where('state', 1)->count() && $topics->count() != 0)
+                                                            <span
+                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
+                                                            </span>
+                                                        @else
+                                                            <span
+                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                0%
+                                                            </span>
+                                                        @endif
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($topics->count() && $topics->where('state', 1)->count() != 0)
+                                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                                    data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                    aria-valuenow="{{ $topics->count() }}"
+                                                                    aria-valuemin="{{ $topics->count() }}"
+                                                                    aria-valuemax="{{ $topics->count() }}"></div>
+                                                            @else
+                                                                <span class="float-left text-bold-700"
+                                                                    style="font-size: 16px;font-weight: 600;">
+                                                                    0%
+                                                                </span>
+                                                            @endif
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-6">
-                                          <div class="card l-bg-green">
-                                            <div class="card-statistic-3">
-                                              <div class="card-icon card-icon-large"></div>
-                                              <div class="card-content">
-                                                <h4 class="card-title"> أرشيف الصادر </h4>
-                                                <span> إجمالي أرشيف الصادر </span>
-                                                <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports_trash }}</span>
-                                                <div class="progress mt-1 mb-1" data-height="8">
-                                                  @if ($exports_trash && $exports_trash > 0)
-                                                    <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports_trash/$exports_trash *100 }}%" aria-valuenow="{{ $exports->count() }}"
-                                                        aria-valuemin="{{ $exports_trash }}" aria-valuemax="{{ $exports_trash }}"></div>
-                                                        @endif
+                                            <div class="card l-bg-cyan">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> الصادرة لم يتم</h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الصادرة </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->where('state', '<>', 1)->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($topics->where('state', '<>', 1)->count() / $topics->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $topics->count() }}"
+                                                                aria-valuemin="{{ $topics->count() }}"
+                                                                aria-valuemax="{{ $topics->count() }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <p class="mb-0 text-sm">
-                                                  @if ($exports_trash && $exports_trash > 0)
-                                                    <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> </span>
-                                                    @endif
-                                                    <span class="text-nowrap">   </span>
-                                                </p>
-                                              </div>
                                             </div>
-                                          </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-6">
                                             <div class="card l-bg-orange">
-                                              <div class="card-statistic-3">
-                                                <div class="card-icon card-icon-large"></div>
-                                                <div class="card-content">
-                                                  <h4 class="card-title"> عدد الصادرة </h4>
-                                                  <span class="text-nowrap">  اجمالي الملفات الصادرة </span>
-                                                  <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
-                                                  <div class="progress mt-1 mb-1" data-height="8">
-                                                    <div class="progress-bar l-bg-green" role="progressbar" data-width="{{ $exports->where('state',1)->count()/ $topics->count() *100 }}%" aria-valuenow="{{ $exports->count() }}"
-                                                      aria-valuemin="{{ $exports->count() }}" aria-valuemax="{{ $exports->count() }}"></div>
-                                                  </div>
-                                                  <p class="mb-0 text-sm">
-
-                                                    <span class="mr-2" style="color: black;font-size: 16px;font-weight: 800;"> {{ $exports->where('state',1)->count()/ $topics->count() *100 }}%</span>
-                                                    <span class="text-nowrap"> نسبة الإكتمال </span>
-                                                  </p>
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> عدد الصادرة </h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الصادرة </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($exports->count() &&  $exports->where('state', 1 )->count() != 0)
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($exports->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $exports->count() }}"
+                                                                aria-valuemin="{{ $exports->count() }}"
+                                                                aria-valuemax="{{ $exports->count() }}">
+                                                                @else
+                                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                                    0%
+                                                                </span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                              </div>
                                             </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-xl-2 col-lg-6">
+                                        </div>
 
-                                      </div>
-                                </div>
-                                <div class="card card-secondary">
-                                    <div class="card-body" style="direction: rtl;">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-hover" id="save-stage"
-                                                style="width:100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th> # </th>
-                                                        <th>اسم الصادر</th>
-                                                        <th> جهة الصادر</th>
-                                                        <th>تفاصيل</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($exports)
-                                                        @foreach ($exports as $Export)
-                                                            <tr>
-                                                                <td class="text-bold-700">{{ $Export->id }}</td>
-                                                                <td class="text-bold text-bold-700">
-                                                                    {{ $Export->name }}</td>
-                                                                <td class="text-bold text-bold-700">
-                                                                    {{ $Export->sidename_export->side_name }}</td>
-                                                                <td style="width: 15%">
-                                                                    <a class="btn btn-icon btn-success" href="{{ route('exports.edit', $Export->id) }}" ata-toggle="tooltip" data-placement="top" title="عرض وتعديل"><i class="fas fa-user"></i></a>
-                                                                    @if (auth()->user()->hasRole('admin'))
-                                                                        <a class="btn btn-icon btn-danger" href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip" data-placement="top" title="حذف"><i class="fas fa-times"></i></a>
-                                                                    @endif
-                                                                    <a class="btn btn-icon btn-info" href="{{ route('exports.archive', $Export->id) }}"ata-toggle="tooltip" data-placement="top" title="نقل الارشيف"><i class="fas fa-archive"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @endisset
-                                                </tbody>
-                                            </table>
+                                    </div>
+                                    <div class="card card-secondary">
+                                        <div class="card-body" style="direction: rtl;">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-hover" id="save-stage"
+                                                    style="width:100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> # </th>
+                                                            <th>اسم الصادر</th>
+                                                            <th> جهة الصادر</th>
+                                                            <th>تفاصيل</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @isset($exports)
+                                                            @foreach ($exports as $Export)
+                                                                <tr>
+                                                                    <td class="text-bold-700">{{ $Export->id }}</td>
+                                                                    <td class="text-bold text-bold-700">
+                                                                        {{ $Export->name }}</td>
+                                                                    <td class="text-bold text-bold-700">
+                                                                        {{ $Export->sidename_export->side_name }}</td>
+                                                                    <td style="width: 15%">
+                                                                        <a class="btn btn-icon btn-success"
+                                                                            href="{{ route('exports.edit', $Export->id) }}"
+                                                                            ata-toggle="tooltip" data-placement="top"
+                                                                            title="عرض وتعديل"><i
+                                                                                class="fas fa-user"></i></a>
+                                                                        @if (auth()->user()->hasRole('admin'))
+                                                                            <a class="btn btn-icon btn-danger"
+                                                                                href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip"
+                                                                                data-placement="top" title="حذف"><i
+                                                                                    class="fas fa-times"></i></a>
+                                                                        @endif
+                                                                        <a class="btn btn-icon btn-info"
+                                                                            href="{{ route('exports.archive', $Export->id) }}"ata-toggle="tooltip"
+                                                                            data-placement="top" title="نقل الارشيف"><i
+                                                                                class="fas fa-archive"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endisset
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </section>
                 @include('layouts.setting')
             </div>

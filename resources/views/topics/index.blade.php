@@ -26,7 +26,7 @@
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
 </head>
 
-<body class="light theme-white dark-sidebar">
+<body class="light theme-white dark-sidebar sidebar-gone">
     <div class="loader"></div>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
@@ -52,51 +52,32 @@
                                 </div>
                                 <div class="section-body">
                                     <div class="row ">
-                                        <div class="col-xl-2 col-lg-6">
-
-                                        </div>
                                         <div class="col-xl-4 col-lg-6">
-                                            <div class="card l-bg-purple">
+                                            <div class="card l-bg-green">
                                                 <div class="card-statistic-3">
                                                     <div class="card-icon card-icon-large"></div>
                                                     <div class="card-content">
-                                                        <h4 class="card-title"> أرشيف الوارد </h4>
-                                                        <span> إجمالي أرشيف الوارد </span>
-                                                        <span
-                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
-                                                        <div class="progress mt-1 mb-1" data-height="8">
-                                                            @if ($topics_trash && $topics_trash > 0)
-                                                            <div class="progress-bar l-bg-green" role="progressbar"
-                                                                data-width="{{ ($topics_trash / $topics_trash) * 100 }}%"
-                                                                aria-valuenow="{{ $topics->count() }}"
-                                                                aria-valuemin="{{ $topics_trash }}"
-                                                                aria-valuemax="{{ $topics_trash }}"></div>
-                                                                @endif
-                                                        </div>
-                                                        <p class="mb-0 text-sm">
+                                                        <h4 class="card-title" style="color: black;">  نسبة الأكتمال </h4>
 
-                                                                <span class="mr-2"
-                                                                    style="color: black;font-size: 16px;font-weight: 800;"></span>
+                                                            @if ($topics && $topics->where('state','<>', 1 )->count() != 0 )
+                                                            <span  style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                {{ $topics->where('state', 1 )->count()/$topics->count() *100 }}%
+                                                            </span>
+                                                            @elseif ($topics->where('state', 1 )->count() && $topics->count() != 0)
+                                                            <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                {{ $topics->where('state', 1 )->count()/$topics->count() *100 }}%
+                                                            </span>
+                                                            @else
+                                                            <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+                                                                0%
+                                                            </span>
+                                                            @endif
+                                                            <span>  نسبة الإكتمال الوارد</span>
 
-                                                            <span class="text-nowrap">   </span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-lg-6">
-                                            <div class="card l-bg-orange">
-                                                <div class="card-statistic-3">
-                                                    <div class="card-icon card-icon-large"></div>
-                                                    <div class="card-content">
-                                                        <h4 class="card-title"> عدد الوارد </h4>
-                                                        <span class="text-nowrap"> اجمالي الملفات الواردة </span>
-                                                        <span
-                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
-                                                            @if ($topics->count() != 0)
+                                                            @if ($topics->count() &&  $topics->where('state', 1 )->count() != 0)
                                                             <div class="progress-bar l-bg-green" role="progressbar"
-                                                                data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                data-width="{{ ($topics->where('state', 1 )->count() / $topics->count()) * 100 }}%"
                                                                 aria-valuenow="{{ $topics->count() }}"
                                                                 aria-valuemin="{{ $topics->count() }}"
                                                                 aria-valuemax="{{ $topics->count() }}"></div>
@@ -106,29 +87,60 @@
                                                                 </span>
                                                                 @endif
                                                         </div>
-                                                        <p class="clearfix">
-                                                            @if ($topics && $topics->count() != 0 && $topics < $topics)
-                                                            <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                                {{ $topics->count()/$topics->count() *100 }}%
-                                                            </span>
-                                                            @elseif ($topics->count() != 0)
-                                                            <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                                {{ $topics->count()/$topics->count() *100 }}%
-                                                            </span>
-                                                            @else
-                                                            <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                                0%
-                                                            </span>
-                                                            @endif
-                                                            <span class="text-nowrap"> نسبة الإكتمال </span>
-                                                        </p>
+
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6">
+                                            <div class="card l-bg-purple">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title" style="color: black;">  وارد لم يتم الرد </h4>
+                                                        <span> إجمالي وارد لم يتم الرد   </span>
+                                                        <span style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics_trash }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($topics_trash && $topics_trash > 0)
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($topics_trash / $topics->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $topics_trash }}"
+                                                                aria-valuemin="{{ $topics_trash }}"
+                                                                aria-valuemax="{{ $topics_trash }}"></div>
+                                                                @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-2 col-lg-6">
+                                        <div class="col-xl-4 col-lg-6">
+                                            <div class="card l-bg-orange">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title" style="color: black;"> عدد الوارد </h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الواردة </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($topics->count() &&  $topics->where('state', 1 )->count() != 0)
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($topics->where('state', 1 )->count() / $topics->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $topics->count() }}"
+                                                                aria-valuemin="{{ $topics->count() }}"
+                                                                aria-valuemax="{{ $topics->count() }}"></div>
+                                                                @else
+                                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
+                                                                    0%
+                                                                </span>
+                                                                @endif
+                                                        </div>
 
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="card card-secondary">
@@ -141,6 +153,8 @@
                                                         <th> # </th>
                                                         <th>اسم الوارد</th>
                                                         <th> جهة الوارد</th>
+                                                        <th>  حالة الرد</th>
+                                                        <th> رقم الصادر  </th>
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
@@ -155,6 +169,24 @@
                                                                    {{$Topic->name_side->side_name}}
 
                                                                 </td>
+                                                                <td>
+                                                                    @if ($Topic->state == 1)
+                                                                        <div class="badge badge-success"> </div>
+                                                                    @elseif($Topic->state == 0)
+                                                                        <div class="badge badge-danger"> </div>
+                                                                    @elseif($Topic->state == 2)
+                                                                        <div class="badge badge-warning"> </div>
+                                                                    @endif
+                                                                </td>
+                                                                <td class="text-bold-700">
+                                                                    @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))
+                                                                    @foreach ($Topic->t_export as $Num)
+                                                                    <a href="{{ route('exports.edit', $Num->id) }}"> {{$Num->export_no}} , </a>
+                                                                    @endforeach
+                                                                    @else
+                                                                    <span class="badge badge-danger"> ليس لديك صلاحية </span>
+                                                                    @endif
+                                                                 </td>
 
                                                                 <td style="width: 15%">
                                                                     <a class="btn btn-icon btn-success"

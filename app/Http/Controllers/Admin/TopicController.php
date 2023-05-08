@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicsRequest;
 use App\Models\Responsible;
 use App\Models\Side;
+use App\Models\Export;
 use App\Models\Response_Topic;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -16,10 +17,10 @@ class TopicController extends Controller
     //
     public function index()
     {
-
-        $topics_trash = Topic::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
-        $topics = Topic::select()->with('rsename')->where('cat_name', Auth::user()->cat_name)->get();
-        return view('topics.index', compact('topics','topics_trash'));
+        $topics_trash = Topic::select()->where('state','<>', 1)->where('cat_name',Auth::user()->cat_name )->count();
+        $topics = Topic::select()->with('rsename','t_export')->where('cat_name', Auth::user()->cat_name)->get();
+        $exports = Export::select()->with('topic_export')->where('cat_name',Auth::user()->cat_name )->get();
+        return view('topics.index', compact('topics','topics_trash','exports'));
     }
 
     public function T_archive()

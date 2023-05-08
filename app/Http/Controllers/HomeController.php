@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Export;
 use App\Models\Topic;
+use App\Models\Side;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $sides = Side::select()->get();
         $orderCharts = $this->orderChart();
         $exports_trash = Export::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->count();
         $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
@@ -35,7 +37,7 @@ class HomeController extends Controller
         $now = Carbon::today();
         $now = Carbon::today()->format('y-m-d');
         $users = $this->userChart();
-        return view('home',compact('now','users','topics_trash','topics','exports_trash','exports','orderCharts'));
+        return view('home',compact('now','users','topics_trash','topics','exports_trash','exports','orderCharts','sides'));
     }
 
     public function orderChart()
