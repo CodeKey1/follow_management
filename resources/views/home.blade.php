@@ -289,7 +289,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
+                        {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>المكاتبات الواردة</h4>
@@ -310,11 +310,46 @@
 
                                 </div>
                             </div>
+                        </div> --}}
+                        <div class="col-12 col-sm-12 col-lg-12">
+
+                            <div class="card card-danger">
+                                <div class="card-header">
+                                    <h4>الجهات</h4>
+                                    <div class="card-header-action">
+                                        <a href="{{ route('side') }}" class="btn btn-danger btn-icon icon-right"> عرض
+                                            الكل <i class="fas fa-chevron-left"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="owl-carousel owl-theme" id="users-carousel">
+                                        @foreach ($sides as $side)
+                                            <div>
+                                                <div class="user-item">
+                                                    <a href="{{ route('side.profile', $side->id) }}"> <img
+                                                            alt="image" src="assets/img/males-wazra.png"
+                                                            class="img-fluid" style="width:65%;display:inline-block">
+                                                    </a>
+
+                                                    <div class="user-details">
+                                                        <div class="user-name"> {{ $side->side_name }} </div>
+
+                                                        <div class="user-cta">
+                                                            {{-- <button class="btn btn-primary">{{ $side->side_name }}</button> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Bar CHart</h4>
+                                    <h4>المكاتبات الواردة</h4>
                                     <div class="card-header-action">
                                         <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
                                             الواردة </a>
@@ -323,6 +358,9 @@
                                 <div class="card-body">
                                     <div class="recent-report__chart">
                                         <div id="chart1"></div>
+                                        <input type="hidden" name="users" value="{{ $users['user'] }}">
+                                    <input type="hidden" name="service" value="{{ $users['service'] }}">
+                                    <input type="hidden" name="month" value="{{ $users['month'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -364,7 +402,6 @@
                             </div>
 
                         </div>
-
                     </div>
 
                     {{-- <div class="row">
