@@ -145,9 +145,8 @@
                                                                         <td class="text-bold-700">{{ $respon->id }} </td>
                                                                         <td class="text-bold-700">{{ $respon->name }} </td>
                                                                         <td class="text-bold-700">
-                                                                            {{ $respon->updated_at->format($respon->recived_date) }}
+                                                                            {{ $respon->recived_date }}
                                                                         </td>
-
                                                                         <td class="text-bold-700">
                                                                             @if ($respon->state == 0)
                                                                                 <div class="badge badge-danger"> لم يتم

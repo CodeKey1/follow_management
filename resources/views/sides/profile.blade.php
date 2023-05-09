@@ -192,7 +192,7 @@
                                                                                 </td>
                                                                                 <td class="text-bold-700">
 
-                                                                                    {{ $topic->updated_at->diffForHumans($topic->recived_date) ?? '' }}
+                                                                                    {{ $topic->updated_at->diffForHumans($topic->recived_date) ?? 'null' }}
                                                                                 </td>
                                                                                 <td class="text-bold-700">
                                                                                     @if (auth()->user()->hasRole('admin') ||

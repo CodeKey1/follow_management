@@ -206,7 +206,59 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-md-6 col-lg-6">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-4">
+                            <div class="card">
+                              <div class="card-header">
+                                <h4>Bar CHart</h4>
+                                <div class="card-header-action">
+                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
+                                        الواردة </a>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="recent-report__chart">
+                                  <div id="chart7"></div>
+                                  <input type="hidden" name="years" value="{{ $orderCharts['label'] }}">
+                                  <input type="hidden" name="data" value="{{ $orderCharts['data'] }}">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-4">
+                            <div class="card">
+                              <div class="card-header">
+                                <h4>Bar CHart</h4>
+                                <div class="card-header-action">
+                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
+                                        الواردة </a>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="recent-report__chart">
+                                  <div id="chart9"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-4">
+                            <div class="card">
+                              <div class="card-header">
+                                <h4>Bar CHart</h4>
+                                <div class="card-header-action">
+                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
+                                        الواردة </a>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="recent-report__chart">
+                                  <div id="chart10"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>المكاتبات الواردة</h4>
@@ -217,25 +269,33 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <br>
+                                    <br>
                                     <canvas id="lineChartFill"></canvas>
                                     <input type="hidden" name="users" value="{{ $users['user'] }}">
                                     <input type="hidden" name="service" value="{{ $users['service'] }}">
                                     <input type="hidden" name="month" value="{{ $users['month'] }}">
+
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4> المكاتبات الصادرة </h4>
+                              <div class="card-header">
+                                <h4>Bar CHart</h4>
+                                <div class="card-header-action">
+                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
+                                        الواردة </a>
                                 </div>
-                                <div class="card-body">
-                                    <canvas id="line-chart"></canvas>
-                                    <input type="hidden" name="years" value="{{ $orderCharts['label'] }}">
-                                    <input type="hidden" name="data" value="{{ $orderCharts['data'] }}">
+                              </div>
+                              <div class="card-body">
+                                <div class="recent-report__chart">
+                                  <div id="chart1"></div>
                                 </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-lg-12">
@@ -328,8 +388,8 @@
     <script src="assets/js/page/widget-data.js"></script>
     <!-- Template JS File -->
     <script src="assets/bundles/apexcharts/apexcharts.min.js"></script>
-    <!-- Page Specific JS File -->
-    <script src="assets/js/page/index.js"></script>
+      <!-- Page Specific JS File -->
+    <script src="assets/js/page/chart-apexcharts.js"></script>
     <script src="assets/js/page/datatables.js"></script>
     <!-- Template JS File -->
     <script src="assets/bundles/chartjs/chart.min.js"></script>
