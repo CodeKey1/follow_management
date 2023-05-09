@@ -91,29 +91,32 @@
                                         <span
                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
                                         <div class="progress mt-1 mb-1" data-height="8">
-                                            @if ($topics->count() && $topics->where('state', 1)->count() != 0)
-                                                <div class="progress-bar l-bg-green" role="progressbar"
-                                                    data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
-                                                    aria-valuenow="{{ $topics->count() }}"
-                                                    aria-valuemin="{{ $topics->count() }}"
-                                                    aria-valuemax="{{ $topics->count() }}"></div>
-                                            @else
-                                                <span class="float-left text-bold-700"
-                                                    style="font-size: 16px;font-weight: 600;">
-                                                    0%
-                                                </span>
-                                            @endif
+
+                                                @if ($topics->count() && $topics->where('state', 1)->count() != 0)
+                                                    <div class="progress-bar l-bg-green" role="progressbar"
+                                                        data-width="{{ ($exports->count() / $topics->count()) * 100 }}%"
+                                                        aria-valuenow="{{ ($exports->count() / $topics->count()) * 100 }}%"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="{{ $topics->count() }}"></div>
+                                                @else
+                                                    <span class="float-left text-bold-700"
+                                                        style="font-size: 16px;font-weight: 600;">
+                                                        0%
+                                                    </span>
+                                                @endif
+
                                         </div>
                                         <p class="mb-0 text-sm">
-                                            @if ($topics && $topics->where('state', '<>', 1)->count() != 0)
+                                            {{-- @foreach ($topics as $topics) --}}
+                                            @if ($exports && $topics->where('state', 1)->count() != 0)
                                                 <span
                                                     style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                    {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
+                                                    {{ ($exports->count() / $topics->count()) * 100 }}%
                                                 </span>
-                                            @elseif ($topics->where('state', 1)->count() && $topics->count() != 0)
+                                            @elseif ($topics->where('state', 1)->count() && $exports->count() != 0)
                                                 <span
                                                     style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                    {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
+                                                    {{ ($exports->count() / $topics->count()) * 100 }}%
                                                 </span>
                                             @else
                                                 <span
@@ -121,6 +124,7 @@
                                                     0%
                                                 </span>
                                             @endif
+                                            {{-- @endforeach --}}
                                             <span class="text-nowrap"> نسبة الإكتمال </span>
                                         </p>
                                     </div>
@@ -205,57 +209,84 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-4">
+                    <div class="row" style="direction: rtl;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
                             <div class="card">
-                              <div class="card-header">
-                                <h4>Bar CHart</h4>
-                                <div class="card-header-action">
-                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
-                                        الواردة </a>
+                                <ul class="nav nav-pills" id="myTab3" role="tablist"
+                                    style="padding: 8px; border-bottom: solid 1px #efefef;">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3"
+                                            role="tab" aria-controls="home" aria-selected="true"> احصائيات الجهات
+                                            1 </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3"
+                                            role="tab" aria-controls="profile" aria-selected="false"> احصائيات
+                                            الجهات 2 </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3"
+                                            role="tab" aria-controls="contact" aria-selected="false"> احصائيات
+                                            الجهات 3 </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent2">
+                                    <div class="tab-pane fade show active" id="home3" role="tabpanel"
+                                        aria-labelledby="home-tab3">
+                                        <div class="row">
+                                            <div class="recent-report__chart">
+                                                <label for="chart7"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">رئاسة
+                                                    الجمهورية</label>
+                                                <div id="chart7"></div>
+                                                <input type="hidden" name="data"
+                                                    value="{{ $orderCharts['data'] }}">
+                                            </div>
+                                            <div class="recent-report__chart">
+                                                <label for="chart9"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
+                                                    رئاسة مجلس الوزراء </label>
+                                                <div id="chart9"></div>
+                                                <input type="hidden" name="data1"
+                                                    value="{{ $orderCharts['data1'] }}">
+                                            </div>
+                                            <div class="recent-report__chart">
+                                                <label for="chart10"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
+                                                    وزارة التنمية المحلية </label>
+                                                <div id="chart10"></div>
+                                                <input type="hidden" name="data2"
+                                                    value="{{ $orderCharts['data2'] }}">
+                                            </div>
+                                            <div class="recent-report__chart">
+                                                <label for="chart11"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
+                                                    كافة الوزارات الأخري </label>
+                                                <div id="chart11"></div>
+                                                <input type="hidden" name="data3"
+                                                    value="{{ $orderCharts['data3'] }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile3" role="tabpanel"
+                                        aria-labelledby="profile-tab3">
+                                        Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac
+                                        efficitur est lobortis
+                                        quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis
+                                        iaculis tellus.
+                                        Etiam ac vehicula eros, pharetra consectetur dui.
+                                    </div>
+                                    <div class="tab-pane fade" id="contact3" role="tabpanel"
+                                        aria-labelledby="contact-tab3">
+                                        Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin
+                                        ligula massa,
+                                        gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem
+                                        interdum
+                                        molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor.
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="card-body">
-                                <div class="recent-report__chart">
-                                  <div id="chart7"></div>
-                                  <input type="hidden" name="years" value="{{ $orderCharts['label'] }}">
-                                  <input type="hidden" name="data" value="{{ $orderCharts['data'] }}">
-                                </div>
-                              </div>
                             </div>
-                          </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-4">
-                            <div class="card">
-                              <div class="card-header">
-                                <h4>Bar CHart</h4>
-                                <div class="card-header-action">
-                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
-                                        الواردة </a>
-                                </div>
-                              </div>
-                              <div class="card-body">
-                                <div class="recent-report__chart">
-                                  <div id="chart9"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-4">
-                            <div class="card">
-                              <div class="card-header">
-                                <h4>Bar CHart</h4>
-                                <div class="card-header-action">
-                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
-                                        الواردة </a>
-                                </div>
-                              </div>
-                              <div class="card-body">
-                                <div class="recent-report__chart">
-                                  <div id="chart10"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
@@ -282,20 +313,20 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
                             <div class="card">
-                              <div class="card-header">
-                                <h4>Bar CHart</h4>
-                                <div class="card-header-action">
-                                    <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
-                                        الواردة </a>
+                                <div class="card-header">
+                                    <h4>Bar CHart</h4>
+                                    <div class="card-header-action">
+                                        <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
+                                            الواردة </a>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="card-body">
-                                <div class="recent-report__chart">
-                                  <div id="chart1"></div>
+                                <div class="card-body">
+                                    <div class="recent-report__chart">
+                                        <div id="chart1"></div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-12 col-lg-12">
@@ -314,8 +345,9 @@
                                             <div>
                                                 <div class="user-item">
                                                     <a href="{{ route('side.profile', $side->id) }}"> <img
-                                                            alt="image" src="assets/img/2.png" class="img-fluid"
-                                                            style="width:65%;display:inline-block"> </a>
+                                                            alt="image" src="assets/img/males-wazra.png"
+                                                            class="img-fluid" style="width:65%;display:inline-block">
+                                                    </a>
 
                                                     <div class="user-details">
                                                         <div class="user-name"> {{ $side->side_name }} </div>
@@ -388,7 +420,7 @@
     <script src="assets/js/page/widget-data.js"></script>
     <!-- Template JS File -->
     <script src="assets/bundles/apexcharts/apexcharts.min.js"></script>
-      <!-- Page Specific JS File -->
+    <!-- Page Specific JS File -->
     <script src="assets/js/page/chart-apexcharts.js"></script>
     <script src="assets/js/page/datatables.js"></script>
     <!-- Template JS File -->

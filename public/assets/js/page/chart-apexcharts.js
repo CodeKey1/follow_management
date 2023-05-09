@@ -10,6 +10,7 @@ $(function () {
     chart8();
     chart9();
     chart10();
+    chart11();
 });
 
 function chart1() {
@@ -534,15 +535,19 @@ function chart6() {
     chart.render();
 }
 function chart7() {
-    var label = JSON.parse($('input[name=years]').val());
+
     var data = JSON.parse($('input[name=data]').val());
     var options = {
         chart: {
-            width: 360,
-            height: 260,
+            width: 300,
+            height: 300,
             type: "pie",
         },
-        labels:label,
+        legend: {
+            position: 'bottom',
+          },
+        colors: ['#00e396', '#feb018', '#ff4560'],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
         series: data,
         responsive: [
             {
@@ -550,15 +555,10 @@ function chart7() {
                 options: {
                     chart: {
                         width: 200,
+
                     },
                     legend: {
-                        position: "right",
-
-                        left: "auto",
-                        bottom: "0",
-                        right: "5px",
-                        top: "auto",
-                        flex: 'row',
+                        position: 'bottom'
                     },
                 },
             },
@@ -641,14 +641,19 @@ function chart8() {
     }
 }
 function chart9() {
+    var data1 = JSON.parse($('input[name=data1]').val());
     var options = {
         chart: {
-            width: 360,
-            height: 260,
+            width: 300,
+            height: 300,
             type: "pie",
         },
-        labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
-        series: [44, 55, 13, 43, 22],
+        legend: {
+            position: 'bottom'
+          },
+          colors: ['#00e396', '#feb018', '#ff4560'],
+          labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        series: data1,
         responsive: [
             {
                 breakpoint: 480,
@@ -669,14 +674,19 @@ function chart9() {
     chart.render();
 }
 function chart10() {
+    var data2 = JSON.parse($('input[name=data2]').val());
     var options = {
         chart: {
-            width: 360,
-            height: 260,
+            width: 300,
+            height: 300,
             type: "pie",
         },
-        labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
-        series: [200, 5, 1213, 43, 22],
+        legend: {
+            position: 'bottom'
+          },
+          colors: ['#00e396', '#feb018', '#ff4560'],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        series: data2,
         responsive: [
             {
                 breakpoint: 480,
@@ -685,7 +695,7 @@ function chart10() {
                         width: 200,
                     },
                     legend: {
-                        position: "bottom",
+                        position: "top",
                     },
                 },
             },
@@ -693,6 +703,39 @@ function chart10() {
     };
 
     var chart = new ApexCharts(document.querySelector("#chart10"), options);
+
+    chart.render();
+}
+function chart11() {
+    var data3 = JSON.parse($('input[name=data3]').val());
+    var options = {
+        chart: {
+            width: 300,
+            height: 300,
+            type: "pie",
+        },
+        legend: {
+            position: 'bottom'
+          },
+          colors: ['#00e396', '#feb018', '#ff4560'],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        series: data3,
+        responsive: [
+            {
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: "top",
+                    },
+                },
+            },
+        ],
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart11"), options);
 
     chart.render();
 }

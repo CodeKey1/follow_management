@@ -42,28 +42,51 @@ class HomeController extends Controller
 
     public function orderChart()
     {
-        $masterYear = array();
-        $labelsYear = array();
+        $master = array();
+        $master1 = array();
+        $master2 = array();
+        $master3 = array();
+        $master4 = array();
+        $master5 = array();
+        $master6 = array();
 
-        array_push($masterYear, Export::whereMonth('created_at', Carbon::now(env('timezone')))->count());
-        for ($i = 1; $i <= 11; $i++)
-        {
-            if ($i >= Carbon::now(env('timezone'))->month)
-            {
-                array_push($masterYear, Export::whereMonth('created_at',Carbon::now(env('timezone'))->subMonths($i))->whereYear('created_at', Carbon::now(env('timezone'))->subYears(1))->count());
-            }
-            else
-            {
-                array_push($masterYear, Export::whereMonth('created_at', Carbon::now(env('timezone'))->subMonths($i))->whereYear('created_at', Carbon::now(env('timezone'))->year)->count());
-            }
-        }
-
-        array_push($labelsYear, Carbon::now(env('timezone'))->format('M-y'));
-        for ($i = 1; $i <= 11; $i++)
-        {
-            array_push($labelsYear, Carbon::now(env('timezone'))->subMonths($i)->format('M-y'));
-        }
-        return ['data' => json_encode($masterYear), 'label' => json_encode($labelsYear)];
+        array_push($master,
+        Topic::select()->with('name_side')->where('side_id',1)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',1)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',1)->where('state',2)->count(),
+    );
+        array_push($master1,
+        Topic::select()->with('name_side')->where('side_id',2)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',2)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',2)->where('state',2)->count(),
+    );
+        array_push($master2,
+        Topic::select()->with('name_side')->where('side_id',3)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',3)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',3)->where('state',2)->count(),
+    );
+        array_push($master3,
+        Topic::select()->with('name_side')->where('side_id',4)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',4)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',4)->where('state',2)->count(),
+    );
+        array_push($master4,
+        Topic::select()->with('name_side')->where('side_id',5)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',5)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',5)->where('state',2)->count(),
+    );
+        array_push($master5,
+        Topic::select()->with('name_side')->where('side_id',6)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',6)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',6)->where('state',2)->count(),
+    );
+        array_push($master6,
+        Topic::select()->with('name_side')->where('side_id',7)->where('state',1)->count(),
+        Topic::select()->with('name_side')->where('side_id',7)->where('state',0)->count(),
+        Topic::select()->with('name_side')->where('side_id',7)->where('state',2)->count(),
+    );
+        return ['data' => json_encode($master),'data1' => json_encode($master1),'data2' => json_encode($master2),
+        'data3' => json_encode($master3),'data4' => json_encode($master4),'data5' => json_encode($master5),'data6' => json_encode($master6)];
     }
 
     public function userChart()
