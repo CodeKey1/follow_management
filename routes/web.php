@@ -29,7 +29,6 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::post('/user_update/{id}'  ,[App\Http\Controllers\Admin\UserController::class,'update'])    -> name('admin.users.update');
     Route::get('/user_delete/{id}'   ,[App\Http\Controllers\Admin\UserController::class,'delete'])    -> name('user.delete');
 });
-
 ///////////////////////////////////////////// topics view ///////////////////////////////////////////
 
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
