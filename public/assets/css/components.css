@@ -3166,8 +3166,8 @@ tr:first-child>td>.fc-day-grid-event {
 }
 
 .inbox-center td {
-    padding: 0px 15px !important;
-    text-align: left !important
+    padding: 15px 15px !important;
+    text-align: center !important;
 }
 
 .inbox-center .table thead th {
