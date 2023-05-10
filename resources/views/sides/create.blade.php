@@ -59,7 +59,7 @@
                                                         name="side_name" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="form-row" id="work_experience">
+                                            <div class="form-row work-xp" >
 
                                                 <div class="form-group col-md-11">
 
@@ -69,6 +69,7 @@
                                                     <a href="javascript:void(0)" style="width:50px; height: 35px;"
                                                     id="addWork-btn" class="btn btn-primary"
                                                     onclick="addWorkRow()"> + </a>
+
                                                 </div>
                                             </div>
 
@@ -119,11 +120,8 @@
                 <div class="form-group col-md-11">
                     <input type="text" class="form-control" name="name[]" placeholder=" اسم الجهة الفرعية ">
                 </div>
-                <div class="form-group col-md-1"  >
-                <input type="button" class="btn btn-danger" style="width:50px;
-                 height: 35px;" value="x" onclick="removeWorkRow(this)" />
-                 </div>
-                `;
+                    <input type="button" class="btn btn-danger" style="width:50px; height: 35px;" value="x" onclick="removeWorkRow(this)" /> `;
+                 ;
                 document.getElementById('work_experience').appendChild(div);
                 if (document.getElementsByClassName("work-xp").length == 4) {
                     document.getElementById("addWork-btn").style.display = "none";

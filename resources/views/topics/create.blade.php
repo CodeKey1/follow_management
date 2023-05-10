@@ -70,7 +70,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label> رقم المكتب الداخلي </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="import_id" class="form-control"placeholder="" required>
+                                                        name="office_id" class="form-control"placeholder="" required>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> تاريخ استلام الوارد </label>

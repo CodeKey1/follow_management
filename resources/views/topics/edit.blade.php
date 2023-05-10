@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../assets/css/components.css">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="../assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
+    <link rel='shortcut icon' type='image/x-icon' href='../images/logo/aswan.png' />
 </head>
 
 <body class="light theme-white dark-sidebar sidebar-gone">
@@ -43,8 +43,10 @@
                                     @csrf
                                     <div class="card card-secondary">
                                         <div class="card-header">
-                                            <h4> عرض وتعديل ملف وارد  : <span style="color: crimson;
-                                                font-size: larger;">{{ $topics->name }}</span></h4>
+                                            <h4> عرض وتعديل ملف وارد : <span
+                                                    style="color: crimson;
+                                                font-size: larger;">{{ $topics->name }}</span>
+                                            </h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('topic.index') }}" class="btn btn-warning">كل
                                                     الوارد</a>
@@ -55,30 +57,34 @@
                                     <div class="card card-primary">
 
                                         <div class="card-body">
-                                            <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
-                                            <input class="user-name text-bold-700 float-left" type="hidden" name="users_name" value="{{ Auth::user()->name }}">
+                                            <input class="user-name text-bold-700 float-left" type="hidden"
+                                                name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                            <input class="user-name text-bold-700 float-left" type="hidden"
+                                                name="users_name" value="{{ Auth::user()->name }}">
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
                                                     <label>رقم الوارد</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
-                                                         value="{{ $topics->import_id }}"
-                                                        class="form-control" disabled>
+                                                        value="{{ $topics->import_id }}" class="form-control" disabled>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
                                                         name="import_id" value="{{ $topics->import_id }}"
                                                         class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> الإدارة المسؤلة </label>
-                                                    <select class="form-control select2" multiple  disabled style="width: 100%;">
+                                                    <select class="form-control select2" multiple disabled
+                                                        style="width: 100%;">
                                                         @foreach ($topics->rsename as $value)
-                                                        <option value="{{ $value->id }}" selected>
-                                                            {{ $value->name }}
-                                                        </option>
+                                                            <option value="{{ $value->id }}" selected>
+                                                                {{ $value->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
-                                                    <select class="form-control select2" multiple name="responsibles_id[]" style="width: 100%;">
+                                                    <select class="form-control select2" multiple
+                                                        name="responsibles_id[]" style="width: 100%;">
                                                         @foreach ($topics->rsename as $svalue)
-                                                        <option value="{{ $svalue->id }}" disabled selected> {{ $svalue->name }}</option>
+                                                            <option value="{{ $svalue->id }}" disabled selected>
+                                                                {{ $svalue->name }}</option>
                                                         @endforeach
                                                         @isset($responsibles)
                                                             @if ($responsibles && $responsibles->count() > 0)
@@ -94,12 +100,13 @@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> اسم الجهة الوارد منها</label>
-                                                    <select class="form-control" id="city"  disabled>
+                                                    <select class="form-control" id="city" disabled>
                                                         <option value="{{ $topics->side_id }}" disabled selected>
                                                             {{ $topics->name_side->side_name }}</option>
                                                     </select>
                                                     <select class="form-control" id="city" name="side_id">
-                                                        <option value="{{ $topics->side_id }}" disabled selected> {{ $topics->name_side->side_name }}</option>
+                                                        <option value="{{ $topics->side_id }}" disabled selected>
+                                                            {{ $topics->name_side->side_name }}</option>
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
                                                                 @foreach ($side as $sides)
@@ -121,39 +128,53 @@
                                                 <div class="form-group col-md-4">
                                                     <label> تأشيرة السيد المحافظ </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                         value="{{ $topics->vic_sign }}" class="form-control"placeholder="" readonly>
+                                                        value="{{ $topics->vic_sign }}"
+                                                        class="form-control"placeholder="" readonly>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="vic_sign" value="{{ $topics->vic_sign }}" class="form-control" required>
+                                                        name="vic_sign" value="{{ $topics->vic_sign }}"
+                                                        class="form-control" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> تاريخ استلام الوارد </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="datetime-local"
-                                                     value="{{ $topics->recived_date }}"
-                                                    class="form-control" readonly>
-                                                <input style="height: calc(2.25rem + 6px);" type="datetime-local"
-                                                    name="recived_date" value="{{ $topics->recived_date }}"
-                                                    class="form-control">
+                                                        value="{{ $topics->recived_date }}" class="form-control"
+                                                        readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="datetime-local"
+                                                        name="recived_date" value="{{ $topics->recived_date }}"
+                                                        class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label> الموقف التنفيذي </label>
-                                                    <select class="form-control"  disabled>
-                                                        <option value="1"@if($topics ->state == '1') selected @endif>  تم الرد </option>
-                                                        <option value="0"@if($topics ->state == '0') selected @endif> لم يتم الرد </option>
-                                                        <option value="2"@if($topics ->state == '2') selected @endif> جاري المتابعة   </option>
+                                                    <select class="form-control" disabled>
+                                                        <option
+                                                            value="1"@if ($topics->state == '1') selected @endif>
+                                                            تم الرد </option>
+                                                        <option
+                                                            value="0"@if ($topics->state == '0') selected @endif>
+                                                            لم يتم الرد </option>
+                                                        <option
+                                                            value="2"@if ($topics->state == '2') selected @endif>
+                                                            جاري المتابعة </option>
                                                     </select>
-                                                    <select class="form-control"  name="state" >
-                                                        <option value="" disabled >اختر موقف الرد</option>
-                                                        <option value="1"@if($topics ->state == '1') selected @endif>  تم الرد </option>
-                                                        <option value="0"@if($topics ->state == '0') selected @endif> لم يتم الرد </option>
-                                                        <option value="2"@if($topics ->state == '2') selected @endif> جاري المتابعة   </option>
+                                                    <select class="form-control" name="state">
+                                                        <option value="" disabled>اختر موقف الرد</option>
+                                                        <option
+                                                            value="1"@if ($topics->state == '1') selected @endif>
+                                                            تم الرد </option>
+                                                        <option
+                                                            value="0"@if ($topics->state == '0') selected @endif>
+                                                            لم يتم الرد </option>
+                                                        <option
+                                                            value="2"@if ($topics->state == '2') selected @endif>
+                                                            جاري المتابعة </option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label> الملف المرفق</label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        value="{{$topics ->file}}" class="form-control" readonly>
-                                                    <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                        name="file[]" class="form-control" >
+                                                        value="{{ $topics->file }}" class="form-control" readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="file"
+                                                        multiple name="file[]" class="form-control">
                                                 </div>
 
                                             </div>
@@ -180,7 +201,8 @@
                                                     @endif
                                                 </div>
                                             </div> --}}
-                                            <button type="submit" class="btn btn-success"style="float: left;">حفظ</button>
+                                            <button type="submit"
+                                                class="btn btn-success"style="float: left;">حفظ</button>
                                         </div>
 
                                     </div>

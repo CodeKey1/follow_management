@@ -49,6 +49,7 @@
 
             <div class="main-content">
                 <section class="section">
+
                     <div class="row ">
                         <div class="col-xl-3 col-lg-6">
                             <div class="card l-bg-green">
@@ -92,22 +93,21 @@
                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
                                         <div class="progress mt-1 mb-1" data-height="8">
 
-                                                @if ($topics->count() && $topics->where('state', 1)->count() != 0)
-                                                    <div class="progress-bar l-bg-green" role="progressbar"
-                                                        data-width="{{ ($exports->count() / $topics->count()) * 100 }}%"
-                                                        aria-valuenow="{{ ($exports->count() / $topics->count()) * 100 }}%"
-                                                        aria-valuemin="0"
-                                                        aria-valuemax="{{ $topics->count() }}"></div>
-                                                @else
-                                                    <span class="float-left text-bold-700"
-                                                        style="font-size: 16px;font-weight: 600;">
-                                                        0%
-                                                    </span>
-                                                @endif
+                                            @if ($topics->count() && $topics->where('state', 1)->count() != 0)
+                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                    data-width="{{ ($exports->count() / $topics->count()) * 100 }}%"
+                                                    aria-valuenow="{{ ($exports->count() / $topics->count()) * 100 }}%"
+                                                    aria-valuemin="0" aria-valuemax="{{ $topics->count() }}"></div>
+                                            @else
+                                                <span class="float-left text-bold-700"
+                                                    style="font-size: 16px;font-weight: 600;">
+                                                    0%
+                                                </span>
+                                            @endif
 
                                         </div>
                                         <p class="mb-0 text-sm">
-                                            {{-- @foreach ($topics as $topics) --}}
+
                                             @if ($exports && $topics->where('state', 1)->count() != 0)
                                                 <span
                                                     style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
@@ -124,7 +124,7 @@
                                                     0%
                                                 </span>
                                             @endif
-                                            {{-- @endforeach --}}
+
                                             <span class="text-nowrap"> نسبة الإكتمال </span>
                                         </p>
                                     </div>
@@ -209,6 +209,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row" style="direction: rtl;">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
                             <div class="card">
@@ -359,8 +360,8 @@
                                     <div class="recent-report__chart">
                                         <div id="chart1"></div>
                                         <input type="hidden" name="users" value="{{ $users['user'] }}">
-                                    <input type="hidden" name="service" value="{{ $users['service'] }}">
-                                    <input type="hidden" name="month" value="{{ $users['month'] }}">
+                                        <input type="hidden" name="service" value="{{ $users['service'] }}">
+                                        <input type="hidden" name="month" value="{{ $users['month'] }}">
                                     </div>
                                 </div>
                             </div>

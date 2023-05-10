@@ -3358,7 +3358,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .card .card-header h4 {
-    font-size: 17px;
+    font-size: 20px;
     line-height: 28px;
     padding-right: 10px;
     margin-bottom: 0;

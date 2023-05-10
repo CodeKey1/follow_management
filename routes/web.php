@@ -40,7 +40,7 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/delete/{id}'    ,[App\Http\Controllers\Admin\TopicController::class,'destroy'])      ->name('topics.delete');
     Route::get('/archive/{id}'   ,[App\Http\Controllers\Admin\TopicController::class,'archive'])      -> name('topics.archive');
     Route::get('/topics_archive' ,[App\Http\Controllers\Admin\TopicController::class,'T_archive'])    -> name('archive');
-    Route::get('/show/{id}'      ,[App\Http\Controllers\Admin\TopicController::class,'show'])         -> name('topics.show');
+    Route::get('/read-mfile/{import_id}',[App\Http\Controllers\Admin\TopicController::class,'show'])         -> name('topics.show');
     Route::post('/response'      ,[App\Http\Controllers\Admin\TopicController::class,'response'])     -> name('topics.response');
 
     ///////////////////////////////////////////// Export view ///////////////////////////////////////////

@@ -44,7 +44,6 @@
                                             <div class="dropdown">
                                                 <a href="{{ route('topics.create') }}" class="btn btn-warning "> وارد
                                                     جديد </a>
-
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
@@ -148,18 +147,18 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="card card-secondary">
-                                    <div class="card-body" style="direction: rtl;">
+                                    <div style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-hover" id="save-stage"
+                                            <table class="table table-striped table-hover" id="table-2"
                                                 style="width:100%;">
                                                 <thead>
                                                     <tr>
                                                         <th> # </th>
                                                         <th> رقم المكاتبة </th>
+                                                        <th> تاريخ استلام الوارد </th>
                                                         <th>اسم الوارد</th>
                                                         <th> جهة الوارد</th>
                                                         <th> حالة الرد</th>
@@ -173,7 +172,9 @@
                                                         @foreach ($topics as $Topic)
                                                             <tr>
                                                                 <td class="text-bold-700"> {{ $Topic->id }}</td>
-                                                                <td class="text-bold-700"> {{ $Topic->import_id }}</td>
+                                                                <td class="text-bold-700">
+                                                                    <a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a></td>
+                                                                <td class="text-bold-700"> {{ $Topic->recived_date->format('Y-M-d')  }}</td>
                                                                 <td class="text-bold-700" style="text-align: right;">
                                                                     {{ $Topic->name }}</td>
                                                                 <td class="text-bold-700">
@@ -209,8 +210,7 @@
                                                                     @if (auth()->user()->hasRole('admin') ||
                                                                             auth()->user()->hasRole('export_user'))
                                                                         @foreach ($Topic->t_export as $Num)
-                                                                            <a
-                                                                                href="{{ route('exports.edit', $Num->id) }}">
+                                                                            <a href="{{ route('exports.edit', $Num->id) }}">
                                                                                 {{ $Num->export_no }} , </a>
                                                                         @endforeach
                                                                     @else
@@ -218,24 +218,21 @@
                                                                         </span>
                                                                     @endif
                                                                 </td>
-
                                                                 <td style="width: 15%">
-                                                                    <a class="btn btn-icon btn-success"
-                                                                        href="{{ route('topics.edit', $Topic->id) }}"
-                                                                        ata-toggle="tooltip" data-placement="top"
-                                                                        title="عرض وتعديل">
-                                                                        <i class="fas fa-user"></i>
-                                                                    </a>
+                                                                    <a href="{{ route('topics.edit', $Topic->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="عرض وتعديل">
+                                                                        <i class="material-icons">edit</i>
+                                                                      </a>
+
                                                                     @if (auth()->user()->hasRole('admin'))
-                                                                        <a class="btn btn-icon btn-danger"href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"data-placement="top"
-                                                                            title="حذف"><i
-                                                                                class="fas fa-times"></i></a>
+                                                                    <a href="{{ route('topics.delete', $Topic->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="حذف">
+                                                                        <i class="material-icons">delete</i>
+                                                                      </a>
+
                                                                     @endif
-                                                                    <a class="btn btn-icon btn-info"
-                                                                        href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="نقل الارشيف">
-                                                                        <i class="fas fa-archive"></i>
-                                                                    </a>
+                                                                    <a href="{{ route('topics.archive', $Topic->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="الارشيف">
+                                                                        <i class="material-icons">archive</i>
+                                                                      </a>
+
                                                                 </td>
                                                             </tr>
                                                         @endforeach

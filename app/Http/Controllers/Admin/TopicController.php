@@ -56,10 +56,12 @@ class TopicController extends Controller
         try {
             $topics = Topic::create(([
                 'import_id' => $request['import_id'],
+                'office_id' => $request['office_id'],
                 'name' => $request['name'],
                 'side_id' => $request['side_id'],
                 'file' => implode('|', $upload),
                 'vic_sign' => $request['vic_sign'],
+                'import_date' => $request['import_date'],
                 'recived_date' => $request['recived_date'],
                 'state' => $request['state'],
                 'users_name' => $request['users_name'],
@@ -73,6 +75,7 @@ class TopicController extends Controller
                 Response_Topic::create(([
                     'responsible_id' => $responsibles_id[$i],
                     'topic_id' => $topics->id,
+                    'state' => 0,
                 ]));
             }
             return redirect()->route('topic.index')->with(['success' => 'تم حفظ الموضوع بنجاح']);
@@ -151,15 +154,18 @@ class TopicController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(string $import_id)
     {
-        $topics = Topic::select()->find($id);
+        $side = Side::select()->get();
+        $exports = Export::select()->where('topic_id',$import_id)->get();
+        $response = Response_Topic::select()->with('R_topic')->get();
+        $topics = Topic::select()->find($import_id);
 
         if (!$topics) {
             return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
         }
 
-        return view('topics.show', compact('topics'));
+        return view('topics.read', compact('topics','response', 'side','exports'));
     }
 
     public function response(Request $request)

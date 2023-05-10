@@ -193,7 +193,11 @@
                                                                     </td>
                                                                     <td class="text-bold text-bold-700">{{ $Export->name }}</td>
                                                                     <td class="text-bold text-bold-700">{{ $Export->sidename_export->side_name }}</td>
-                                                                    <td class="text-bold text-bold-700">{{ $Export->export_no }}</td>
+                                                                    <td class="text-bold text-bold-700">
+                                                                        <a href="{{ route('exports.edit',$Export->id ) }}">
+                                                                            {{ $Export->export_no }}
+                                                                        </a>
+                                                                    </td>
                                                                     <td class="text-bold text-bold-700">{{ $Export->send_date->format('Y-M-d') }}</td>
                                                                     <td class="text-bold text-bold-700">
                                                                         @if ($Export->topic_export->recived_date->diffInDays(($Export->send_date)) >= 10)
@@ -223,6 +227,7 @@
                                                                           </a>
 
                                                                     </td>
+                                                                    
                                                                 </tr>
                                                             @endforeach
                                                         @endisset

@@ -33,7 +33,7 @@
         </li> --}}
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
-                    src="assets/img/user.jpg" class="user-img-radious-style"> <span
+                    src="../assets/img/user.jpg" class="user-img-radious-style"> <span
                     class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-left pullDown">
                 <div class="dropdown-title"> {{ Auth::user()->name }} : مرحبا</div>
@@ -80,7 +80,7 @@
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="{{ route('home') }}" style="letter-spacing: initial"> <img alt="image"
-                    src="images/logo/aswan.png" class="header-logo" />
+                    src="../images/logo/aswan.png" class="header-logo" />
                 <span class="logo-name"> مكتب السيد المحافظ </span>
             </a>
         </div>
@@ -311,7 +311,7 @@
             <li class="menu-header">
                 <hr />
             </li>
-            
+
         </ul>
         @endif
         {{-- /* user permission and role for sidebar*/ --}}

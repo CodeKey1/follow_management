@@ -13,11 +13,11 @@ class Topic extends Model
     //
     protected $table  = 'topics';
 
-    protected $fillable = ['import_id','name','vic_sign','recived_date','state','users_name','notes','file','cat_name','side_id', 'deleted_at', 'created_at' , 'updated_at'];
+    protected $fillable = ['import_id','office_id','name','vic_sign','import_date','recived_date','state','users_name','notes','file','cat_name','side_id', 'deleted_at', 'created_at' , 'updated_at'];
 
     public function  scopeSelection($query){
 
-        return $query -> select('id','import_id','name','vic_sign','recived_date','state','users_name','notes','file','cat_name','side_id');
+        return $query -> select('id','import_id','office_id','name','vic_sign','import_date','recived_date','state','users_name','notes','file','cat_name','side_id');
     }
 
     protected $casts = [ 'recived_date'=>'datetime'];

@@ -20,6 +20,11 @@
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
+    <style>
+        #div1 {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="light theme-white dark-sidebar sidebar-gone">
@@ -35,43 +40,39 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 @include('layouts.success')
                                 @include('layouts.error')
-                                <form class="needs-validation" id="work_experience" novalidate=""
+                                <form class="needs-validation" novalidate=""
                                     action="{{ route('exports.save') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4>اضــافة ملف صادر جديــد لملف وارد</h4>
+                                            <h4>اضــافة ملف صادر جديــد </h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('exports') }}" class="btn btn-warning">كل الصادر</a>
                                                 <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                             </div>
                                         </div>
+                                        <div class="card-body">
+                                            <div class="form-group col-md-12">
+                                                <div class="row">
+                                                    <label for="select" class="col-md-2 col-form-label text-md-end" style="font-size: 16px; font-weight: 800;
+                                                    color: black;">{{ __(' اختر نوع الملف الصادر ') }}</label>
+                                                    <div class="col-md-10">
+                                                        <select class="form-control" id="mselect" name="select" onChange="hola();">
+                                                            <option value="" disabled selected> اختر نوع الصادر
+                                                            </option>
+                                                            <option value="1"> صادر لملف وارد </option>
+                                                            <option value="2"> صادر </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name"
-                                        value="{{ Auth::user()->cat_name }}">
 
-                                    <div class="card card-secondary">
+                                    <div class="card card-secondary" id="div1">
                                         <div class="card-body">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <input class="user-name text-bold-700 float-left" type="hidden"
-                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
-                                                    <label>رقم الوارد</label>
-                                                    <select class="form-control select2" id="project" name="topic_id">
-                                                        <option value="" disabled selected>اختر الملف الوارد
-                                                        </option>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <option value="{{ $topic->id }}">
-                                                                        {{ $topic->import_id }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-12">
                                                     <label> اسم الجهة الوارد منها </label>
                                                     <select class="form-control" id="sub_cat">
                                                         <option value="" disabled selected> الجهة الوارد منها
@@ -122,9 +123,26 @@
                                         </div>
                                     </div>
                                     <div class="card card-secondary">
-                                        <div class="card-body">
+                                        <div class="card-body" id="work_experience">
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-3" id="div2">
+                                                    <label>رقم الوارد</label>
+                                                    <select class="form-control select2" id="project" name="topic_id"
+                                                        style="width: 100%;">
+                                                        <option value="" disabled selected>اختر الملف الوارد
+                                                        </option>
+                                                        @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                @foreach ($topics as $topic)
+                                                                    <option value="{{ $topic->id }}">
+                                                                        {{ $topic->import_id }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
                                                     <input class="user-name text-bold-700 float-left" type="hidden"
                                                         name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الصادر</label>
@@ -146,8 +164,6 @@
                                                         @endisset
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label> تاريخ الإرسال </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
@@ -158,27 +174,22 @@
                                                     <input style="height: calc(2.25rem + 6px);" type="file"
                                                         multiple name="upload_f[]" class="form-control">
                                                 </div>
-                                            </div>
-                                            <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label>اضافة ملاحظات</label>
                                                     <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success"
-                                                style="float: left;">حفظ</button>
-                                            <div class="">
-                                                <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
-                                                    id="addWork-btn" class="btn btn-primary form-label"
-                                                    onclick="addWorkRow()">+</a>
-                                            </div>
+                                            <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn" class="btn btn-primary form-label" onclick="addWorkRow()"> اضافة جهة صادر
+                                                اليها
+                                            </a>
+                                            <hr>
+                                        </div>
+                                        <div class="card-footer text-left">
+                                            <button class="btn btn-primary" type="submit">حفظ</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            {{-- <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn"
-                                class="btn btn-primary form-label" onclick="addWorkRow()">+ اضف مستحق
-                            </a> --}}
                         </div>
                     </div>
             </div>
@@ -215,42 +226,37 @@
 
             if (empty == "no" && document.getElementsByClassName("work-xp").length < 6) {
                 const div = document.createElement('div');
-                div.className = 'card card-secondary work-xp';
+                div.className = 'form-row';
                 div.innerHTML = `
-                <div class="card-body">
+                <div class="form-group col-md-12">
                     <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label>رقم الصادر</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" required>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> اسم الجهة الصادر اليها</label>
-                                                    <select class="form-control" name="side_id[]">
-                                                        <option value="" disabled selected>اختر الجهة</option>
-                                                        @isset($side)
-                                                            @if ($side && $side->count() > 0)
-                                                                @foreach ($side as $sides)
-                                                                    <option value="{{ $sides->id }}">
-                                                                        {{ $sides->side_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
+                        <div class="form-group col-md-6">
+                                                        <label>رقم الصادر</label>
+                                                        <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                                                        <label> اسم الجهة الصادر اليها</label>
+                                                        <select class="form-control" name="side_id[]">
+                                                            <option value="" disabled selected>اختر الجهة</option>
+                                                            @isset($side)
+                                                                @if ($side && $side->count() > 0)
+                                                                    @foreach ($side as $sides)
+                                                                        <option value="{{ $sides->id }}">
+                                                                            {{ $sides->side_name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @endif
+                                                            @endisset
+                                                        </select>
+                        </div>
                     </div>
-
-                    <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label>اضافة ملاحظات</label>
-                                                    <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
-
-                                                </div>
+                    <div class="form-group col-md-12">
+                        <label>اضافة ملاحظات</label>
+                        <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
                     </div>
                 </div>
-                <input type="button" class="btn-danger" style="width: 50px;
-                 height: 35px;" value="x" onclick="removeWorkRow(this)" />
-                `;
+                    <input type="button" class="btn-danger form-label" style="height: 35px;width: 100%;
+                       margin-bottom: 27px; height: 35px; display: block;" value="x" onclick="removeWorkRow(this)" />`;
                 document.getElementById('work_experience').appendChild(div);
                 if (document.getElementsByClassName("work-xp").length == 6) {
                     document.getElementById("addWork-btn").style.display = "none";
@@ -287,6 +293,22 @@
             $('.coption').hide();
             $('.type-' + e.target.value).show();
         });
+    </script>
+    <script>
+        function hola() {
+            var mselect = document.getElementById("mselect");
+            var mselectvalue = mselect.options[mselect.selectedIndex].value;
+            var mdivone = document.getElementById("div1");
+            var mdivtwo = document.getElementById("div2");
+
+            if (mselectvalue == 1) {
+                mdivone.style.display = "block";
+                mdivtwo.style.display = "none";
+            } else {
+                mdivone.style.display = "none";
+                mdivtwo.style.display = "block";
+            }
+        }
     </script>
 
 </body>
