@@ -10,7 +10,7 @@ class Ts_Export extends Model
     use HasFactory;
 
     protected $table = 'export_responsible';
-    protected $fillable = ['id','responsible_id','export_id'];
+    protected $fillable = ['id','responsible_id','export_id','state'];
     protected $hidden = ['deleted_at','created_at', 'updated_at'];
 
 
@@ -23,4 +23,7 @@ class Ts_Export extends Model
     // public function S_export(){
     //     return $this->hasMany(Side::class ,'side_id');
     // }
+    public function R_export(){
+        return $this->belongsTo(Export::class ,'export_id');
+    }
 }

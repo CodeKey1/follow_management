@@ -16,10 +16,11 @@ class ExportController extends Controller
 {
     public function index()
     {
+        $response = Ts_Export::select()->with('R_export')->get();
         $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
         $exports_trash = Export::select()->where('state','<>',1)->where('cat_name',Auth::user()->cat_name )->count();
         $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
-        return view('export.index', compact('exports','exports_trash','topics'));
+        return view('export.index', compact('exports','exports_trash','topics','response'));
     }
     public function archive()
     {
@@ -117,7 +118,7 @@ class ExportController extends Controller
                 //     'responsible_id' => $responsible_id[$i],
                 //     'export_id' => $export->id,
                 // ]));
-            
+
 
             }
             return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);

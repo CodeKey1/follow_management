@@ -146,15 +146,21 @@
 
                                     </div>
                                     <div class="card card-secondary">
-                                        <div class="card-body" style="direction: rtl;">
+                                        <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-hover" id="save-stage"
+                                                <table class="table table-striped table-hover" id="table-2"
                                                     style="width:100%;">
                                                     <thead>
                                                         <tr>
                                                             <th> # </th>
+                                                            <th> رقم الوارد </th>
+                                                            <th> تاريخ استلام الوارد </th>
+                                                            <th> الإدارات المسؤلة </th>
                                                             <th>اسم الصادر</th>
                                                             <th> جهة الصادر</th>
+                                                            <th> رقم الصادر</th>
+                                                            <th> تاريخ ارسال الصادر</th>
+                                                            <th> مدة التنفيذ </th>
                                                             <th>تفاصيل</th>
                                                         </tr>
                                                     </thead>
@@ -163,26 +169,59 @@
                                                             @foreach ($exports as $Export)
                                                                 <tr>
                                                                     <td class="text-bold-700">{{ $Export->id }}</td>
+                                                                    <td class="text-bold-700">
+                                                                        <a href="{{ route('topics.edit',$Export->topic_export->id ) }}">
+                                                                             {{ $Export->topic_export->import_id }}
+                                                                         </a>
+                                                                    </td>
+                                                                    <td class="text-bold-700">{{ $Export->topic_export->recived_date->format('Y-M-d') }}</td>
+                                                                    <td>
+                                                                        @foreach ($response->where('export_id', $Export->id) as $value)
+
+                                                                            @if ($value->state == 1)
+                                                                                <div class="badge badge-success">
+                                                                                     </div>
+                                                                            @elseif($value->state == 0)
+                                                                                <div class="badge badge-danger">
+                                                                                     </div>
+                                                                            @elseif($value->state == 2)
+                                                                                <div class="badge badge-warning">
+                                                                                     </div>
+                                                                            @endif
+
+                                                                    @endforeach
+                                                                    </td>
+                                                                    <td class="text-bold text-bold-700">{{ $Export->name }}</td>
+                                                                    <td class="text-bold text-bold-700">{{ $Export->sidename_export->side_name }}</td>
+                                                                    <td class="text-bold text-bold-700">{{ $Export->export_no }}</td>
+                                                                    <td class="text-bold text-bold-700">{{ $Export->send_date->format('Y-M-d') }}</td>
                                                                     <td class="text-bold text-bold-700">
-                                                                        {{ $Export->name }}</td>
-                                                                    <td class="text-bold text-bold-700">
-                                                                        {{ $Export->sidename_export->side_name }}</td>
+                                                                        @if ($Export->topic_export->recived_date->diffInDays(($Export->send_date)) >= 10)
+                                                                                        <div class="badge badge-danger" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;"> {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم
+                                                                                        </div>
+                                                                                    @elseif($Export->topic_export->recived_date->diffInDays(($Export->send_date)) >= 5 == 9 )
+                                                                                        <div class="badge badge-warning" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                            {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم </div>
+                                                                                    @elseif($Export->topic_export->recived_date->diffInDays(($Export->send_date)) <= 4)
+                                                                                        <div class="badge badge-success" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                            {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم </div>
+                                                                                    @endif
+                                                                        </td>
                                                                     <td style="width: 15%">
-                                                                        <a class="btn btn-icon btn-success"
-                                                                            href="{{ route('exports.edit',$Export->id) }}"
-                                                                            ata-toggle="tooltip" data-placement="top"
-                                                                            title="عرض وتعديل"><i
-                                                                                class="fas fa-user"></i></a>
+                                                                        <a href="{{ route('exports.edit',$Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="عرض وتعديل">
+                                                                            <i class="material-icons">edit</i>
+                                                                          </a>
+
                                                                         @if (auth()->user()->hasRole('admin'))
-                                                                            <a class="btn btn-icon btn-danger"
-                                                                                href="{{ route('exports.delete', $Export->id) }}"ata-toggle="tooltip"
-                                                                                data-placement="top" title="حذف"><i
-                                                                                    class="fas fa-times"></i></a>
+                                                                        <a href="{{ route('exports.delete', $Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="حذف">
+                                                                            <i class="material-icons">delete</i>
+                                                                          </a>
+
                                                                         @endif
-                                                                        <a class="btn btn-icon btn-info"
-                                                                            href="{{ route('exports.archive', $Export->id) }}"ata-toggle="tooltip"
-                                                                            data-placement="top" title="نقل الارشيف"><i
-                                                                                class="fas fa-archive"></i></a>
+                                                                        <a href="{{ route('exports.archive', $Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="الارشيف">
+                                                                            <i class="material-icons">archive</i>
+                                                                          </a>
+
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

@@ -52,11 +52,11 @@
                                 <div class="card card-secondary">
 
                                     <div class="card-body" style="direction: rtl;">
-                                        
+
                                     </div>
                                 </div>
-                                <div class="card card-secondary">
-                                    <div class="card-body" id="top-5-scroll" style="direction: rtl;">
+                                <div class="card card-secondary" style="height: 530px !important;">
+                                    <div class="card-body" id="top-5-scroll" style="direction: rtl;height: 530px !important;">
                                         <ul class="list-unstyled list-unstyled-border">
                                             @isset($side)
                                                 @foreach ($side as $Side)

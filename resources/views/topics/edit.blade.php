@@ -127,10 +127,10 @@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> تاريخ استلام الوارد </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                    <input style="height: calc(2.25rem + 6px);" type="datetime-local"
                                                      value="{{ $topics->recived_date }}"
                                                     class="form-control" readonly>
-                                                <input style="height: calc(2.25rem + 6px);" type="date"
+                                                <input style="height: calc(2.25rem + 6px);" type="datetime-local"
                                                     name="recived_date" value="{{ $topics->recived_date }}"
                                                     class="form-control">
                                                 </div>
