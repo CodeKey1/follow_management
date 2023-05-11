@@ -7,6 +7,7 @@ use App\Http\Requests\TopicsRequest;
 use App\Models\Responsible;
 use App\Models\Side;
 use App\Models\Export;
+use App\Models\R_export;
 use App\Models\Response_Topic;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -36,6 +37,44 @@ class TopicController extends Controller
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
         return view('topics.create', compact('responsibles', 'side'));
+    }
+    public function reply()
+    {
+        $exports = Export::select()->where('topic_id', null)->get();
+        $side = Side::select()->get();
+        $responsibles = Responsible::select()->get();
+        return view('topics.reply', compact('responsibles', 'side','exports'));
+    }
+
+    public function reply_save(Request $request){
+        $file = array();
+        if ($files = $request->file('reply_file')) {
+            foreach ($files as $file) {
+                $ext = strtolower($file->getClientOriginalName());
+                $file_name = time() . '.' . $ext;
+                $path = 'attatch_office/import_follow';
+                $file->move($path, $file_name);
+                $upload[] = $file_name;
+            }
+        } else {
+            $upload[] = "";
+        }
+        // try {
+            R_export::create(([
+                'export_id' => $request['export_id'],
+                'reply_id' => $request['reply_id'],
+                'responsibles_id' => $request['responsibles_id'],
+                'topic' => $request['topic'],
+                'date' => $request['date'],
+                'reply_file' => implode('|',$upload ),
+                'cat_name' => $request['cat_name'],
+
+            ]));
+            return redirect()->route('topic.index')->with(['success' => 'تم حفظ الموضوع بنجاح']);
+        // } catch (\Exception $ex) {
+        //     return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        // }
+
     }
 
 

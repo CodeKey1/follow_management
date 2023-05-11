@@ -97,7 +97,7 @@
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
                                                         name="name" class="form-control"placeholder="" required>
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-3">
                                                     <label> اسم الجهة الوارد منها</label>
                                                     <select class="form-control"  name="side_id" required>
                                                         <option value="" disabled selected>اختر الجهة</option>
@@ -106,6 +106,21 @@
                                                                 @foreach ($side as $sides)
                                                                     <option value="{{ $sides->id }}">
                                                                         {{ $sides->side_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label> اسم الادارة الوارد منها</label>
+                                                    <select class="form-control"  name="side_id" required>
+                                                        <option value="" disabled selected>اختر الادارة</option>
+                                                        @isset($responsibles)
+                                                            @if ($responsibles && $responsibles->count() > 0)
+                                                                @foreach ($responsibles as $Response)
+                                                                    <option value="{{ $Response->id }}">
+                                                                        {{ $Response->name }}
                                                                     </option>
                                                                 @endforeach
                                                             @endif

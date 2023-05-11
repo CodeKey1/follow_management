@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2023 at 04:44 PM
+-- Generation Time: May 11, 2023 at 06:37 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -154,7 +154,7 @@ INSERT INTO `events` (`id`, `title`, `start`, `end`, `created_at`, `updated_at`)
 CREATE TABLE `exports` (
   `id` int(11) NOT NULL,
   `name` varchar(1000) NOT NULL,
-  `side_id` int(11) NOT NULL,
+  `side_id` int(11) DEFAULT NULL,
   `send_date` date NOT NULL,
   `export_no` bigint(20) NOT NULL,
   `state` varchar(100) DEFAULT '1',
@@ -172,9 +172,16 @@ CREATE TABLE `exports` (
 --
 
 INSERT INTO `exports` (`id`, `name`, `side_id`, `send_date`, `export_no`, `state`, `details`, `upload_f`, `topic_id`, `cat_name`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(80, 'ffffff', 1, '2023-05-08', 1234, '1', 'لا يوجد', '', 69, 'مكتب المحافظ', NULL, '2023-05-08 05:49:34', '2023-05-08 05:49:34'),
+(80, 'ffffff', 1, '2023-05-08', 1234, '1', 'لا يوجد', '', 72, 'مكتب المحافظ', NULL, '2023-05-08 05:49:34', '2023-05-08 05:49:34'),
 (81, 'ffffff', 2, '2023-05-19', 78798, '1', 'sdsfsdfsdf', '', 69, 'مكتب المحافظ', NULL, '2023-05-08 07:02:19', '2023-05-08 07:02:19'),
-(85, 'ffffff', 16, '2023-05-08', 657656, '1', 'ghjhg', '', 69, 'مكتب المحافظ', NULL, '2023-05-08 07:06:18', '2023-05-08 07:06:18');
+(85, 'ffffff', 3, '2023-05-08', 657656, '1', 'ghjhg', '', 74, 'مكتب المحافظ', NULL, '2023-05-08 07:06:18', '2023-05-08 07:06:18'),
+(86, 'ffffff', 3, '2023-05-11', 5465465464, '1', 'fgfghfg', '', 71, 'مكتب المحافظ', NULL, '2023-05-11 07:33:58', '2023-05-11 07:33:58'),
+(87, 'ffffff', 1, '2023-05-11', 1122, '1', 'fghfghfgh', '', 71, 'مكتب المحافظ', NULL, '2023-05-11 10:41:18', '2023-05-11 10:41:18'),
+(88, 'ffffff', 3, '2023-05-11', 354545, '1', 'dfgdfg', '', 71, 'مكتب المحافظ', NULL, '2023-05-11 10:41:18', '2023-05-11 10:41:18'),
+(89, 'ffffff', 6, '2023-05-11', 34234, '1', NULL, '', 71, 'مكتب المحافظ', NULL, '2023-05-11 10:41:18', '2023-05-11 10:41:18'),
+(90, 'ffffff', NULL, '2023-05-12', 4353, '1', 'rrertert', '', NULL, 'مكتب المحافظ', NULL, '2023-05-11 11:14:03', '2023-05-11 11:14:03'),
+(91, 'ffffff', NULL, '2023-05-13', 12123, '1', 'ewrwerwer', '', NULL, 'مكتب المحافظ', NULL, '2023-05-11 11:14:51', '2023-05-11 11:14:51'),
+(92, 'ffffff', 3, '2023-05-12', 3434, '1', 'ret', '', NULL, 'مكتب المحافظ', NULL, '2023-05-11 11:37:05', '2023-05-11 11:37:05');
 
 -- --------------------------------------------------------
 
@@ -190,6 +197,18 @@ CREATE TABLE `export_responsible` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `export_responsible`
+--
+
+INSERT INTO `export_responsible` (`id`, `export_id`, `responsible_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(7, 90, 1, NULL, '2023-05-11 11:14:03', '2023-05-11 11:14:03'),
+(8, 90, 4, NULL, '2023-05-11 11:14:03', '2023-05-11 11:14:03'),
+(9, 90, 5, NULL, '2023-05-11 11:14:03', '2023-05-11 11:14:03'),
+(10, 91, 1, NULL, '2023-05-11 11:14:51', '2023-05-11 11:14:51'),
+(11, 91, 4, NULL, '2023-05-11 11:14:51', '2023-05-11 11:14:51'),
+(12, 91, 5, NULL, '2023-05-11 11:14:51', '2023-05-11 11:14:51');
 
 -- --------------------------------------------------------
 
@@ -527,10 +546,23 @@ INSERT INTO `responsible_topic` (`id`, `responsible_id`, `topic_id`, `state`, `d
 (11, 1, 71, 1, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
 (12, 4, 71, 2, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
 (13, 5, 71, 0, NULL, '2023-05-07 11:20:00', '2023-05-07 11:20:00'),
-(14, 4, 69, 1, NULL, NULL, NULL),
+(14, 4, 69, 1, NULL, '2023-05-10 06:24:45', '2023-05-10 06:24:45'),
 (15, 8, 69, 1, NULL, NULL, NULL),
 (16, 18, 69, 1, NULL, NULL, NULL),
-(17, 7, 69, 0, NULL, NULL, NULL);
+(17, 7, 69, 0, NULL, NULL, NULL),
+(18, 1, 81, 0, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(19, 4, 81, 0, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(20, 5, 81, 0, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(21, 6, 81, 0, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(22, 7, 81, 0, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(23, 8, 81, 0, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(24, 1, 82, 0, NULL, '2023-05-10 06:24:45', '2023-05-10 06:24:45'),
+(25, 4, 82, 0, NULL, '2023-05-10 06:24:45', '2023-05-10 06:24:45'),
+(26, 5, 82, 0, NULL, '2023-05-10 06:24:45', '2023-05-10 06:24:45'),
+(27, 6, 83, 0, NULL, '2023-05-10 06:25:25', '2023-05-10 06:25:25'),
+(28, 9, 83, 0, NULL, '2023-05-10 06:25:25', '2023-05-10 06:25:25'),
+(29, 1, 84, 0, NULL, '2023-05-11 07:35:24', '2023-05-11 07:35:24'),
+(30, 5, 84, 0, NULL, '2023-05-11 07:35:24', '2023-05-11 07:35:24');
 
 -- --------------------------------------------------------
 
@@ -569,12 +601,39 @@ CREATE TABLE `role_has_permissions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `r_export`
+--
+
+CREATE TABLE `r_export` (
+  `id` int(11) NOT NULL,
+  `export_id` int(11) NOT NULL,
+  `responsibles_id` int(11) NOT NULL,
+  `reply_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `reply_file` varchar(255) DEFAULT NULL,
+  `topic` varchar(255) NOT NULL,
+  `cat_name` varchar(100) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `r_export`
+--
+
+INSERT INTO `r_export` (`id`, `export_id`, `responsibles_id`, `reply_id`, `date`, `reply_file`, `topic`, `cat_name`, `created_at`, `updated_at`) VALUES
+(1, 90, 1, 345, '2023-05-11', '', 'rertrt', 'مكتب المحافظ', '2023-05-11 13:36:35', '2023-05-11 13:36:35');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sides`
 --
 
 CREATE TABLE `sides` (
   `id` int(11) NOT NULL,
   `side_name` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -583,15 +642,15 @@ CREATE TABLE `sides` (
 -- Dumping data for table `sides`
 --
 
-INSERT INTO `sides` (`id`, `side_name`, `created_at`, `updated_at`) VALUES
-(1, 'رئاسة الجمهورية - هيئة مستشاري رئاسة الجمهورية', '2021-09-13 17:51:16', '2023-05-08 08:22:18'),
-(2, 'رئاسة مجلس الوزراء', '2021-09-13 17:52:16', '2023-05-08 08:22:56'),
-(3, 'وزارة التنمية المحلية', '2021-09-13 17:53:17', '2023-05-08 08:23:18'),
-(15, 'كافة الوزارات الأخري', '2023-05-01 09:45:44', '2023-05-08 08:24:14'),
-(16, 'رئاسة مجلس النواب', '2023-05-02 06:19:29', '2023-05-08 08:24:36'),
-(17, 'هيئات - شركات', '2023-05-08 08:24:57', '2023-05-08 08:24:57'),
-(18, 'جهات أخري', '2023-05-08 08:25:26', '2023-05-08 08:25:26'),
-(25, 'test', '2023-05-08 09:52:07', '2023-05-08 09:52:07');
+INSERT INTO `sides` (`id`, `side_name`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 'رئاسة الجمهورية - هيئة مستشاري رئاسة الجمهورية', '', '2021-09-13 17:51:16', '2023-05-08 08:22:18'),
+(2, 'رئاسة مجلس الوزراء', '', '2021-09-13 17:52:16', '2023-05-08 08:22:56'),
+(3, 'وزارة التنمية المحلية', '', '2021-09-13 17:53:17', '2023-05-08 08:23:18'),
+(4, 'كافة الوزارات الأخري', '', '2023-05-01 09:45:44', '2023-05-08 08:24:14'),
+(5, 'هيئات - شركات', '', '2023-05-08 08:24:57', '2023-05-08 08:24:57'),
+(6, 'جهات أخري', '', '2023-05-08 08:25:26', '2023-05-08 08:25:26'),
+(7, 'رئاسة مجلس النواب', '', '2023-05-02 06:19:29', '2023-05-08 08:24:36'),
+(8, 'test', '', '2023-05-08 09:52:07', '2023-05-08 09:52:07');
 
 -- --------------------------------------------------------
 
@@ -612,10 +671,10 @@ CREATE TABLE `side_branch` (
 --
 
 INSERT INTO `side_branch` (`id`, `name`, `sides_id`, `created_at`, `updated_at`) VALUES
-(4, 't', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
-(5, 'cxv', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
-(6, 'xcv', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
-(7, 'xcv', 25, '2023-05-08 09:52:07', '2023-05-08 09:52:07');
+(4, 't', 1, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
+(5, 'cxv', 1, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
+(6, 'xcv', 1, '2023-05-08 09:52:07', '2023-05-08 09:52:07'),
+(7, 'xcv', 1, '2023-05-08 09:52:07', '2023-05-08 09:52:07');
 
 -- --------------------------------------------------------
 
@@ -626,8 +685,10 @@ INSERT INTO `side_branch` (`id`, `name`, `sides_id`, `created_at`, `updated_at`)
 CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
   `import_id` bigint(20) DEFAULT NULL,
+  `office_id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `vic_sign` varchar(255) DEFAULT NULL,
+  `import_date` date DEFAULT NULL,
   `recived_date` date DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `users_name` varchar(255) DEFAULT NULL,
@@ -644,9 +705,19 @@ CREATE TABLE `topics` (
 -- Dumping data for table `topics`
 --
 
-INSERT INTO `topics` (`id`, `import_id`, `name`, `vic_sign`, `recived_date`, `state`, `users_name`, `notes`, `file`, `cat_name`, `side_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(69, 123, 'ffffff', 'fffff', '2023-05-07', '1', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-08 05:49:09'),
-(71, 454554, 'dgdfgdf', 'dfgdfg', '2023-05-08', '1', 'mohamed mokhtar', 'dfg', 'fg', 'مكتب المحافظ', 3, NULL, NULL, NULL);
+INSERT INTO `topics` (`id`, `import_id`, `office_id`, `name`, `vic_sign`, `import_date`, `recived_date`, `state`, `users_name`, `notes`, `file`, `cat_name`, `side_id`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(69, 123, 0, 'ffffff', 'fffff', '2023-05-01', '2023-05-07', '1', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-08 05:49:09'),
+(71, 454554, 0, 'dgdfgdf', 'dfgdfg', '2023-04-01', '2023-05-08', '1', 'mohamed mokhtar', 'dfg', 'fg', 'مكتب المحافظ', 3, NULL, NULL, NULL),
+(72, 4545548, 0, 'dgdfgdf', 'dfgdfg', '2023-05-03', '2023-05-08', '2', 'mohamed mokhtar', 'dfg', 'fg', 'مكتب المحافظ', 3, NULL, NULL, NULL),
+(73, 45455, 0, 'dgdfgdf', 'dfgdfg', '2023-05-04', '2023-05-08', '0', 'mohamed mokhtar', 'dfg', 'fg', 'مكتب المحافظ', 3, NULL, NULL, NULL),
+(74, 1235, 0, 'ffffff', 'fffff', '2023-05-05', '2023-05-07', '1', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-08 05:49:09'),
+(75, 1238, 0, 'ffffff', 'fffff', '2023-05-03', '2023-05-07', '2', 'mohamed mokhtar', 'ffff', '', 'مكتب المحافظ', 2, NULL, '2023-05-07 11:20:00', '2023-05-08 05:49:09'),
+(79, 789, 956, 'ارتفاع جديد.. سعر الذهب اليوم الأربعاء 10-5-2023 بداية تداولات الصاغة بعد ارتفاعه عالميًا', 'متابعه', '2023-05-02', '2023-05-10', '2', 'mohamed mokhtar', 'لا يوجد', '', 'مكتب المحافظ', 2, NULL, '2023-05-10 06:16:36', '2023-05-10 06:16:36'),
+(80, 8463, 61234, 'ارتفاع جديد.. سعر الذهب اليوم الأربعاء 10-5-2023 بداية تداولات الصاغة بعد ارتفاعه عالميًا', 'العرض والنشرertertert', '2023-05-03', '2023-05-10', '2', 'mohamed mokhtar', 'يبليبليل', '', 'مكتب المحافظ', 5, NULL, '2023-05-10 06:19:36', '2023-05-10 06:19:36'),
+(81, 6123, 53432, 'ارتفاع جديد.. سعر الذهب اليوم الأربعاء 10-5-2023 بداية تداولات الصاغة بعد ارتفاعه عالميًا', 'العرض والنشر 22', '2023-05-02', '2023-05-10', '2', 'mohamed mokhtar', 'fdgfgdfggdfg', '', 'مكتب المحافظ', 7, NULL, '2023-05-10 06:21:25', '2023-05-10 06:21:25'),
+(82, 34234, 2546, 'ارتفاع جديد.. سعر الذهب اليوم الأربعاء 10-5-2023 بداية تداولات الصاغة بعد ارتفاعه عالميًا', 'العرض والنشر', '2023-05-03', '2023-05-10', '2', 'mohamed mokhtar', 'trty', '', 'مكتب المحافظ', 1, NULL, '2023-05-10 06:24:45', '2023-05-10 06:24:45'),
+(83, 890890, 678678, 'ارتفاع جديد.. سعر الذهب اليوم الأربعاء 10-5-2023 بداية تداولات الصاغة بعد ارتفاعه عالميًا', 'العرض والنشر', '2023-05-02', '2023-05-10', '2', 'mohamed mokhtar', 'iiuouiouio', '', 'مكتب المحافظ', 4, NULL, '2023-05-10 06:25:25', '2023-05-10 06:25:25'),
+(84, 546, 4444, 'uiouiouio', 'uiouio', '2023-04-30', '2023-05-19', '2', 'mohamed mokhtar', 'uiouiouio', '', 'مكتب المحافظ', 2, NULL, '2023-05-11 07:35:24', '2023-05-11 07:35:24');
 
 -- --------------------------------------------------------
 
@@ -3750,6 +3821,14 @@ ALTER TABLE `role_has_permissions`
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `r_export`
+--
+ALTER TABLE `r_export`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `export_id` (`export_id`),
+  ADD KEY `responsibles_id` (`responsibles_id`);
+
+--
 -- Indexes for table `sides`
 --
 ALTER TABLE `sides`
@@ -3821,13 +3900,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `exports`
 --
 ALTER TABLE `exports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `export_responsible`
 --
 ALTER TABLE `export_responsible`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -3881,13 +3960,19 @@ ALTER TABLE `responsibles`
 -- AUTO_INCREMENT for table `responsible_topic`
 --
 ALTER TABLE `responsible_topic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `r_export`
+--
+ALTER TABLE `r_export`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sides`
@@ -3905,7 +3990,7 @@ ALTER TABLE `side_branch`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -3963,6 +4048,13 @@ ALTER TABLE `responsible_topic`
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `r_export`
+--
+ALTER TABLE `r_export`
+  ADD CONSTRAINT `r_export_ibfk_1` FOREIGN KEY (`export_id`) REFERENCES `exports` (`id`),
+  ADD CONSTRAINT `r_export_ibfk_2` FOREIGN KEY (`responsibles_id`) REFERENCES `responsibles` (`id`);
 
 --
 -- Constraints for table `side_branch`

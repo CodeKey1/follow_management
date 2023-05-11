@@ -34,6 +34,8 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/import_topic'   ,[App\Http\Controllers\Admin\TopicController::class,'index'])        -> name('topic.index');
     Route::get('/create'         ,[App\Http\Controllers\Admin\TopicController::class,'create'])       -> name('topics.create');
+    Route::get('/reply'         ,[App\Http\Controllers\Admin\TopicController::class,'reply'])       -> name('topics.reply');
+    Route::post('/reply_sace'    ,[App\Http\Controllers\Admin\TopicController::class,'reply_save'])       -> name('topics.reply.save');
     Route::post('/save'          ,[App\Http\Controllers\Admin\TopicController::class,'save'])         -> name('topics.save');
     Route::get('/edit/{id}'      ,[App\Http\Controllers\Admin\TopicController::class,'edit'])         -> name('topics.edit');
     Route::post('/update/{id}'   ,[App\Http\Controllers\Admin\TopicController::class,'update'])       ->name('topics.update');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveRequest;
 use App\Models\Responsible;
 use App\Models\Side;
+use Carbon\Carbon;
 use App\Models\Topic;
 use App\Models\Export;
 use App\Models\Ts_Export;
@@ -17,11 +18,12 @@ class ExportController extends Controller
 {
     public function index()
     {
+        $now = Carbon::today();
         $response = Ts_Export::select()->with('R_export')->get();
         $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
         $exports_trash = Export::select()->where('state', '<>', 1)->where('cat_name', Auth::user()->cat_name)->count();
         $exports = Export::select()->where('cat_name', Auth::user()->cat_name)->get();
-        return view('export.index', compact('exports', 'exports_trash', 'topics', 'response'));
+        return view('export.index', compact('exports', 'exports_trash', 'topics', 'response','now'));
     }
     public function archive()
     {
@@ -31,6 +33,7 @@ class ExportController extends Controller
 
     public function create()
     {
+
         $topics = Topic::select()->with('name_side')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
@@ -84,6 +87,7 @@ class ExportController extends Controller
     }
     public function save(Request $request)
     {
+        $now = Carbon::today();
         $upload_f = array();
         if ($files = $request->file('upload_f')) {
             foreach ($files as $file) {
@@ -97,9 +101,9 @@ class ExportController extends Controller
             $upload[] = "";
         }
         try {
-        if ($sid = $request->side_id) {
-            for ($i = 0; $i < count($sid); $i++) {
-                $side_id[] = $sid[$i];
+
+            for ($i = 0; $i < count( $request->export_no); $i++) {
+                $side_id[] =  $request->side_id[$i];
                 $export_no[]  = $request->export_no[$i];
                 $details[]  = $request->details[$i];
                 $export = Export::create(([
@@ -113,6 +117,7 @@ class ExportController extends Controller
                     'upload_f'  => implode('|', $upload),
                 ]));
             }
+            if($request->responsible_id)
             for ($i = 0; $i < count($request->responsible_id); $i++) {
                 $responsible_id[] = $request->responsible_id[$i];
 
@@ -121,33 +126,8 @@ class ExportController extends Controller
                     'export_id' => $export->id,
                 ]));
             }
-        } else {
-            $side_id[] = "";
-            for ($i = 0; $i < count($request->export_no); $i++) {
-                $export_no[]  = $request->export_no[$i];
-                $details[]  = $request->details[$i];
-                $export = Export::create(([
-                    'name'      => $request['name'],
-                    'topic_id'  => $request['topic_id'],
-                    'cat_name'  => $request['cat_name'],
-                    'send_date' => $request['send_date'],
-                    'export_no' => $export_no[$i],
-                    'details'   => $details[$i],
-                    'upload_f'  => implode('|', $upload),
-                ]));
-            }
-            for ($i = 0; $i < count($request->responsible_id); $i++) {
-                $responsible_id[] = $request->responsible_id[$i];
-
-                Ts_Export::create(([
-                    'responsible_id' => $responsible_id[$i],
-                    'export_id' => $export->id,
-                ]));
-            }
-        }
-
         //
-        
+
         return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
         } catch (\Exception $ex) {
             return redirect()->route('exports')->

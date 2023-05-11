@@ -126,127 +126,162 @@
                                                         <span
                                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
-                                                            @if ($exports->count() &&  $exports->where('state', 1 )->count() != 0)
-                                                            <div class="progress-bar l-bg-green" role="progressbar"
-                                                                data-width="{{ ($exports->where('state', 1)->count() / $topics->count()) * 100 }}%"
-                                                                aria-valuenow="{{ $exports->count() }}"
-                                                                aria-valuemin="{{ $exports->count() }}"
-                                                                aria-valuemax="{{ $exports->count() }}">
+                                                            @if ($exports->count() && $exports->where('state', 1)->count() != 0)
+                                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                                    data-width="{{ ($exports->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                    aria-valuenow="{{ $exports->count() }}"
+                                                                    aria-valuemin="{{ $exports->count() }}"
+                                                                    aria-valuemax="{{ $exports->count() }}">
                                                                 @else
-                                                                <span class="float-left text-bold-700" style="font-size: 16px;font-weight: 600;">
-                                                                    0%
-                                                                </span>
-                                                                @endif
-                                                            </div>
+                                                                    <span class="float-left text-bold-700"
+                                                                        style="font-size: 16px;font-weight: 600;">
+                                                                        0%
+                                                                    </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class="card card-secondary">
-                                        <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-hover" id="table-2"
-                                                    style="width:100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th> # </th>
-                                                            <th> رقم الوارد </th>
-                                                            <th> تاريخ استلام الوارد </th>
-                                                            <th> الإدارات المسؤلة </th>
-                                                            <th>اسم الصادر</th>
-                                                            <th> جهة الصادر</th>
-                                                            <th> رقم الصادر</th>
-                                                            <th> تاريخ ارسال الصادر</th>
-                                                            <th> مدة التنفيذ </th>
-                                                            <th>تفاصيل</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @isset($exports)
-                                                            @foreach ($exports as $Export)
-                                                                <tr>
-                                                                    <td class="text-bold-700">{{ $Export->id }}</td>
+
+                                </div>
+                                <div class="card card-secondary">
+                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="table-2"
+                                                style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th> رقم الوارد </th>
+                                                        <th> تاريخ استلام الوارد </th>
+                                                        <th> الإدارات المسؤلة </th>
+                                                        <th>اسم الصادر</th>
+                                                        <th> جهة الصادر</th>
+                                                        <th> رقم الصادر</th>
+                                                        <th> تاريخ ارسال الصادر</th>
+                                                        <th> مدة التنفيذ </th>
+                                                        <th>تفاصيل</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @isset($exports)
+                                                        @foreach ($exports as $Export)
+                                                            <tr>
+                                                                <td class="text-bold-700">{{ $Export->id }}</td>
+                                                                @if ($Export->topic_id)
                                                                     <td class="text-bold-700">
-                                                                        @isset($Export->topic_export->id)
-                                                                        <a href="{{ route('topics.edit',$Export->topic_export->id ) }}">
-                                                                             {{ $Export->topic_export->import_id }}
-                                                                         </a>
-                                                                         @endisset
-                                                                    </td>
-                                                                    @isset($Export->topic_export->recived_date)
-                                                                    <td class="text-bold-700">{{ $Export->topic_export->recived_date->format('Y-M-d') }}</td>
-                                                                    @endisset
-                                                                    <td>
-                                                                        @foreach ($response->where('export_id', $Export->id) as $value)
-
-                                                                            @if ($value->state == 1)
-                                                                                <div class="badge badge-success">
-                                                                                     </div>
-                                                                            @elseif($value->state == 0)
-                                                                                <div class="badge badge-danger">
-                                                                                     </div>
-                                                                            @elseif($value->state == 2)
-                                                                                <div class="badge badge-warning">
-                                                                                     </div>
-                                                                            @endif
-
-                                                                    @endforeach
-                                                                    </td>
-                                                                    <td class="text-bold text-bold-700">{{ $Export->name }}</td>
-                                                                    @isset($Export->sidename_export->side_name)
-                                                                    <td class="text-bold text-bold-700">{{ $Export->sidename_export->side_name }}</td>
-                                                                    @endisset
-                                                                    <td class="text-bold text-bold-700">
-                                                                        <a href="{{ route('exports.edit',$Export->id ) }}">
-                                                                            {{ $Export->export_no }}
+                                                                        <a
+                                                                            href="{{ route('topics.edit', $Export->topic_export->id) }}">
+                                                                            {{ $Export->topic_export->import_id }}
                                                                         </a>
+
                                                                     </td>
-                                                                    <td class="text-bold text-bold-700">{{ $Export->send_date->format('Y-M-d') }}</td>
-                                                                    <td class="text-bold text-bold-700">
-                                                                        @isset($Export->topic_export->recived_date)
-                                                                        @if ($Export->topic_export->recived_date->diffInDays(($Export->send_date)) >= 10)
-                                                                                        <div class="badge badge-danger" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;"> {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم
-                                                                                        </div>
-                                                                                    @elseif($Export->topic_export->recived_date->diffInDays(($Export->send_date)) >= 5 == 9 )
-                                                                                        <div class="badge badge-warning" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
-                                                                                            {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم </div>
-                                                                                    @elseif($Export->topic_export->recived_date->diffInDays(($Export->send_date)) <= 4)
-                                                                                        <div class="badge badge-success" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
-                                                                                            {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم </div>
-                                                                                    @endif
-                                                                                    @endisset
-                                                                        </td>
-                                                                    <td style="width: 15%">
-                                                                        <a href="{{ route('exports.edit',$Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="عرض وتعديل">
-                                                                            <i class="material-icons">edit</i>
-                                                                          </a>
-
-                                                                        @if (auth()->user()->hasRole('admin'))
-                                                                        <a href="{{ route('exports.delete', $Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="حذف">
-                                                                            <i class="material-icons">delete</i>
-                                                                          </a>
-
+                                                                @else
+                                                                    <td>___</td>
+                                                                @endif
+                                                                @if ($Export->topic_id)
+                                                                    <td class="text-bold-700">
+                                                                        {{ $Export->topic_export->recived_date->format('Y-M-d') }}
+                                                                    </td>
+                                                                @else
+                                                                    <td class="text-bold-700">
+                                                                        ____
+                                                                    </td>
+                                                                @endif
+                                                                <td>
+                                                                    @foreach ($response->where('export_id', $Export->id) as $value)
+                                                                        @if ($value->state == 1)
+                                                                            <div class="badge badge-success">
+                                                                            </div>
+                                                                        @elseif($value->state == 0)
+                                                                            <div class="badge badge-danger">
+                                                                            </div>
+                                                                        @elseif($value->state == 2)
+                                                                            <div class="badge badge-warning">
+                                                                            </div>
                                                                         @endif
-                                                                        <a href="{{ route('exports.archive', $Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="الارشيف">
-                                                                            <i class="material-icons">archive</i>
-                                                                          </a>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td class="text-bold text-bold-700">{{ $Export->name }}
+                                                                </td>
+                                                                @if ($Export->side_id)
+                                                                    <td class="text-bold text-bold-700">
+                                                                        {{ $Export->sidename_export->side_name }}</td>
+                                                                @else
+                                                                    <td class="text-bold text-bold-700">
+                                                                        __ </td>
+                                                                @endif
+                                                                <td class="text-bold text-bold-700">
+                                                                    <a href="{{ route('exports.edit', $Export->id) }}">
+                                                                        {{ $Export->export_no }}
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-bold text-bold-700">
+                                                                    {{ $Export->send_date->format('Y-M-d') }}</td>
+                                                                <td class="text-bold text-bold-700">
+                                                                    @if ($Export->topic_id)
+                                                                        @if ($Export->topic_export->recived_date->diffInDays($Export->send_date) >= 10)
+                                                                            <div class="badge badge-danger"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $Export->topic_export->recived_date->diffInDays($Export->send_date) }}
+                                                                                يوم
+                                                                            </div>
+                                                                        @elseif($Export->topic_export->recived_date->diffInDays($Export->send_date) >= 5 == 9)
+                                                                            <div class="badge badge-warning"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $Export->topic_export->recived_date->diffInDays($Export->send_date) }}
+                                                                                يوم </div>
+                                                                        @elseif($Export->topic_export->recived_date->diffInDays($Export->send_date) <= 4)
+                                                                            <div class="badge badge-success"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $Export->topic_export->recived_date->diffInDays($Export->send_date) }}
+                                                                                يوم </div>
+                                                                        @endif
+                                                                    @else
+                                                                        <div class="badge badge-warning"
+                                                                            style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                            {{ $now->diffInDays($Export->send_date) }}
+                                                                            يوم </div>
+                                                                    @endif
+                                                                </td>
+                                                                <td style="width: 15%">
+                                                                    <a href="{{ route('exports.edit', $Export->id) }}"
+                                                                        class="col-dark-gray waves-effect m-r-20"
+                                                                        title="" data-toggle="tooltip"
+                                                                        data-original-title="عرض وتعديل">
+                                                                        <i class="material-icons">edit</i>
+                                                                    </a>
 
-                                                                    </td>
+                                                                    @if (auth()->user()->hasRole('admin'))
+                                                                        <a href="{{ route('exports.delete', $Export->id) }}"
+                                                                            class="col-dark-gray waves-effect m-r-20"
+                                                                            title="" data-toggle="tooltip"
+                                                                            data-original-title="حذف">
+                                                                            <i class="material-icons">delete</i>
+                                                                        </a>
+                                                                    @endif
+                                                                    <a href="{{ route('exports.archive', $Export->id) }}"
+                                                                        class="col-dark-gray waves-effect m-r-20"
+                                                                        title="" data-toggle="tooltip"
+                                                                        data-original-title="الارشيف">
+                                                                        <i class="material-icons">archive</i>
+                                                                    </a>
 
-                                                                </tr>
-                                                            @endforeach
-                                                        @endisset
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                                </td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                    @endisset
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
                 @include('layouts.setting')
             </div>
