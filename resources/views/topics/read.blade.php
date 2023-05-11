@@ -34,8 +34,7 @@
                                         <div id="mail-nav">
                                             {{-- <button type="button"
                                                 class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button> --}}
-
-                                            <h6 class="b-b p-10 text-strong">الإدارات المسؤلة للمتابعة الوارد</h5>
+                                            <h6 class="b-b p-10 text-strong">الإدارات المسؤلة للمتابعة المكاتبة الواردة</h5>
                                                 <ul class="" id="mail-labels">
                                                     @foreach ($response->where('topic_id', $topics->id) as $value)
                                                         @if ($value->state == 1)
