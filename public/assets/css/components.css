@@ -3162,7 +3162,9 @@ tr:first-child>td>.fc-day-grid-event {
 
 .replyBox {
     border: 1px solid rgba(120, 130, 140, 0.13);
-    padding: 20px
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 25px;
 }
 
 .inbox-center td {

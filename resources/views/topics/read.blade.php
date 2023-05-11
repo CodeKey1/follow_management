@@ -32,55 +32,73 @@
                                 <div class="card">
                                     <div class="body">
                                         <div id="mail-nav">
-                                            <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button>
+                                            {{-- <button type="button"
+                                                class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button> --}}
 
                                             <h6 class="b-b p-10 text-strong">الإدارات المسؤلة للمتابعة الوارد</h5>
-                                            <ul class="" id="mail-labels">
-                                                @foreach ($response->where('topic_id', $topics->id) as $value)
-                                                    @if ($value->state == 1)
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="material-icons col-cyan">local_offer</i>{{ $value->Res_topic->name }}</a>
-                                                        </li>
-                                                    @elseif($value->state == 0)
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="material-icons col-orange">local_offer</i>{{ $value->Res_topic->name }}</a>
-                                                        </li>
-                                                    @elseif($value->state == 2)
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="material-icons col-red">local_offer</i>{{ $value->Res_topic->name }}</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-                                            {{-- <ul class="" id="mail-labels">
-                                                @foreach ($response->where('topic_id', $topics->id) as $value)
-                                                    @if ($value->state == 1)
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="material-icons col-cyan">local_offer</i>{{ $value->Res_topic->name }}</a>
-                                                        </li>
-                                                    @elseif($value->state == 0)
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="material-icons col-orange">local_offer</i>{{ $value->Res_topic->name }}</a>
-                                                        </li>
-                                                    @elseif($value->state == 2)
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="material-icons col-red">local_offer</i>{{ $value->Res_topic->name }}</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                            </ul> --}}
+                                                <ul class="" id="mail-labels">
+                                                    @foreach ($response->where('topic_id', $topics->id) as $value)
+                                                        @if ($value->state == 1)
+                                                            <li>
+                                                                <a href="javascript:;">
+                                                                    <i class="material-icons col-cyan">local_offer</i>
+                                                                    {{ $value->Res_topic->name }}
+                                                                    <div class="spinner-grow text-success"
+                                                                        role="status">
+                                                                        <span class="visually-hidden"
+                                                                            style="color: #000"> تم الرد </span>
+                                                                    </div>
+
+                                                                </a>
+                                                            </li>
+                                                        @elseif($value->state == 0)
+                                                            <li>
+                                                                <a href="javascript:;">
+                                                                    <i
+                                                                        class="material-icons col-red">local_offer</i>{{ $value->Res_topic->name }}
+                                                                    <div class="spinner-grow text-danger"
+                                                                        role="status">
+                                                                        <span class="visually-hidden"
+                                                                            style="color: #000"> لم يتم </span>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        @elseif($value->state == 2)
+                                                            <li>
+                                                                <a href="javascript:;">
+                                                                    <i
+                                                                        class="material-icons col-orange">local_offer</i>{{ $value->Res_topic->name }}
+
+                                                                    <div class="spinner-grow text-warning"
+                                                                        role="status">
+                                                                        <span class="visually-hidden"
+                                                                            style="color: #000"> جاري </span>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
 
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                @if ($topics->state == 1)
+                                    <button type="button" class="btn btn-success waves-effect btn-compose m-b-15"
+                                        style="width: 100%"> تم الرد علي المكاتبة رقم {{ $topics->import_id }}</b>
+                                    </button>
+                                @elseif($topics->state == 0)
+                                    <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15"
+                                        style="width: 100%"> لم يتم الرد علي المكاتبة رقم
+                                        {{ $topics->import_id }}</button>
+                                @elseif($topics->state == 2)
+                                    <button type="button" class="btn btn-warning waves-effect btn-compose m-b-15"
+                                        style="width: 100%"> جاري المتابعة علي المكاتبة رقم
+                                        {{ $topics->import_id }}</button>
+                                @endif
                                 <div class="card">
                                     <div class="boxs mail_listing">
                                         <div class="inbox-body no-pad">
@@ -88,39 +106,43 @@
                                                 <div class="mail-sender">
                                                     <div class="mail-heading">
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-3">
                                                                 <h6 class="vew-mail-header" style="text-align: left">
-                                                                    <b>{{ $topics->import_id }}</b>
+                                                                    <span class="date pull-left"
+                                                                        style="direction: rtl;margin-top: 18px; color: #28a745;font-size: 14px; font-weight: 400;">
+                                                                        تاريخ
+                                                                        الاستلام :
+                                                                        {{ $topics->recived_date->format('Y-M-d') }}
+                                                                    </span>
                                                                 </h6>
-
                                                             </div>
-                                                            <div class="col-6">
-                                                                <h4 class="vew-mail-header" >
+                                                            <div class="col-9">
+                                                                <h4 class="vew-mail-header">
                                                                     <b>{{ $topics->name }}</b>
                                                                 </h4>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                     <hr style="border-top: 1px solid rgb(0 0 0 / 35%);">
                                                     <div class="media">
                                                         <div class="media-body">
-                                                            <span class="date pull-left"
-                                                            style="direction: rtl; color: #000000;font-size: 14px; font-weight: 400;">
-                                                            @foreach ($topics->t_export as $x_date)
-                                                             {{ $x_date->send_date->diffInDays($topics->recived_date) }} يوم
-                                                            @endforeach
-                                                        </span>
+                                                            <button type="button"
+                                                                class="btn btn-primary date pull-left">
+                                                                يوم <span class="badge badge-transparent">
+                                                                    @foreach ($topics->t_export->where('side_id', $topics->name_side->id) as $x_date)
+                                                                        {{ $x_date->send_date->diffInDays($topics->recived_date) }}
+                                                                    @endforeach
+                                                                </span>
+                                                            </button>
                                                             <h5 class="text-primary"
                                                                 style="color:#000 !important;padding-right: 15px;">
                                                                 {{ $topics->name_side->side_name }}</h5>
-                                                                <span class="date pull-left"
-                                                                style="direction: rtl; color: #28a745;font-size: 14px; font-weight: 400;"> تاريخ
-                                                                الاستلام : {{ $topics->recived_date->format('Y-M-d') }}
-                                                            </span>
-                                                            <span class="date pull-right" style="font-size: 14px; font-weight: 400;color: #dc3545;padding-right: 15px;direction: rtl;">
-                                                                @foreach ($topics->t_export as $x_date)
-                                                                تاريخ الإرسال : {{ $x_date->send_date->format('Y-M-d') }}
+
+                                                            <span class="date pull-right"
+                                                                style="font-size: 14px; font-weight: 400;color: #dc3545;padding-right: 15px;direction: rtl;">
+                                                                @foreach ($topics->t_export->where('side_id', $topics->name_side->id) as $x_date)
+                                                                    تاريخ الإرسال :
+                                                                    {{ $x_date->send_date->format('Y-M-d') }}
                                                                 @endforeach
                                                             </span>
                                                         </div>
@@ -133,158 +155,198 @@
                                                 </div>
                                                 <div class="view-mail p-t-20">
                                                     <p>{{ $topics->notes }}</p>
-
-
                                                 </div>
                                                 <div class="attachment-mail">
-                                                    <p>
-                                                        <span>
-                                                            <i class="fa fa-paperclip"></i> 3 attachments — </span>
-                                                        <a href="#">Download all attachments</a> |
-                                                        <a href="#">View all images</a>
-                                                    </p>
                                                     <div class="row">
-                                                        <div class="col-md-2">
-                                                            <a href="#">
-                                                                <img class="img-thumbnail img-responsive"
-                                                                    alt="attachment"
-                                                                    src="assets/img/users/user-1.png">
-                                                            </a>
-                                                            <a class="name" href="#"> IMG_001.png
-                                                                <span>20KB</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <a href="#">
-                                                                <img class="img-thumbnail img-responsive"
-                                                                    alt="attachment"
-                                                                    src="assets/img/users/user-3.png">
-                                                            </a>
-                                                            <a class="name" href="#"> IMG_002.png
-                                                                <span>22KB</span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <a href="#">
-                                                                <img class="img-thumbnail img-responsive"
-                                                                    alt="attachment"
-                                                                    src="assets/img/users/user-4.png">
-                                                            </a>
-                                                            <a class="name" href="#"> IMG_003.png
-                                                                <span>28KB</span>
-                                                            </a>
-                                                        </div>
+                                                        @foreach (explode('|', $topics->file) as $file)
+                                                            <div class="col-md-2">
+                                                                <a href="{{ URL::to('attatch_office/import_follow/' . $file) }}"
+                                                                    target="_blank">
+                                                                    <img src="../assets/img/icon.png"
+                                                                        class="img-thumbnail img-responsive"
+                                                                        alt="{{ $file }}">
+                                                                </a>
+
+                                                            </div>
+                                                        @endforeach
                                                     </div>
+
                                                 </div>
-                                                <div class="replyBox m-t-20">
-                                                    <p class="p-b-20">click here to
-                                                        <a href="#">Reply</a> or
-                                                        <a href="#">Forward</a>
-                                                    </p>
+                                                <label class="m-r-20" for="vice"
+                                                    style="color:#0072ff;margin-bottom: -1.5rem;"> تــأشيرة السـيد
+                                                    الـمحافظ <img alt="image" width="30"
+                                                        src="../images/logo/aswan.png"
+                                                        class="img-thumbnail img-responsive"></label>
+                                                <div class="replyBox m-t-0" id="vice">
+                                                    <p class="p-b-20" style="color:#ff0011dd">
+                                                        {{ $topics->vic_sign }} </p>
                                                 </div>
                                             </section>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            @if ($topics->state == 1)
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div id="mail-nav">
+                                                <h6 class="b-b p-10 text-strong"> كل الجهات الصادر اليها المكاتبة </h5>
+                                                    <ul class="" id="mail-labels">
+                                                        @foreach ($exports as $value)
+                                                            @if ($topics->state == 1)
+                                                                <li>
+                                                                    <a href="javascript:;">
+                                                                        <i
+                                                                            class="material-icons col-cyan">local_offer</i>
+                                                                        {{ $value->sidename_export->side_name }}
+
+                                                                    </a>
+                                                                </li>
+                                                            @elseif($topics->state == 0)
+                                                                <li>
+                                                                    <a href="javascript:;">
+                                                                        <i
+                                                                            class="material-icons col-red">local_offer</i>{{ $value->sidename_export->side_name }}
+
+                                                                    </a>
+                                                                </li>
+                                                            @elseif($topics->state == 2)
+                                                                <li>
+                                                                    <a href="javascript:;">
+                                                                        <i
+                                                                            class="material-icons col-orange">local_offer</i>{{ $value->sidename_export->side_name }}
+                                                                    </a>
+                                                                </li>
+                                                            @endif
+                                                        @endforeach
+                                                    </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @foreach ($exports->where('side_id', $topics->name_side->id) as $value)
+                                @if ($topics->state == 1)
+                                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                        @foreach ($exports->where('side_id', $topics->name_side->id) as $exports)
+                                            @if ($topics->state == 1)
+                                                <button type="button"
+                                                    class="btn btn-success waves-effect btn-compose m-b-15"
+                                                    style="width: 100%"> تم الرد علي المكاتبة برقم
+                                                    صادر{{ $exports->export_no }}</b> </button>
+                                            @elseif($topics->state == 0)
+                                                <button type="button"
+                                                    class="btn btn-danger waves-effect btn-compose m-b-15"
+                                                    style="width: 100%"> لم يتم الرد علي المكاتبة برقم
+                                                    صادر{{ $exports->export_no }}</button>
+                                            @elseif($topics->state == 2)
+                                                <button type="button"
+                                                    class="btn btn-warning waves-effect btn-compose m-b-15"
+                                                    style="width: 100%"> جاري المتابعة علي المكاتبة برقم
+                                                    صادر{{ $exports->export_no }}</button>
+                                            @endif
+                                        @endforeach
+                                        <div class="card">
+                                            <div class="boxs mail_listing">
+                                                <div class="inbox-body no-pad">
+                                                    <section class="mail-list">
+                                                        <div class="mail-sender">
+                                                            <div class="mail-heading">
+                                                                <div class="row">
+                                                                    <div class="col-3">
+
+                                                                    </div>
+                                                                    <div class="col-9">
+                                                                        <h4 class="vew-mail-header">
+                                                                            <b>{{ $exports->name }}</b>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr style="border-top: 1px solid rgb(0 0 0 / 35%);">
+                                                            <div class="media">
+                                                                <div class="media-body">
+
+                                                                    <h5 class="text-primary"
+                                                                        style="color:#000 !important;padding-right: 15px;">
+                                                                        {{ $topics->name_side->side_name }}</h5>
+
+                                                                    <span class="date pull-right"
+                                                                        style="font-size: 14px; font-weight: 400;color: #dc3545;padding-right: 15px;direction: rtl;">
+                                                                        @foreach ($topics->t_export->where('side_id', $topics->name_side->id) as $x_date)
+                                                                            تاريخ الإرسال :
+                                                                            {{ $x_date->send_date->format('Y-M-d') }}
+                                                                        @endforeach
+                                                                    </span>
+                                                                </div>
+                                                                <a href="#" class="table-img m-r-15">
+                                                                    <img alt="image" src="../images/logo/logo.png"
+                                                                        width="40" data-toggle="tooltip"
+                                                                        title="Sachin Pandit">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="view-mail p-t-20">
+                                                            <p>{{ $topics->notes }}</p>
+
+
+                                                        </div>
+                                                        <div class="attachment-mail">
+                                                            <div class="row">
+                                                                @foreach (explode('|', $topics->file) as $file)
+                                                                    <div class="col-md-2">
+                                                                        <a href="{{ URL::to('attatch_office/import_follow/' . $file) }}"
+                                                                            target="_blank">
+                                                                            <img src="../assets/img/icon.png"
+                                                                                class="img-thumbnail img-responsive"
+                                                                                alt="{{ $file }}">
+                                                                        </a>
+
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+
+                                                        </div>
+                                                        <label class="m-r-20" for="vice"
+                                                            style="color:#176007;margin-bottom: -1.5rem;"> ملاحظـــات
+                                                            <img alt="image" width="30"
+                                                                src="../images/logo/aswan.png"
+                                                                class="img-thumbnail img-responsive"></label>
+                                                        <div class="replyBox m-t-0" id="vice">
+                                                            <p class="p-b-20" style="color:#000000dd">
+                                                                {{ $exports->details }} </p>
+                                                        </div>
+                                                    </section>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($topics->state == 0)
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15"
+                                        style="width: 100%"> لم يتم الرد علي المكاتبة برقم
+                                        صادر{{ $value->export_no }}</button>
+                                </div>
+                                @elseif($topics->state == 2)
+                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                    <button type="button" class="btn btn-warning waves-effect btn-compose m-b-15"
+                                        style="width: 100%"> جاري المتابعة علي المكاتبة برقم
+                                        صادر{{ $value->export_no }}</button>
+                                </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </section>
-                <div class="settingSidebar">
-                    <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
-                    </a>
-                    <div class="settingSidebar-body ps-container ps-theme-default">
-                        <div class=" fade show active">
-                            <div class="setting-panel-header">Setting Panel
-                            </div>
-                            <div class="p-15 border-bottom">
-                                <h6 class="font-medium m-b-10">Select Layout</h6>
-                                <div class="selectgroup layout-color w-50">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="value" value="1"
-                                            class="selectgroup-input-radio select-layout" checked>
-                                        <span class="selectgroup-button">Light</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="value" value="2"
-                                            class="selectgroup-input-radio select-layout">
-                                        <span class="selectgroup-button">Dark</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="p-15 border-bottom">
-                                <h6 class="font-medium m-b-10">Sidebar Color</h6>
-                                <div class="selectgroup selectgroup-pills sidebar-color">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="icon-input" value="1"
-                                            class="selectgroup-input select-sidebar">
-                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
-                                            data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="icon-input" value="2"
-                                            class="selectgroup-input select-sidebar" checked>
-                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
-                                            data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="p-15 border-bottom">
-                                <h6 class="font-medium m-b-10">Color Theme</h6>
-                                <div class="theme-setting-options">
-                                    <ul class="choose-theme list-unstyled mb-0">
-                                        <li title="white" class="active">
-                                            <div class="white"></div>
-                                        </li>
-                                        <li title="cyan">
-                                            <div class="cyan"></div>
-                                        </li>
-                                        <li title="black">
-                                            <div class="black"></div>
-                                        </li>
-                                        <li title="purple">
-                                            <div class="purple"></div>
-                                        </li>
-                                        <li title="orange">
-                                            <div class="orange"></div>
-                                        </li>
-                                        <li title="green">
-                                            <div class="green"></div>
-                                        </li>
-                                        <li title="red">
-                                            <div class="red"></div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="p-15 border-bottom">
-                                <div class="theme-setting-options">
-                                    <label class="m-b-0">
-                                        <input type="checkbox" name="custom-switch-checkbox"
-                                            class="custom-switch-input" id="mini_sidebar_setting">
-                                        <span class="custom-switch-indicator"></span>
-                                        <span class="control-label p-l-10">Mini Sidebar</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="p-15 border-bottom">
-                                <div class="theme-setting-options">
-                                    <label class="m-b-0">
-                                        <input type="checkbox" name="custom-switch-checkbox"
-                                            class="custom-switch-input" id="sticky_header_setting">
-                                        <span class="custom-switch-indicator"></span>
-                                        <span class="control-label p-l-10">Sticky Header</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
-                                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
-                                    <i class="fas fa-undo"></i> Restore Default
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             @include('layouts.footer')
         </div>

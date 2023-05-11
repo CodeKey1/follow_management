@@ -11,6 +11,9 @@ $(function () {
     chart9();
     chart10();
     chart11();
+    chart12();
+    chart13();
+    chart14();
 });
 
 function chart1() {
@@ -727,6 +730,105 @@ function chart11() {
     };
 
     var chart = new ApexCharts(document.querySelector("#chart11"), options);
+
+    chart.render();
+}
+function chart12() {
+    var data4 = JSON.parse($('input[name=data4]').val());
+    var options = {
+        chart: {
+            width: 300,
+            height: 300,
+            type: "pie",
+        },
+        legend: {
+            position: 'bottom'
+          },
+          colors: ['#00e396', '#feb018', '#ff4560'],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        series: data4,
+        responsive: [
+            {
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: "top",
+                    },
+                },
+            },
+        ],
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart12"), options);
+
+    chart.render();
+}
+function chart13() {
+    var data5 = JSON.parse($('input[name=data5]').val());
+    var options = {
+        chart: {
+            width: 300,
+            height: 300,
+            type: "pie",
+        },
+        legend: {
+            position: 'bottom'
+          },
+          colors: ['#00e396', '#feb018', '#ff4560'],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        series: data5,
+        responsive: [
+            {
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: "top",
+                    },
+                },
+            },
+        ],
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart13"), options);
+
+    chart.render();
+}
+function chart14() {
+    var data6 = JSON.parse($('input[name=data6]').val());
+    var options = {
+        chart: {
+            width: 300,
+            height: 300,
+            type: "pie",
+        },
+        legend: {
+            position: 'bottom'
+          },
+          colors: ['#00e396', '#feb018', '#ff4560'],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        series: data6,
+        responsive: [
+            {
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200,
+                    },
+                    legend: {
+                        position: "top",
+                    },
+                },
+            },
+        ],
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart14"), options);
 
     chart.render();
 }

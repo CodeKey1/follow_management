@@ -20,7 +20,8 @@ class Topic extends Model
         return $query -> select('id','import_id','office_id','name','vic_sign','import_date','recived_date','state','users_name','notes','file','cat_name','side_id');
     }
 
-    protected $casts = [ 'recived_date'=>'datetime'];
+    protected $casts = [ 'recived_date'=>'datetime','import_date'=>'datetime'];
+
 
     public function name_side(){
 

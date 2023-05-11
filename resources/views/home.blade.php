@@ -271,11 +271,32 @@
                                     </div>
                                     <div class="tab-pane fade" id="profile3" role="tabpanel"
                                         aria-labelledby="profile-tab3">
-                                        Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac
-                                        efficitur est lobortis
-                                        quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis
-                                        iaculis tellus.
-                                        Etiam ac vehicula eros, pharetra consectetur dui.
+                                        <div class="row">
+                                            <div class="recent-report__chart">
+                                                <label for="chart9"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
+                                                    رئاسة مجلس النواب</label>
+                                                <div id="chart12"></div>
+                                                <input type="hidden" name="data4"
+                                                    value="{{ $orderCharts['data4'] }}">
+                                            </div>
+                                            <div class="recent-report__chart">
+                                                <label for="chart10"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
+                                                    هيئات - شركات</label>
+                                                <div id="chart13"></div>
+                                                <input type="hidden" name="data5"
+                                                    value="{{ $orderCharts['data5'] }}">
+                                            </div>
+                                            <div class="recent-report__chart">
+                                                <label for="chart11"
+                                                    style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
+                                                    جهات أخري </label>
+                                                <div id="chart14"></div>
+                                                <input type="hidden" name="data6"
+                                                    value="{{ $orderCharts['data6'] }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="contact3" role="tabpanel"
                                         aria-labelledby="contact-tab3">
@@ -312,43 +333,8 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <div class="col-12 col-sm-12 col-lg-12">
-
-                            <div class="card card-danger">
-                                <div class="card-header">
-                                    <h4>الجهات</h4>
-                                    <div class="card-header-action">
-                                        <a href="{{ route('side') }}" class="btn btn-danger btn-icon icon-right"> عرض
-                                            الكل <i class="fas fa-chevron-left"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="owl-carousel owl-theme" id="users-carousel">
-                                        @foreach ($sides as $side)
-                                            <div>
-                                                <div class="user-item">
-                                                    <a href="{{ route('side.profile', $side->id) }}"> <img
-                                                            alt="image" src="assets/img/males-wazra.png"
-                                                            class="img-fluid" style="width:65%;display:inline-block">
-                                                    </a>
-
-                                                    <div class="user-details">
-                                                        <div class="user-name"> {{ $side->side_name }} </div>
-
-                                                        <div class="user-cta">
-                                                            {{-- <button class="btn btn-primary">{{ $side->side_name }}</button> --}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
-                            <div class="card">
+                        <div class="col-12 col-sm-12 col-lg-8">
+                            <div class="card  card-primary">
                                 <div class="card-header">
                                     <h4>المكاتبات الواردة</h4>
                                     <div class="card-header-action">
@@ -365,9 +351,94 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card card-danger">
+                                <div class="card-header">
+                                    <h4>الجهات</h4>
+                                    <div class="card-header-action">
+                                        <a href="{{ route('side') }}" class="btn btn-danger btn-icon icon-right"> عرض
+                                            الكل <i class="fas fa-chevron-left"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="owl-carousel owl-theme" id="users-carousel">
+                                        @foreach ($sides as $side)
+                                            <div>
+                                                <div class="user-item">
+                                                    <a href="{{ route('side.profile', $side->id) }}"> <img
+                                                            alt="image" src="assets/img/males-wazra.png"
+                                                            class="img-fluid" style="width:100%;display:inline-block">
+                                                    </a>
+
+                                                    <div class="user-details">
+                                                        <div class="user-name"> {{ $side->side_name }} </div>
+
+                                                        <div class="user-cta">
+                                                            {{-- <button class="btn btn-primary">{{ $side->side_name }}</button> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card  card-danger">
+                                    <div class="card-header">
+                                        <h4> المكاتبات الواردة المتأخرة</h4>
+                                    </div>
+                                    <div style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="save-stage" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th> رقك المكاتبة </th>
+                                                        <th> الحالة </th>
+                                                        <th>مدة التأخير</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @isset($topics)
+                                                        @foreach ($topics as $Topic)
+                                                            <tr>
+                                                                <td class="text-bold-700">
+                                                                    <a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a></td>
+                                                                <td>
+                                                                    @if ($Topic->state == 1)
+                                                                    <div class="spinner-grow text-success" role="status">
+                                                                        <span class="visually-hidden" style="color: #000"> تم  </span>
+                                                                      </div>
+                                                                    @elseif($Topic->state == 0)
+                                                                    <div class="spinner-grow text-danger" role="status">
+                                                                        <span class="visually-hidden" style="color: #000"> لم يتم  </span>
+                                                                      </div>
+                                                                    @elseif($Topic->state == 2)
+                                                                    <div class="spinner-grow text-warning" role="status">
+                                                                        <span class="visually-hidden" style="color: #000"> جاري </span>
+                                                                      </div>
+                                                                    @endif
+                                                                </td>
+                                                                <td class="text-bold-700">
+                                                                    <button type="button" class="btn btn-danger date">
+                                                                    <span class="badge badge-transparent" >
+                                                                     {{ $Topic->import_date->diffInDays($Topic->recived_date) }}
+                                                                    </span>يوم
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endisset
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                     <div class="row">
+
                         <div class="col-12 col-sm-12 col-lg-12">
 
                             <div class="card card-danger">
@@ -404,41 +475,8 @@
 
                         </div>
                     </div>
-
-                    {{-- <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>طلبات الإستثمار المتأخرة</h4>
-
-                                    <div class="card-header-action">
-                                        <a href="#" class="btn btn-primary">View All</a>
-                                    </div>
-                                </div>
-                                <div class="card-body" style="direction: rtl;">
-                                    <div class="table-responsive">
-                                        <table class="table" id="save-stage" style="width:100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th> # </th>
-                                                    <th>الطلب</th>
-                                                    <th>الحالة</th>
-                                                    <th>التاخير</th>
-                                                    <th>تاريخ الطلب</th>
-
-                                                </tr>
-                                            </thead>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div> --}}
                 </section>
             </div>
-            Main Content
             <footer class="main-footer">
                 <div class="footer-left">
                     <a href="https://aswan.gov.eg/">ISDT</a></a>

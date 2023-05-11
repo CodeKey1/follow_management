@@ -183,11 +183,17 @@
                                                                 </td>
                                                                 <td>
                                                                     @if ($Topic->state == 1)
-                                                                        <div class="badge badge-success"> </div>
+                                                                    <div class="spinner-grow text-success" role="status">
+                                                                        <span class="visually-hidden" style="color: #000"> تم  </span>
+                                                                      </div>
                                                                     @elseif($Topic->state == 0)
-                                                                        <div class="badge badge-danger"> </div>
+                                                                    <div class="spinner-grow text-danger" role="status">
+                                                                        <span class="visually-hidden" style="color: #000"> لم يتم  </span>
+                                                                      </div>
                                                                     @elseif($Topic->state == 2)
-                                                                        <div class="badge badge-warning"> </div>
+                                                                    <div class="spinner-grow text-warning" role="status">
+                                                                        <span class="visually-hidden" style="color: #000"> جاري </span>
+                                                                      </div>
                                                                     @endif
                                                                 </td>
                                                                 <td>

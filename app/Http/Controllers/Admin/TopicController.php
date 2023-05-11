@@ -156,10 +156,10 @@ class TopicController extends Controller
 
     public function show(string $import_id)
     {
+        $topics = Topic::select()->with('t_export','name_side')->where('id',$import_id)->find($import_id);
         $side = Side::select()->get();
         $exports = Export::select()->where('topic_id',$import_id)->get();
         $response = Response_Topic::select()->with('R_topic')->get();
-        $topics = Topic::select()->find($import_id);
 
         if (!$topics) {
             return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
