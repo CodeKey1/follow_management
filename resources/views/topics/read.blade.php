@@ -111,7 +111,7 @@
                                                                     <span class="date pull-left"
                                                                         style="direction: rtl;margin-top: 18px; color: #28a745;font-size: 14px; font-weight: 400;">
                                                                         تاريخ
-                                                                        الاستلام :
+                                                                        إستلام الوارد :
                                                                         {{ $topics->recived_date->format('Y-M-d') }}
                                                                     </span>
                                                                 </h6>
@@ -140,10 +140,10 @@
 
                                                             <span class="date pull-right"
                                                                 style="font-size: 14px; font-weight: 400;color: #dc3545;padding-right: 15px;direction: rtl;">
-                                                                @foreach ($topics->t_export->where('side_id', $topics->name_side->id) as $x_date)
-                                                                    تاريخ الإرسال :
-                                                                    {{ $x_date->send_date->format('Y-M-d') }}
-                                                                @endforeach
+
+                                                                    تاريخ ارسال الجهة :
+                                                                    {{ $topics->import_date->format('Y-M-d') }}
+
                                                             </span>
                                                         </div>
                                                         <a href="#" class="table-img m-r-15">
@@ -278,7 +278,7 @@
                                                                     <span class="date pull-right"
                                                                         style="font-size: 14px; font-weight: 400;color: #dc3545;padding-right: 15px;direction: rtl;">
                                                                         @foreach ($topics->t_export->where('side_id', $topics->name_side->id) as $x_date)
-                                                                            تاريخ الإرسال :
+                                                                            تاريخ إرسال الصادر :
                                                                             {{ $x_date->send_date->format('Y-M-d') }}
                                                                         @endforeach
                                                                     </span>

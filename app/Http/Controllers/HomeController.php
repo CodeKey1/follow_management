@@ -56,44 +56,44 @@ class HomeController extends Controller
         array_push(
             $master,
             Topic::select()->with('name_side')->where('side_id', 1)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 1)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 1)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 1)->where('state', 0)->count(),
         );
         array_push(
             $master1,
             Topic::select()->with('name_side')->where('side_id', 2)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 2)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 2)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 2)->where('state', 0)->count(),
         );
         array_push(
             $master2,
             Topic::select()->with('name_side')->where('side_id', 3)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 3)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 3)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 3)->where('state', 0)->count(),
         );
         array_push(
             $master3,
             Topic::select()->with('name_side')->where('side_id', 4)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 4)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 4)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 4)->where('state', 0)->count(),
         );
         array_push(
             $master4,
             Topic::select()->with('name_side')->where('side_id', 5)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 5)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 5)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 5)->where('state', 0)->count(),
         );
         array_push(
             $master5,
             Topic::select()->with('name_side')->where('side_id', 6)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 6)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 6)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 6)->where('state', 0)->count(),
         );
         array_push(
             $master6,
             Topic::select()->with('name_side')->where('side_id', 7)->where('state', 1)->count(),
-            Topic::select()->with('name_side')->where('side_id', 7)->where('state', 0)->count(),
             Topic::select()->with('name_side')->where('side_id', 7)->where('state', 2)->count(),
+            Topic::select()->with('name_side')->where('side_id', 7)->where('state', 0)->count(),
         );
         return [
             'data' => json_encode($master), 'data1' => json_encode($master1), 'data2' => json_encode($master2),

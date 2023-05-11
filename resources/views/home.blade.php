@@ -336,7 +336,7 @@
                         <div class="col-12 col-sm-12 col-lg-8">
                             <div class="card  card-primary">
                                 <div class="card-header">
-                                    <h4>المكاتبات الواردة</h4>
+                                    <h4>  احصائيات سنوية للمكاتبات </h4>
                                     <div class="card-header-action">
                                         <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
                                             الواردة </a>
@@ -386,7 +386,7 @@
                         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card  card-danger">
                                     <div class="card-header">
-                                        <h4> المكاتبات الواردة المتأخرة</h4>
+                                        <h4> المكاتبات  لم يتم الرد</h4>
                                     </div>
                                     <div style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
                                         <div class="table-responsive">
@@ -394,7 +394,7 @@
                                                 <thead>
                                                     <tr>
 
-                                                        <th> رقك المكاتبة </th>
+                                                        <th> رقم المكاتبة </th>
                                                         <th> الحالة </th>
                                                         <th>مدة التأخير</th>
                                                     </tr>
@@ -408,15 +408,15 @@
                                                                 <td>
                                                                     @if ($Topic->state == 1)
                                                                     <div class="spinner-grow text-success" role="status">
-                                                                        <span class="visually-hidden" style="color: #000"> تم  </span>
+                                                                        <span class="visually-hidden" style="color: #000">   </span>
                                                                       </div>
                                                                     @elseif($Topic->state == 0)
                                                                     <div class="spinner-grow text-danger" role="status">
-                                                                        <span class="visually-hidden" style="color: #000"> لم يتم  </span>
+                                                                        <span class="visually-hidden" style="color: #000">    </span>
                                                                       </div>
                                                                     @elseif($Topic->state == 2)
                                                                     <div class="spinner-grow text-warning" role="status">
-                                                                        <span class="visually-hidden" style="color: #000"> جاري </span>
+                                                                        <span class="visually-hidden" style="color: #000">  </span>
                                                                       </div>
                                                                     @endif
                                                                 </td>
