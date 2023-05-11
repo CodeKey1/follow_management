@@ -170,11 +170,15 @@
                                                                 <tr>
                                                                     <td class="text-bold-700">{{ $Export->id }}</td>
                                                                     <td class="text-bold-700">
+                                                                        @isset($Export->topic_export->id)
                                                                         <a href="{{ route('topics.edit',$Export->topic_export->id ) }}">
                                                                              {{ $Export->topic_export->import_id }}
                                                                          </a>
+                                                                         @endisset
                                                                     </td>
+                                                                    @isset($Export->topic_export->recived_date)
                                                                     <td class="text-bold-700">{{ $Export->topic_export->recived_date->format('Y-M-d') }}</td>
+                                                                    @endisset
                                                                     <td>
                                                                         @foreach ($response->where('export_id', $Export->id) as $value)
 
@@ -192,7 +196,9 @@
                                                                     @endforeach
                                                                     </td>
                                                                     <td class="text-bold text-bold-700">{{ $Export->name }}</td>
+                                                                    @isset($Export->sidename_export->side_name)
                                                                     <td class="text-bold text-bold-700">{{ $Export->sidename_export->side_name }}</td>
+                                                                    @endisset
                                                                     <td class="text-bold text-bold-700">
                                                                         <a href="{{ route('exports.edit',$Export->id ) }}">
                                                                             {{ $Export->export_no }}
@@ -200,6 +206,7 @@
                                                                     </td>
                                                                     <td class="text-bold text-bold-700">{{ $Export->send_date->format('Y-M-d') }}</td>
                                                                     <td class="text-bold text-bold-700">
+                                                                        @isset($Export->topic_export->recived_date)
                                                                         @if ($Export->topic_export->recived_date->diffInDays(($Export->send_date)) >= 10)
                                                                                         <div class="badge badge-danger" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;"> {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم
                                                                                         </div>
@@ -210,6 +217,7 @@
                                                                                         <div class="badge badge-success" style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
                                                                                             {{$Export->topic_export->recived_date->diffInDays(($Export->send_date))}} يوم </div>
                                                                                     @endif
+                                                                                    @endisset
                                                                         </td>
                                                                     <td style="width: 15%">
                                                                         <a href="{{ route('exports.edit',$Export->id) }}" class="col-dark-gray waves-effect m-r-20" title="" data-toggle="tooltip" data-original-title="عرض وتعديل">
@@ -227,7 +235,7 @@
                                                                           </a>
 
                                                                     </td>
-                                                                    
+
                                                                 </tr>
                                                             @endforeach
                                                         @endisset

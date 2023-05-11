@@ -50,36 +50,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-secondary">
-                                    <div class="card-body" style="direction: rtl;">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-hover" id="save-stage"
-                                                style="width:100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th> # </th>
-                                                        <th>اسم الإدارة</th>
-                                                        <th> عدد ملفات المتابعة </th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @isset($responsibles)
-                                                    @foreach ($responsibles as $respon)
-                                                        <tr>
-                                                            <td class="text-bold-700"> {{ $respon->id }}</td>
-                                                            <td class="text-bold-700" style="text-align: right;">
-                                                                <a href="{{route('manage.profile', $respon->id)}}"> {{ $respon->name }} </a></td>
-                                                            <td class="text-bold-700"> {{ $respon->Responetopic->count() }}</td>
-
-                                                        </tr>
-                                                    @endforeach
-                                                @endisset
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <div class="card card-secondary" style="height: 530px !important;">
+                                    <div class="card-body" id="top-5-scroll" style="direction: rtl;height: 530px !important;">
+                                        <ul class="list-unstyled list-unstyled-border">
+                                            @isset($responsibles)
+                                                @foreach ($responsibles as $respon)
+                                                    <li class="media">
+                                                        <img alt="image" class="mr-2 rounded-circle" width="60"
+                                                            src="../assets/img/2.jpg" style="margin-left: 1rem !important;">
+                                                        <div class="media-body">
+                                                            <div class="media-title">
+                                                                <a href="{{ route('manage.profile', $respon->id) }}">
+                                                                    {{ $respon->name }} </a>
+                                                            </div>
+                                                            <div class="text-job" style="color: red"> محافظة أسوان </div>
+                                                        </div>
+                                                        <div class="media-items" style="background-color: #1f704659;">
+                                                            <div class="media-item">
+                                                                <div class="media-value" style="color: green">
+                                                                    {{ $respon->Responetopic->count() }}</div>
+                                                                <div class="media-label"> الوارد </div>
+                                                            </div>
+                                                            <div class="media-item">
+                                                                <div class="media-value" style="color: red">
+                                                                    {{ $respon->Responexport->count() }}</div>
+                                                                <div class="media-label"> الصادر</div>
+                                                            </div>
+                                                            <div class="media-item">
+                                                                <div class="media-value" style="color: rgb(0, 81, 255)">
+                                                                    {{ $respon->Responetopic->where('topic_id', '==', null)->count() }}
+                                                                </div>
+                                                                <div class="media-label">المتبقي</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            @endisset
+                                        </ul>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

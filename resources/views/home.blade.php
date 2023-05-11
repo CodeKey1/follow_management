@@ -225,11 +225,11 @@
                                             role="tab" aria-controls="profile" aria-selected="false"> احصائيات
                                             الجهات 2 </a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" id="contact-tab3" data-toggle="tab" href="#contact3"
                                             role="tab" aria-controls="contact" aria-selected="false"> احصائيات
                                             الجهات 3 </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                                 <div class="tab-content" id="myTabContent2">
                                     <div class="tab-pane fade show active" id="home3" role="tabpanel"
@@ -298,41 +298,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="contact3" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="contact3" role="tabpanel"
                                         aria-labelledby="contact-tab3">
                                         Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin
                                         ligula massa,
                                         gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem
                                         interdum
                                         molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor.
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>المكاتبات الواردة</h4>
-
-                                    <div class="card-header-action">
-                                        <a href="{{ route('topic.index') }}" class="btn btn-primary"> كل الملفات
-                                            الواردة </a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <br>
-                                    <br>
-                                    <canvas id="lineChartFill"></canvas>
-                                    <input type="hidden" name="users" value="{{ $users['user'] }}">
-                                    <input type="hidden" name="service" value="{{ $users['service'] }}">
-                                    <input type="hidden" name="month" value="{{ $users['month'] }}">
-
-
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="col-12 col-sm-12 col-lg-8">
                             <div class="card  card-primary">
                                 <div class="card-header">
@@ -437,53 +415,9 @@
                                 </div>
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-12 col-sm-12 col-lg-12">
-
-                            <div class="card card-danger">
-                                <div class="card-header">
-                                    <h4>الجهات</h4>
-                                    <div class="card-header-action">
-                                        <a href="{{ route('side') }}" class="btn btn-danger btn-icon icon-right"> عرض
-                                            الكل <i class="fas fa-chevron-left"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="owl-carousel owl-theme" id="users-carousel">
-                                        @foreach ($sides as $side)
-                                            <div>
-                                                <div class="user-item">
-                                                    <a href="{{ route('side.profile', $side->id) }}"> <img
-                                                            alt="image" src="assets/img/males-wazra.png"
-                                                            class="img-fluid" style="width:65%;display:inline-block">
-                                                    </a>
-
-                                                    <div class="user-details">
-                                                        <div class="user-name"> {{ $side->side_name }} </div>
-
-                                                        <div class="user-cta">
-                                                            {{-- <button class="btn btn-primary">{{ $side->side_name }}</button> --}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                 </section>
             </div>
-            <footer class="main-footer">
-                <div class="footer-left">
-                    <a href="https://aswan.gov.eg/">ISDT</a></a>
-                </div>
-                <div class="footer-right">
-                </div>
-            </footer>
+            @include('layouts.footer')
         </div>
     </div>
     <!-- General JS Scripts -->

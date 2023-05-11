@@ -72,9 +72,26 @@
                                     <div class="card card-secondary" id="div1">
                                         <div class="card-body">
                                             <div class="form-row">
-                                                <div class="form-group col-md-12">
+                                                <div class="form-group col-md-6">
+                                                    <label>رقم الوارد</label>
+                                                    <select class="form-control select2" id="project" name="topic_id"
+                                                        style="width: 100%;">
+                                                        <option value="" disabled selected>اختر الملف الوارد
+                                                        </option>
+                                                        @isset($topics)
+                                                            @if ($topics && $topics->count() > 0)
+                                                                @foreach ($topics as $topic)
+                                                                    <option value="{{ $topic->id }}">
+                                                                        {{ $topic->import_id }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
                                                     <label> اسم الجهة الوارد منها </label>
-                                                    <select class="form-control" id="sub_cat">
+                                                    <select class="form-control" id="sub_cat" name="">
                                                         <option value="" disabled selected> الجهة الوارد منها
                                                         </option>
                                                         @isset($topics)
@@ -149,7 +166,7 @@
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
                                                         name="export_no[]" class="form-control" required>
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-3">
                                                     <label> اسم الجهة الصادر اليها</label>
                                                     <select class="form-control" name="side_id[]">
                                                         <option value="" disabled selected>اختر الجهة</option>
@@ -158,6 +175,21 @@
                                                                 @foreach ($side as $sides)
                                                                     <option value="{{ $sides->id }}">
                                                                         {{ $sides->side_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label> اسم الإدارة الصادر اليها</label>
+                                                    <select class="form-control select2" multiple name="responsible_id[]" style="width: 100%;">
+                                                        <option value="" disabled >اختر الإدارة</option>
+                                                        @isset($responsibles)
+                                                            @if ($responsibles && $responsibles->count() > 0)
+                                                                @foreach ($responsibles as $Response)
+                                                                    <option value="{{ $Response->id }}">
+                                                                        {{ $Response->name }}
                                                                     </option>
                                                                 @endforeach
                                                             @endif

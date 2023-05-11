@@ -5,6 +5,8 @@ use App\Models\Responsible;
 use App\Http\Controllers\Controller;
 use App\Models\Export;
 use App\Models\Side;
+use App\Models\Ts_Export;
+use App\Models\Response_Topic;
 use App\Models\Topic;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -51,25 +53,20 @@ class ManagController extends Controller
     public function show(string $id)
     {
         //
-        $users = $this->userChart();
+
         $topics = Topic::select()->with('rsename')->get();
         $export = Export::select()->get();
         $responsible = Responsible::select()->with('Responetopic','Responexport')->find($id);
         if (!$responsible) {
             return redirect()->route('manage')->with(['error' => 'هذه الإدارة غير موجوده']);
         }
-        return view('management.profile',compact('responsible','export','topics','id','users'));
-    }
-
-    public function userChart()
-    {
         $now = Carbon::today();
         $month = [];
         $service = [];
         $user = [];
         for ($i = 0; $i < 12; $i++) {
-            $end =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state', 1)->get();
-            $start =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            $end =  Ts_Export::with('R_export')->where('responsible_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            $start =  Response_Topic::with('R_topic')->where('responsible_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
             array_push($month, $now->format('M') . ' ' . $now->format('Y'));
             array_push($service, $end->count());
             array_push($user, $start->count());
@@ -79,8 +76,11 @@ class ManagController extends Controller
         $master['service'] = json_encode($service);
         $master['month'] = json_encode($month);
         $master['user'] = json_encode($user);
-        return $master;
+
+        return view('management.profile',compact('responsible','export','topics','id','master'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

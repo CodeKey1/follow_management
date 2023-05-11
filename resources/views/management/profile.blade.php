@@ -25,8 +25,8 @@
             @include('layouts.sidbar')
             <!-- Main Content -->
             <div class="main-content">
-                <section class="section" style="direction: rtl">
-                    <div class="section-body">
+                <section class="section">
+                    <div class="section-body" style="direction: rtl;">
                         <div class="row mt-sm-4">
                             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                                 <div class="card author-box card-primary">
@@ -99,9 +99,9 @@
                                     <div class="card-body">
                                         <div class="recent-report__chart">
                                             <div id="chart1"></div>
-                                            <input type="hidden" name="users" value="{{ $users['user'] }}">
-                                    <input type="hidden" name="service" value="{{ $users['service'] }}">
-                                    <input type="hidden" name="month" value="{{ $users['month'] }}">
+                                            <input type="hidden" name="users" value="{{ $master['user'] }}">
+                                            <input type="hidden" name="service" value="{{ $master['service'] }}">
+                                            <input type="hidden" name="month" value="{{ $master['month'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -142,25 +142,30 @@
                                                             @isset($responsible)
                                                                 @foreach ($responsible->Responetopic as $respon)
                                                                     <tr>
-                                                                        <td>{{ $respon->import_id }}</td>
-                                                                        <td class="text-left"> {{ $respon->recived_date }}
+                                                                        <td><a
+                                                                                href="{{ route('topics.show', $respon->id) }}">{{ $respon->import_id }}</a>
+                                                                        </td>
+                                                                        </td>
+                                                                        <td class="text-left">
+                                                                            {{ $respon->recived_date->format('d-M-y') }}
                                                                         </td>
                                                                         <td>
                                                                             <a href="#">
                                                                                 @if ($respon->state == 0)
-                                                                                    <span class="badge badge-danger">لم
-                                                                                        يتم</span>
+                                                                                    <span class="badge badge-danger">
+                                                                                    </span>
                                                                                 @elseif($respon->state == 1)
-                                                                                    <span class="badge badge-success"> تم
-                                                                                        الرد</span>
+                                                                                    <span class="badge badge-success">
+                                                                                    </span>
                                                                                 @elseif($respon->state == 2)
-                                                                                    <span class="badge badge-warning"> جاري
-                                                                                        المتابعة</span>
+                                                                                    <span class="badge badge-warning">
+                                                                                    </span>
                                                                                 @endif
                                                                             </a>
                                                                         </td>
                                                                         <td class="max-texts" style="width: 40%;"><a
-                                                                                href="#">{{ $respon->name }}</a></td>
+                                                                                href="#">{{ $respon->name }}</a>
+                                                                        </td>
                                                                         <td class="hidden-m">
                                                                             @if (auth()->user()->hasRole('admin') ||
                                                                                     auth()->user()->hasRole('export_user'))
@@ -200,11 +205,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-
                                             </div>
-
                                         </div>
-
                                         <div class="tab-pane fade" id="settings" role="tabpanel"
                                             aria-labelledby="profile-tab2">
                                             <form class="needs-validation" id="work_experience"
@@ -235,7 +237,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveRequest;
 use App\Models\Responsible;
@@ -18,13 +19,13 @@ class ExportController extends Controller
     {
         $response = Ts_Export::select()->with('R_export')->get();
         $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->get();
-        $exports_trash = Export::select()->where('state','<>',1)->where('cat_name',Auth::user()->cat_name )->count();
-        $exports = Export::select()->where('cat_name',Auth::user()->cat_name )->get();
-        return view('export.index', compact('exports','exports_trash','topics','response'));
+        $exports_trash = Export::select()->where('state', '<>', 1)->where('cat_name', Auth::user()->cat_name)->count();
+        $exports = Export::select()->where('cat_name', Auth::user()->cat_name)->get();
+        return view('export.index', compact('exports', 'exports_trash', 'topics', 'response'));
     }
     public function archive()
     {
-        $exports = Export::onlyTrashed()->where('cat_name',Auth::user()->cat_name )->get();
+        $exports = Export::onlyTrashed()->where('cat_name', Auth::user()->cat_name)->get();
         return view('export.archive', compact('exports'));
     }
 
@@ -33,14 +34,14 @@ class ExportController extends Controller
         $topics = Topic::select()->with('name_side')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        return view('export.create', compact('responsibles','topics','side'));
+        return view('export.create', compact('responsibles', 'topics', 'side'));
     }
     public function export_internal()
     {
         $topics = Topic::select()->with('name_side')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        return view('export.export', compact('responsibles','topics','side'));
+        return view('export.export', compact('responsibles', 'topics', 'side'));
     }
 
     public function save_internal(Request $request)
@@ -66,20 +67,19 @@ class ExportController extends Controller
                 Export::create(([
                     'name'      => $request['name'],
                     'topic_id'  => $request['topic_id'],
-                    'cat_name'  => $request ['cat_name'],
+                    'cat_name'  => $request['cat_name'],
                     'send_date' => $request['send_date'],
                     'side_id'   => $side_id[$i],
                     'export_no' => $export_no[$i],
                     'details'   => $details[$i],
-                    'upload_f'  =>implode('|', $upload),
+                    'upload_f'  => implode('|', $upload),
                 ]));
             }
 
 
             return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
         } catch (\Exception $ex) {
-            return redirect()->route('exports')->
-            with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
     public function save(Request $request)
@@ -97,31 +97,58 @@ class ExportController extends Controller
             $upload[] = "";
         }
         try {
-            for ($i = 0; $i < count($request->side_id); $i++) {
-                $side_id[] = $request->side_id[$i];
+        if ($sid = $request->side_id) {
+            for ($i = 0; $i < count($sid); $i++) {
+                $side_id[] = $sid[$i];
                 $export_no[]  = $request->export_no[$i];
                 $details[]  = $request->details[$i];
                 $export = Export::create(([
                     'name'      => $request['name'],
                     'topic_id'  => $request['topic_id'],
-                    'cat_name'  => $request ['cat_name'],
+                    'cat_name'  => $request['cat_name'],
                     'send_date' => $request['send_date'],
                     'side_id'   => $side_id[$i],
                     'export_no' => $export_no[$i],
                     'details'   => $details[$i],
-                    'upload_f'  =>implode('|', $upload),
+                    'upload_f'  => implode('|', $upload),
                 ]));
-                // for ($i = 0; $i < count($request->responsible_id); $i++) {
-                //     $responsible_id[] = $request->responsible_id[$i];
-
-                //     Ts_Export::create(([
-                //     'responsible_id' => $responsible_id[$i],
-                //     'export_id' => $export->id,
-                // ]));
-
-
             }
-            return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
+            for ($i = 0; $i < count($request->responsible_id); $i++) {
+                $responsible_id[] = $request->responsible_id[$i];
+
+                Ts_Export::create(([
+                    'responsible_id' => $responsible_id[$i],
+                    'export_id' => $export->id,
+                ]));
+            }
+        } else {
+            $side_id[] = "";
+            for ($i = 0; $i < count($request->export_no); $i++) {
+                $export_no[]  = $request->export_no[$i];
+                $details[]  = $request->details[$i];
+                $export = Export::create(([
+                    'name'      => $request['name'],
+                    'topic_id'  => $request['topic_id'],
+                    'cat_name'  => $request['cat_name'],
+                    'send_date' => $request['send_date'],
+                    'export_no' => $export_no[$i],
+                    'details'   => $details[$i],
+                    'upload_f'  => implode('|', $upload),
+                ]));
+            }
+            for ($i = 0; $i < count($request->responsible_id); $i++) {
+                $responsible_id[] = $request->responsible_id[$i];
+
+                Ts_Export::create(([
+                    'responsible_id' => $responsible_id[$i],
+                    'export_id' => $export->id,
+                ]));
+            }
+        }
+
+        //
+        
+        return redirect()->route('exports')->with(['success' => 'تم حفظ الملف الصادر بنجاح']);
         } catch (\Exception $ex) {
             return redirect()->route('exports')->
             with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
@@ -130,17 +157,17 @@ class ExportController extends Controller
 
     public function edit(string $id)
     {
-        $topics = Topic::select()->with('name_side','rsename')->where('state', 1)->get();
+        $topics = Topic::select()->with('name_side', 'rsename')->where('state', 1)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        $exports = Export::select()->with('topic_export','sidename_export')->find($id);
+        $exports = Export::select()->with('topic_export', 'sidename_export')->find($id);
         if (!$exports) {
             return redirect()->route('exports')->with(['error' => 'هذه الملف غير موجوده']);
         }
-        return view('export.edit', compact('exports','responsibles','side','topics'));
+        return view('export.edit', compact('exports', 'responsibles', 'side', 'topics'));
     }
 
-    public function update(Request $request, $id )
+    public function update(Request $request, $id)
     {
 
         $upload_f = array();
@@ -163,15 +190,15 @@ class ExportController extends Controller
             }
             if (!$request->has('active'))
                 $request->request->add(['active' => 0]);
-            $exports -> update(([
+            $exports->update(([
                 'name' => $request['name'],
                 'topic_id'  => $request['topic_id'],
                 'send_date' => $request['send_date'],
                 'export_no' => $request['export_no'],
-                'side_id' => $request ['side_id'],
-                'details' => $request ['details'],
-                'cat_name' => $request ['cat_name'],
-                'upload_f'  =>implode('|', $upload),
+                'side_id' => $request['side_id'],
+                'details' => $request['details'],
+                'cat_name' => $request['cat_name'],
+                'upload_f'  => implode('|', $upload),
             ]));
             // for ($i = 0; $i < count($request->responsible_id); $i++) {
             //     $responsible_id[] = $request->responsible_id[$i];
@@ -183,12 +210,9 @@ class ExportController extends Controller
 
 
             return redirect()->route('exports')->with(['success' => 'تم تعديل الملف الصادر بنجاح']);
-
         } catch (\Exception $ex) {
             return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
-
-
     }
 
     public function destroy($id)
@@ -202,7 +226,6 @@ class ExportController extends Controller
             $exports->forcedelete();
 
             return redirect()->route('exports')->with(['success' => 'تم حذف الملف الصادر بنجاح']);
-
         } catch (\Exception $ex) {
             return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
@@ -219,13 +242,12 @@ class ExportController extends Controller
             $exports->delete();
 
             return redirect()->route('exports')->with(['success' => 'تم نقل الي الارشيف بنجاح']);
-
         } catch (\Exception $ex) {
             return redirect()->route('exports')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
 
-    public function show( $id)
+    public function show($id)
     {
         $exports = Export::select()->find($id);
         if (!$exports) {

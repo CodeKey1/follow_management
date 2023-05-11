@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Side;
 use App\Models\Export;
 use App\Models\Topic;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Side_brach;
 use Illuminate\Http\Request;
@@ -61,14 +62,33 @@ class SideController extends Controller
     public function show(string $id)
     {
         //
+
         $topics = Topic::select()->where('side_id',$id)->get();
         $export = Export::select()->with('sidename_export')->where('side_id',$id)->get();
         $side = Side::select()->with('side_topic','side_export')->find($id);
         if (!$side) {
             return redirect()->route('side')->with(['error' => 'هذه الإدارة غير موجوده']);
         }
-        return view('sides.profile', compact('side','export','topics'));
+        $now = Carbon::today();
+        $month = [];
+        $service = [];
+        $user = [];
+        for ($i = 0; $i < 12; $i++) {
+            $end =  Export::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state', 1)->get();
+            $start =  Topic::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            array_push($month, $now->format('M') . ' ' . $now->format('Y'));
+            array_push($service, $end->count());
+            array_push($user, $start->count());
+            $now =  $now->subMonth();
+        }
+
+        $master['service'] = json_encode($service);
+        $master['month'] = json_encode($month);
+        $master['user'] = json_encode($user);
+
+        return view('sides.profile', compact('side','export','topics','master'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
