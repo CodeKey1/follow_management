@@ -53,10 +53,16 @@
                                     <div class="card card-secondary" >
                                         <div class="card-body " id="work_experience">
                                             <div class="form-row">
-                                                <div class="form-group col-md-12">
+                                                <div class="form-group col-md-6">
                                                     <label> اسم الجهة </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="side_name" class="form-control">
+                                                    name="side_name" class="form-control">
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label> صورة الجهة </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="file"
+                                                        name="side_image" accept="image/*" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row work-xp" >

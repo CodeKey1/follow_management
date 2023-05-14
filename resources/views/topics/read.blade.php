@@ -34,7 +34,8 @@
                                         <div id="mail-nav">
                                             {{-- <button type="button"
                                                 class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button> --}}
-                                            <h6 class="b-b p-10 text-strong">الإدارات المسؤلة للمتابعة المكاتبة الواردة</h5>
+                                            <h6 class="b-b p-10 text-strong">الإدارات المسؤلة للمتابعة المكاتبة الواردة
+                                                </h5>
                                                 <ul class="" id="mail-labels">
                                                     @foreach ($response->where('topic_id', $topics->id) as $value)
                                                         @if ($value->state == 1)
@@ -128,9 +129,14 @@
                                                             <button type="button"
                                                                 class="btn btn-primary date pull-left">
                                                                 يوم <span class="badge badge-transparent">
-                                                                    @foreach ($topics->t_export->where('side_id', $topics->name_side->id) as $x_date)
-                                                                        {{ $x_date->send_date->diffInDays($topics->recived_date) }}
-                                                                    @endforeach
+                                                                    @if ($topics->state == 1)
+                                                                    @foreach ($topics->t_export as $x_date)
+                                                                    {{ $topics->recived_date->diffInDays($x_date->send_date) }}
+                                                                @endforeach
+
+                                                                    @else
+                                                                        {{ $topics->recived_date->diffInDays($now) }}
+                                                                    @endif
                                                                 </span>
                                                             </button>
                                                             <h5 class="text-primary"
@@ -140,8 +146,8 @@
                                                             <span class="date pull-right"
                                                                 style="font-size: 14px; font-weight: 400;color: #dc3545;padding-right: 15px;direction: rtl;">
 
-                                                                    تاريخ ارسال الجهة :
-                                                                    {{ $topics->import_date->format('Y-M-d') }}
+                                                                تاريخ ارسال الجهة :
+                                                                {{ $topics->import_date->format('Y-M-d') }}
 
                                                             </span>
                                                         </div>
@@ -221,7 +227,6 @@
                                                             @endif
                                                         @endforeach
                                                     </ul>
-
                                             </div>
                                         </div>
                                     </div>
@@ -291,8 +296,6 @@
                                                         </div>
                                                         <div class="view-mail p-t-20">
                                                             <p>{{ $topics->notes }}</p>
-
-
                                                         </div>
                                                         <div class="attachment-mail">
                                                             <div class="row">
@@ -324,22 +327,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                @elseif($topics->state == 0)
-                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                                    <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15"
-                                        style="width: 100%"> لم يتم الرد علي المكاتبة برقم
-                                        صادر{{ $value->export_no }}</button>
-                                </div>
+                                {{-- @elseif($topics->state == 0)
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                        <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15"
+                                            style="width: 100%"> لم يتم الرد علي المكاتبة برقم
+                                            صادر{{ $value->export_no }}</button>
+                                    </div>
                                 @elseif($topics->state == 2)
-                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                                    <button type="button" class="btn btn-warning waves-effect btn-compose m-b-15"
-                                        style="width: 100%"> جاري المتابعة علي المكاتبة برقم
-                                        صادر{{ $value->export_no }}</button>
-                                </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                                        <button type="button" class="btn btn-warning waves-effect btn-compose m-b-15"
+                                            style="width: 100%"> جاري المتابعة علي المكاتبة برقم
+                                            صادر{{ $value->export_no }}</button>
+                                    </div> --}}
                                 @endif
                             @endforeach
                         </div>

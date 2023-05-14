@@ -24,6 +24,11 @@
 
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
+    <style>
+        #export_inside {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="light theme-white dark-sidebar sidebar-gone">
@@ -43,8 +48,6 @@
                                         <div class="card-header-action">
                                             <div class="dropdown">
                                                 <a href="{{ route('exports.create') }}" class="btn btn-warning "> صادر
-                                                    جديد لوارد </a>
-                                                <a href="{{ route('export.internal') }}" class="btn btn-danger "> صادر
                                                     جديد </a>
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
@@ -59,37 +62,19 @@
                                                 <div class="card-statistic-3">
                                                     <div class="card-icon card-icon-large"></div>
                                                     <div class="card-content">
-                                                        <h4 class="card-title"> نسبة الأكتمال </h4>
-                                                        @if ($topics && $topics->where('state', '<>', 1)->count() != 0)
-                                                            <span
-                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
-                                                            </span>
-                                                        @elseif ($topics->where('state', 1)->count() && $topics->count() != 0)
-                                                            <span
-                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                                {{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%
-                                                            </span>
-                                                        @else
-                                                            <span
-                                                                style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
-                                                                0%
-                                                            </span>
-                                                        @endif
+                                                        <h4 class="card-title"> عدد الصادر الداخلي </h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الصادرة الداخلي</span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $inside_export->count() }}</span>
                                                         <div class="progress mt-1 mb-1" data-height="8">
-                                                            @if ($topics->count() && $topics->where('state', 1)->count() != 0)
-                                                                <div class="progress-bar l-bg-green" role="progressbar"
-                                                                    data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
-                                                                    aria-valuenow="{{ $topics->count() }}"
-                                                                    aria-valuemin="{{ $topics->count() }}"
-                                                                    aria-valuemax="{{ $topics->count() }}"></div>
-                                                            @else
-                                                                <span class="float-left text-bold-700"
-                                                                    style="font-size: 16px;font-weight: 600;">
-                                                                    0%
-                                                                </span>
-                                                            @endif
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($inside_export->count() / $inside_export->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $inside_export->count() }}"
+                                                                aria-valuemin="{{ $inside_export->count() }}"
+                                                                aria-valuemax="{{ $inside_export->count() }}">
+                                                            </div>
                                                         </div>
+
 
                                                     </div>
                                                 </div>
@@ -146,7 +131,17 @@
                                     </div>
 
                                 </div>
-                                <div class="card card-secondary">
+                                <div class="card card-secondary" id="export_side">
+                                    <div class="card-header">
+                                        <h4> متابعة الصادر الجهات</h4>
+                                        <div class="card-header-action">
+                                            <div class="btn-group">
+                                                <a href="#" class="btn btn-warning" onclick="myFunction()">
+                                                    صادر داخلي </a>
+                                            </div>
+                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                                        </div>
+                                    </div>
                                     <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover" id="table-2"
@@ -156,7 +151,7 @@
                                                         <th> # </th>
                                                         <th> رقم الوارد </th>
                                                         <th> تاريخ استلام الوارد </th>
-                                                        <th> الإدارات المسؤلة </th>
+                                                        <th> حالة الصادر </th>
                                                         <th>اسم الصادر</th>
                                                         <th> جهة الصادر</th>
                                                         <th> رقم الصادر</th>
@@ -191,24 +186,27 @@
                                                                     </td>
                                                                 @endif
                                                                 <td>
-                                                                    @foreach ($response->where('export_id', $Export->id) as $value)
-                                                                        @if ($value->state == 1)
+
+                                                                        @if ($Export->topic_export->state == 1)
                                                                             <div class="badge badge-success">
                                                                             </div>
-                                                                        @elseif($value->state == 0)
+                                                                        @elseif($Export->topic_export->state == 0)
                                                                             <div class="badge badge-danger">
                                                                             </div>
-                                                                        @elseif($value->state == 2)
+                                                                        @elseif($Export->topic_export->state == 2)
                                                                             <div class="badge badge-warning">
                                                                             </div>
                                                                         @endif
-                                                                    @endforeach
+
                                                                 </td>
-                                                                <td class="text-bold text-bold-700">{{ $Export->name }}
+
+                                                                <td class="text-bold text-bold-700">
+                                                                    {{ $Export->name }}
                                                                 </td>
                                                                 @if ($Export->side_id)
                                                                     <td class="text-bold text-bold-700">
-                                                                        {{ $Export->sidename_export->side_name }}</td>
+                                                                        {{ $Export->sidename_export->side_name }}
+                                                                    </td>
                                                                 @else
                                                                     <td class="text-bold text-bold-700">
                                                                         __ </td>
@@ -279,6 +277,104 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card card-secondary" id="export_inside">
+                                    <div class="card-header">
+                                        <h4> متابعة الصادر الداخلي</h4>
+                                        <div class="card-header-action">
+                                            <div class="btn-group">
+                                                <a href="#" class="btn btn-warning" onclick="myFunction2()">
+                                                    صادر الجهات </a>
+                                            </div>
+                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                                        </div>
+                                    </div>
+                                    <div style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="table-2"
+                                                style="width:100%;">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th> رقم الصادر</th>
+                                                        <th> تاريخ الإرسال </th>
+                                                        <th>عنوان الصادر </th>
+                                                        <th>حالة الصادر </th>
+                                                        <th> الإدارة الصادر اليها</th>
+
+                                                        <th> رقم وارد جهة (ان وجد) </th>
+                                                        <th>الملف الصادر</th>
+                                                        <th> مدة التنفيذ </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @isset($x_inside)
+                                                        @foreach ($x_inside as $xport_in)
+                                                            <tr>
+                                                                <td>{{$xport_in->export_number}}</td>
+                                                                <td>{{$xport_in->date->format('d-M-y')}}</td>
+                                                                <td>{{$xport_in->tittle}}</td>
+                                                                <td>
+                                                                    @if ($xport_in->state == 1)
+                                                                        <div class="badge badge-success">
+                                                                        </div>
+                                                                    @elseif($xport_in->state == 0)
+                                                                        <div class="badge badge-danger">
+                                                                        </div>
+                                                                    @elseif($xport_in->state == 2)
+                                                                        <div class="badge badge-warning">
+                                                                        </div>
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{$xport_in->ins_resname->name}}</td>
+
+                                                                <td>
+                                                                    @if ($xport_in->topic_id)
+                                                                    {{$xport_in->inside_topic_export->import_id}}
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @foreach (explode('|', $xport_in->file) as $file)
+                                                                    <a href="{{ URL::to('attatch_office/export_follow/' . $file) }}"
+                                                                        class="portfolio-box" target="_blank">
+                                                                        <i class="material-icons">attach_file</i>
+                                                                    </a>
+                                                                    @endforeach
+                                                                </td>
+                                                                <td>
+                                                                    @if ($xport_in->topic_id)
+                                                                        @if ($xport_in->inside_topic_export->recived_date->diffInDays($xport_in->date) >= 10)
+                                                                            <div class="badge badge-danger"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $xport_in->inside_topic_export->recived_date->diffInDays($xport_in->date) }}
+                                                                                يوم
+                                                                            </div>
+                                                                        @elseif($xport_in->inside_topic_export->recived_date->diffInDays($xport_in->date) >= 5 == 9)
+                                                                            <div class="badge badge-warning"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $xport_in->inside_topic_export->recived_date->diffInDays($xport_in->date) }}
+                                                                                يوم </div>
+                                                                        @elseif($xport_in->inside_topic_export->recived_date->diffInDays($xport_in->date) <= 4)
+                                                                            <div class="badge badge-success"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $xport_in->inside_topic_export->recived_date->diffInDays($xport_in->date) }}
+                                                                                يوم </div>
+                                                                        @endif
+                                                                    @else
+                                                                        <div class="badge badge-warning"
+                                                                            style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                            {{ $now->diffInDays($xport_in->date) }}
+                                                                            يوم </div>
+                                                                    @endif
+                                                                </td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                    @endisset
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -313,6 +409,17 @@
     </script>
     <!-- Custom JS File -->
     <script src="assets/js/custom.js"></script>
+    <script>
+        function myFunction() {
+            document.getElementById("export_side").style.display = "none";
+            document.getElementById("export_inside").style.display = "block";
+        }
+
+        function myFunction2() {
+            document.getElementById("export_side").style.display = "block";
+            document.getElementById("export_inside").style.display = "none";
+        }
+    </script>
 </body>
 
 

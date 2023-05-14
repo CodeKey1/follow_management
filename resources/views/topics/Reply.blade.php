@@ -37,22 +37,25 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 @include('layouts.success')
                                 @include('layouts.error')
-                                <form class="needs-validation" id="work_experience" novalidate=""
-                                    action="{{ route('topics.reply.save') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="card card-primary">
-                                        <div class="card-header">
-                                            <h4>اضــافة وارد لصادر داخلي</h4>
-                                            <div class="card-header-action">
-                                                <a href="{{ route('topic.index') }}" class="btn btn-warning">كل
-                                                    الوارد</a>
-                                                <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
-                                            </div>
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>اضــافة وارد لصادر داخلي</h4>
+                                        <div class="card-header-action">
+                                            <a href="{{ route('topic.index') }}" class="btn btn-warning">كل
+                                                الوارد</a>
+                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
                                     </div>
-                                    <div class="card card-secondary">
+                                </div>
+                                <div class="card card-secondary">
+                                    <form class="needs-validation" id="work_experience" novalidate=""
+                                        action="{{ route('topics.reply.save') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <div class="card-body">
-                                            <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                            <input class="user-name text-bold-700 float-left" type="hidden"
+                                                name="cat_name" value="{{ Auth::user()->cat_name }}">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label>رقم الرد</label>
@@ -61,19 +64,17 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> لصادر رقم</label>
-                                                    <select class="form-control select2" id="project" name="export_id"
-                                                        style="width: 100%;">
-                                                        <option value="" disabled selected>اختر  رقم الصادر
+                                                    <select class="form-control select2" id="project"
+                                                        name="responsible_export_id" style="width: 100%;">
+                                                        <option value="" disabled selected>اختر رقم الصادر
                                                         </option>
-                                                        @isset($exports)
-                                                            @if ($exports && $exports->count() > 0)
-                                                                @foreach ($exports as $exportID)
-                                                                    <option value="{{ $exportID->id }}">
-                                                                        {{ $exportID->export_no }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
+
+                                                        @foreach ($inside_export as $inside)
+                                                            <option value="{{ $inside->id }}">
+                                                                {{ $inside->export_number }}
+                                                            </option>
+                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -83,8 +84,9 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label> رد الإدارة </label>
-                                                    <select class="form-control select2"  name="responsibles_id"  style="width: 100%;">
-                                                        <option value="" disabled selected >  وارد إدارة   </option>
+                                                    <select class="form-control select2" name="responsibles_id"
+                                                        style="width: 100%;">
+                                                        <option value="" disabled selected> وارد إدارة </option>
                                                         @isset($responsibles)
                                                             @if ($responsibles && $responsibles->count() > 0)
                                                                 @foreach ($responsibles as $Response)
@@ -116,10 +118,11 @@
 
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success" style="float: left;">حفظ</button>
+                                            <button type="submit" class="btn btn-success"
+                                                style="float: left;">حفظ</button>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                             {{-- <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn"
                                 class="btn btn-primary form-label" onclick="addWorkRow()">+ اضف مستحق

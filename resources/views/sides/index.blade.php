@@ -62,7 +62,7 @@
                                                 @foreach ($side as $Side)
                                                     <li class="media">
                                                         <img alt="image" class="mr-2 rounded-circle" width="60"
-                                                            src="../assets/img/2.jpg" style="margin-left: 1rem !important;">
+                                                            src="{{ URL::to('images/'. $Side->side_image ) }}" style="margin-left: 1rem !important;">
                                                         <div class="media-body">
                                                             <div class="media-title">
                                                                 <a href="{{ route('side.profile', $Side->id) }}">

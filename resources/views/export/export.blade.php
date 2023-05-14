@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-<!-- forms-validation.html  21 Nov 2019 03:55:16 GMT -->
+<!-- datatables.html  21 Nov 2019 03:55:21 GMT -->
 
 <head>
     <meta charset="UTF-8">
@@ -10,312 +8,280 @@
     <title>مكتب السيد المحافظ</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="assets/css/app.min.css">
-    <link rel="stylesheet" href="assets/bundles/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="assets/bundles/bootstrap-daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="assets/bundles/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
-    <link rel="stylesheet" href="assets/bundles/izitoast/css/iziToast.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <!-- Custom style CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
-
 </head>
 
 <body class="light theme-white dark-sidebar sidebar-gone">
     <div class="loader"></div>
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
-
             @include('layouts.sidbar')
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
                     <div class="section-body">
-                        <div class="row" style="direction: rtl">
-                            <div class="col-12 col-md-12 col-lg-12">
-                                @include('layouts.success')
-                                @include('layouts.error')
-                                <form class="needs-validation" novalidate="" action="{{ route('save.internal') }}"
-                                    method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="card card-primary">
-                                        <div class="card-header">
-                                            <h4> اضــافة ملف صادر جديــد داخلي </h4>
-                                            <div class="card-header-action">
-                                                <a href="{{ route('exports') }}" class="btn btn-warning">كل الصادر</a>
-                                                <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-secondary">
+                                    <div class="card-header">
+                                        <h4> كل ملفات متابعة الصادرة </h4>
+                                        <div class="card-header-action">
+                                            
+                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="section-body">
+                                    <div class="row ">
+
+                                        <div class="col-xl-4 col-lg-6">
+                                            <div class="card l-bg-green">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> عدد الصادر الداخلي </h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الصادرة الداخلي</span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $inside_export->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($inside_export->count() / $inside_export->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $inside_export->count() }}"
+                                                                aria-valuemin="{{ $inside_export->count() }}"
+                                                                aria-valuemax="{{ $inside_export->count() }}">
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6">
+                                            <div class="card l-bg-cyan">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> الصادرة لم يتم</h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الصادرة </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->where('state', '<>', 1)->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            <div class="progress-bar l-bg-green" role="progressbar"
+                                                                data-width="{{ ($topics->where('state', '<>', 1)->count() / $topics->count()) * 100 }}%"
+                                                                aria-valuenow="{{ $topics->count() }}"
+                                                                aria-valuemin="{{ $topics->count() }}"
+                                                                aria-valuemax="{{ $topics->count() }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-6">
+                                            <div class="card l-bg-orange">
+                                                <div class="card-statistic-3">
+                                                    <div class="card-icon card-icon-large"></div>
+                                                    <div class="card-content">
+                                                        <h4 class="card-title"> عدد الصادرة </h4>
+                                                        <span class="text-nowrap"> اجمالي الملفات الصادرة </span>
+                                                        <span
+                                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $exports->count() }}</span>
+                                                        <div class="progress mt-1 mb-1" data-height="8">
+                                                            @if ($exports->count() && $exports->where('state', 1)->count() != 0)
+                                                                <div class="progress-bar l-bg-green" role="progressbar"
+                                                                    data-width="{{ ($exports->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                                    aria-valuenow="{{ $exports->count() }}"
+                                                                    aria-valuemin="{{ $exports->count() }}"
+                                                                    aria-valuemax="{{ $exports->count() }}">
+                                                                @else
+                                                                    <span class="float-left text-bold-700"
+                                                                        style="font-size: 16px;font-weight: 600;">
+                                                                        0%
+                                                                    </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-primary">
-                                        <div class="card-body">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label> نوع الملف الصادر </label>
-                                                    <select class="form-control" id="mselect" onChange="hola();">
-                                                        <option value="" disabled selected> اختر نوع الصادر
-                                                        </option>
-                                                        <option value="1"> صادر لملف وارد </option>
-                                                        <option value="2"> صادر </option>
+                                </div>
+                                <div class="card card-secondary">
 
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card card-primary">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <input class="user-name text-bold-700 float-left" type="hidden"
-                                                        name="cat_name" value="{{ Auth::user()->cat_name }}">
-                                                    <label>رقم الوارد</label>
-                                                    <select class="form-control select2" id="project" name="topic_id"
-                                                        style="width: 100%;">
-                                                        <option value="" disabled selected>اختر الملف الوارد
-                                                        </option>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <option value="{{ $topic->id }}">
-                                                                        {{ $topic->import_id }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> اسم الجهة الوارد منها </label>
-                                                    <select class="form-control" id="sub_cat">
-                                                        <option value="" disabled selected> الجهة الوارد منها
-                                                        </option>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <option class="option cat-{{ $topic->id }}"
-                                                                        value="{{ $topic->name_side->id }}">
-                                                                        {{ $topic->name_side->side_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
-                                            </div>
+                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="table-2"
+                                                style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th> # </th>
+                                                        <th> رقم الوارد </th>
+                                                        <th> تاريخ استلام الوارد </th>
+                                                        <th>اسم الصادر</th>
+                                                        <th> الإدارة الصادر</th>
+                                                        <th> رقم الصادر</th>
+                                                        <th> تاريخ ارسال الصادر</th>
+                                                        <th> مدة التنفيذ </th>
+                                                        <th> حالة الرد </th>
+                                                        <th>تفاصيل</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @isset($inside_export)
+                                                        @foreach ($inside_export as $inside)
+                                                            <tr>
+                                                                <td class="text-bold-700">{{ $inside->id }}</td>
+                                                                @if ($inside->topic_id)
+                                                                    <td class="text-bold-700">
+                                                                        <a
+                                                                            href="{{ route('topics.edit', $inside->inside_export->id) }}">
+                                                                            {{ $inside->inside_export->import_id }}
+                                                                        </a>
+                                                                    </td>
+                                                                @else
+                                                                    <td>___</td>
+                                                                @endif
+                                                                @if ($inside->topic_id)
+                                                                    <td class="text-bold-700">
+                                                                        {{ $inside->inside_export->recived_date->format('Y-M-d') }}
+                                                                    </td>
+                                                                @else
+                                                                    <td class="text-bold-700">
+                                                                        ____
+                                                                    </td>
+                                                                @endif
+                                                                <td class="text-bold text-bold-700">
+                                                                    {{ $inside->tittle }}
+                                                                </td>
+                                                                @if ($inside->responsible_id)
+                                                                    <td class="text-bold text-bold-700">
+                                                                        {{ $inside->ins_resname->name }}</td>
+                                                                @else
+                                                                    <td class="text-bold text-bold-700">
+                                                                        __ </td>
+                                                                @endif
+                                                                <td class="text-bold text-bold-700">
+                                                                    <a href="{{ route('exports.edit', $inside->id) }}">
+                                                                        {{ $inside->export_number }}
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-bold text-bold-700">
+                                                                    @if ($inside->date)
+                                                                        {{ $inside->date->format('Y-M-d') }}
+                                                                    @else
+                                                                        ___
+                                                                    @endif
+                                                                </td>
+                                                                <td class="text-bold text-bold-700">
+                                                                    @if ($inside->topic_id)
+                                                                        @if ($inside->inside_export->recived_date->diffInDays($inside->date) >= 10)
+                                                                            <div class="badge badge-danger"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $inside->inside_export->recived_date->diffInDays($inside->date) }}
+                                                                                يوم
+                                                                            </div>
+                                                                        @elseif($inside->inside_export->recived_date->diffInDays($inside->date) >= 5 == 9)
+                                                                            <div class="badge badge-warning"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $inside->inside_export->recived_date->diffInDays($inside->date) }}
+                                                                                يوم </div>
+                                                                        @elseif($inside->inside_export->recived_date->diffInDays($inside->date) <= 4)
+                                                                            <div class="badge badge-success"
+                                                                                style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                                {{ $inside->inside_export->recived_date->diffInDays($inside->date) }}
+                                                                                يوم </div>
+                                                                        @endif
+                                                                    @else
+                                                                        <div class="badge badge-warning"
+                                                                            style="vertical-align: middle; padding: 10px 23px; font-weight: 800; letter-spacing: 0.3px; border-radius: 5px; font-size: 16px;">
+                                                                            {{ $now->diffInDays($inside->date) }}
+                                                                            يوم </div>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
 
-                                            <div class="form-group col-md-12">
-                                                <label> الإدارة المسؤلة </label>
-                                                <select class="form-control select2" multiple disabled
-                                                    style="width: 100%;" name="responsible_id[]">
-                                                    @isset($topics)
-                                                        @if ($topics && $topics->count() > 0)
-                                                            @foreach ($topics as $value)
-                                                                @foreach ($value->rsename as $values)
-                                                                    <option value="{{ $values->id }}" selected>
-                                                                        {{ $values->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endforeach
-                                                        @endif
-                                                    @endisset
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label>عنوان الملف الصادر</label>
-                                                @isset($topics)
-                                                    @if ($topics && $topics->count() > 0)
-                                                        @foreach ($topics as $topic)
-                                                            <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}"
-                                                                class="option license-{{ $topic->id }} form-control" disabled>{{ $topic->name }}</textarea>
-                                                            <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}"
-                                                                class="option license-{{ $topic->id }} form-control" hidden>{{ $topic->name }}</textarea>
+                                                                    @if ($inside->state == 1)
+                                                                        <div class="badge badge-success">
+                                                                        </div>
+                                                                    @elseif($inside->state == 0)
+                                                                        <div class="badge badge-danger">
+                                                                        </div>
+                                                                    @elseif($inside->state == 2)
+                                                                        <div class="badge badge-warning">
+                                                                        </div>
+                                                                    @endif
+
+                                                                </td>
+                                                                <td style="width: 15%">
+                                                                    <a href="{{ route('inside.edit', $inside->id) }}"
+                                                                        class="col-dark-gray waves-effect m-r-20"
+                                                                        title="" data-toggle="tooltip"
+                                                                        data-original-title="عرض وتعديل">
+                                                                        <i class="material-icons">edit</i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
                                                         @endforeach
-                                                    @endif
-                                                @endisset
-                                            </div>
+                                                    @endisset
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                    <div class="card card-secondary">
-                                        <div class="card-body" id="work_experience">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-3" id="div2">
-                                                    <label>رقم الوارد</label>
-                                                    <select class="form-control select2" id="project"
-                                                        name="topic_id" style="width: 100%;">
-                                                        <option value="" disabled selected>اختر الملف الوارد
-                                                        </option>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
-                                                                @foreach ($topics as $topic)
-                                                                    <option value="{{ $topic->id }}">
-                                                                        {{ $topic->import_id }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label>رقم الصادر</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="export_no[]" class="form-control" required>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> اسم الجهة الصادر اليها</label>
-                                                    <select class="form-control" name="side_id[]">
-                                                        <option value="" disabled selected>اختر الجهة</option>
-                                                        @isset($side)
-                                                            @if ($side && $side->count() > 0)
-                                                                @foreach ($side as $sides)
-                                                                    <option value="{{ $sides->id }}">
-                                                                        {{ $sides->side_name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> تاريخ الإرسال </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="send_date" class="form-control">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label> الملف المرفق</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="file"
-                                                        multiple name="upload_f[]" class="form-control">
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label>اضافة ملاحظات</label>
-                                                    <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
 
-                                                </div>
-                                            </div>
-                                            <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
-                                                id="addWork-btn" class="btn btn-primary form-label"
-                                                onclick="addWorkRow()"> اضافة جهة صادر
-                                                اليها </a>
-                                            <hr>
-                                        </div>
-                                        <div class="card-footer text-left">
-                                            <button class="btn btn-primary" type="submit">حفظ</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
+                @include('layouts.setting')
             </div>
-            </section>
-
-            @include('layouts.setting')
+            @include('layouts.footer')
         </div>
-        @include('layouts.footer')
-    </div>
     </div>
     <!-- General JS Scripts -->
     <script src="assets/js/app.min.js"></script>
-    <script src="assets/bundles/select2/dist/js/select2.full.min.js"></script>
     <!-- JS Libraies -->
+    <script src="assets/bundles/datatables/datatables.min.js"></script>
+    <script src="assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/bundles/jquery-ui/jquery-ui.min.js"></script>
     <!-- Page Specific JS File -->
-    <script src="assets/bundles/izitoast/js/iziToast.min.js"></script>
-    <!-- Page Specific JS File -->
-    <script src="assets/js/page/toastr.js"></script>
+    <script src="assets/js/page/datatables.js"></script>
     <!-- Template JS File -->
     <script src="assets/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+        </script>
+    @endif
+    <script>
+        $(document).ready(function() {
+            $('table.table').DataTable();
+        });
+    </script>
     <!-- Custom JS File -->
     <script src="assets/js/custom.js"></script>
-    <script src="assets/bundles/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-    <script src="assets/bundles/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script>
-        function addWorkRow() {
-            var elements = document.getElementsByClassName('work-xp-input');
-            var empty = "no"
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].value == "") {
-                    empty = "yes"
-                }
-            }
-
-            if (empty == "no" && document.getElementsByClassName("work-xp").length < 6) {
-                const div = document.createElement('div');
-                div.className = 'form-row';
-                div.innerHTML = `
-                <div class="form-group col-md-12">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                                                        <label>رقم الصادر</label>
-                                                        <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                                                        <label> اسم الجهة الصادر اليها</label>
-                                                        <select class="form-control" name="side_id[]">
-                                                            <option value="" disabled selected>اختر الجهة</option>
-                                                            @isset($side)
-                                                                @if ($side && $side->count() > 0)
-                                                                    @foreach ($side as $sides)
-                                                                        <option value="{{ $sides->id }}">
-                                                                            {{ $sides->side_name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                @endif
-                                                            @endisset
-                                                        </select>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label>اضافة ملاحظات</label>
-                        <textarea class="form-control" cols="10" rows="5" name="details[]"> </textarea>
-                    </div>
-                </div>
-                    <input type="button" class="btn-danger form-label" style="height: 35px;width: 100%;
-                       margin-bottom: 27px; height: 35px; display: block;" value="x" onclick="removeWorkRow(this)" />`;
-                document.getElementById('work_experience').appendChild(div);
-                if (document.getElementsByClassName("work-xp").length == 6) {
-                    document.getElementById("addWork-btn").style.display = "none";
-                }
-                if (document.getElementsByClassName("work-xp").length != 6) {
-                    document.getElementById("addWork-btn").style.display = "block";
-                }
-            } else {
-                alert("برجاء ملء البيانات!");
-            }
-        }
-
-        function removeWorkRow(input) {
-            confirm("متأكد؟") ? document.getElementById('work_experience').removeChild(input.parentNode) : 0;
-            if (document.getElementsByClassName("work-xp").length != 4) {
-                document.getElementById("addWork-btn").style.display = "block";
-            }
-        }
-    </script>
-    <script>
-        $('.option').hide();
-        $('.coption').hide();
-        $('#project').on('change', function(e) {
-            $('.option').hide();
-            $('.license-' + e.target.value).show();
-            $('.cat-' + e.target.value).show();
-        });
-
-        $('#city_id').on('change', function(e) {
-            $('.coption').hide();
-            $('.city-' + e.target.value).show();
-        });
-        $('#project').on('change', function(e) {
-            $('.coption').hide();
-            $('.type-' + e.target.value).show();
-        });
-    </script>
-
-
 </body>
 
 
-<!-- forms-validation.html  21 Nov 2019 03:55:16 GMT -->
+<!-- datatables.html  21 Nov 2019 03:55:25 GMT -->
 
 </html>

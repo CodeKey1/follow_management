@@ -52,7 +52,7 @@
                                             </span>
                                             <span class="float-right text-bold-700"
                                                 style="color:#ffffff;font-size: 20px;font-weight: 900;">
-                                                عدد المكاتبات الواردة
+                                                عدد الواردة للإدارة
                                             </span>
                                         </p>
                                         <p class="clearfix">
@@ -61,9 +61,15 @@
                                                 {{ $responsible->Responexport->count() }}
                                             </span>
                                             <span class="float-right text-bold-900"
-                                                style="color:#ffffff;font-size: 20px;font-weight: 900;">
-                                                عدد المكاتبات الصادرة
+                                                style="color:#ffffff;font-size: 20px;font-weight: 900;">  عدد الصادرة من الإدارة </span>
+                                        </p>
+                                        <p class="clearfix">
+                                            <span class="float-left text-bold-900"
+                                                style="font-size: 20px;font-weight: 800;color:#ffa426">
+                                                {{ $responsible->Responetopic->where('state','<>',1)->count() }}
                                             </span>
+                                            <span class="float-right text-bold-900"
+                                                style="color:#ffffff;font-size: 20px;font-weight: 900;"> لم يتم الرد من الإدارة </span>
                                         </p>
 
                                         <p class="clearfix">
@@ -99,8 +105,9 @@
                                     <div class="card-body">
                                         <div class="recent-report__chart">
                                             <div id="chart1"></div>
-                                            <input type="hidden" name="users" value="{{ $master['user'] }}">
-                                            <input type="hidden" name="service" value="{{ $master['service'] }}">
+                                            <input type="hidden" name="X" value="{{ $master['X'] }}">
+                                            <input type="hidden" name="M" value="{{ $master['M'] }}">
+                                            <input type="hidden" name="N" value="{{ $master['N'] }}">
                                             <input type="hidden" name="month" value="{{ $master['month'] }}">
                                         </div>
                                     </div>
@@ -115,7 +122,14 @@
                                             <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#about"
                                                 role="tab" aria-selected="true"> الملقات والكتبات الواردة </a>
                                         </li>
-
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="export-tab2" data-toggle="tab" href="#export"
+                                                role="tab" aria-selected="true"> الصادر الداخلي</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="import-tab2" data-toggle="tab" href="#import"
+                                                role="tab" aria-selected="true"> الوارد الداخلي</a>
+                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#settings"
                                                 role="tab" aria-selected="false"> تعديل </a>
@@ -187,10 +201,10 @@
                                                                             @if (auth()->user()->hasRole('admin') ||
                                                                                     auth()->user()->hasRole('export_user'))
                                                                                 <div class="row">
-                                                                                    @foreach ($responsible->Responexport as $expo)
+                                                                                    @foreach ($manage_export as $expo)
                                                                                         <a
                                                                                             href="{{ route('exports.edit', $expo->id) }}">
-                                                                                            {{ $expo->export_no }} , </a>
+                                                                                            {{ $expo->export_number }} , </a>
                                                                                     @endforeach
                                                                                 </div>
                                                                             @else
@@ -206,6 +220,40 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="export" role="tabpanel"
+                                            aria-labelledby="export-tab2">
+                                            <form class="needs-validation" id="work_experience"
+                                                novalidate=""action="{{ route('manage.update', $responsible->id) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="card-header">
+
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="import" role="tabpanel"
+                                            aria-labelledby="import-tab2">
+                                            <form class="needs-validation" id="work_experience"
+                                                novalidate=""action="{{ route('manage.update', $responsible->id) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="card-header">
+
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+
+                                                    </div>
+                                                </div>
+
+                                            </form>
                                         </div>
                                         <div class="tab-pane fade" id="settings" role="tabpanel"
                                             aria-labelledby="profile-tab2">

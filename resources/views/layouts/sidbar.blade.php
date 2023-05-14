@@ -127,8 +127,8 @@
                         <i data-feather="chevrons-right"></i></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('exports') }}"> كل الصادر</a></li>
-                            <li><a class="nav-link" href="{{ route('export.internal') }}">اضافة صادر</a></li>
-                            <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر لوارد</a></li>
+                            <li><a class="nav-link" href="{{ route('exports.create') }}">اضافة صادر </a></li>
+                            <li><a class="nav-link" href="{{ route('export.internal') }}"> صادر الادارت لوارد </a></li>
                         </ul>
                 </li>
 

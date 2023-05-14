@@ -37,8 +37,8 @@
                                 <div class="card author-box card-primary">
                                     <div class="card-body">
                                         <div class="author-box-center">
-                                            <img alt="image" src="../assets/img/2.jpg"
-                                                class="rounded-circle author-box-picture">
+
+                                                <img alt="image" src="{{ URL::to('images/'. $side->side_image ) }}"  class="rounded-circle author-box-picture">
                                             <div class="clearfix"></div>
                                             <div class="author-box-name">
                                                 <a href="#">{{ $side->side_name }}</a>
@@ -73,7 +73,7 @@
                                         <p class="clearfix">
                                             <span class="float-left text-bold-700"
                                                 style="color:yellow;font-size: 20px;font-weight: 800;">
-                                                {{ $export->where('topic_id', '==', null)->count() }}
+                                                {{ $topics->where('state','<>', 1)->count() }}
                                             </span>
                                             <span class="float-right text-bold-700"
                                                 style="color:#ffffff;font-size: 20px;font-weight: 800;">
@@ -88,8 +88,9 @@
                                     <div class="card-body">
                                         <div class="recent-report__chart">
                                             <div id="chart1"></div>
-                                            <input type="hidden" name="users" value="{{ $master['user'] }}">
-                                            <input type="hidden" name="service" value="{{ $master['service'] }}">
+                                            <input type="hidden" name="X" value="{{ $master['X'] }}">
+                                            <input type="hidden" name="M" value="{{ $master['M'] }}">
+                                            <input type="hidden" name="N" value="{{ $master['N'] }}">
                                             <input type="hidden" name="month" value="{{ $master['month'] }}">
                                         </div>
                                     </div>
@@ -142,7 +143,10 @@
                                                                     @foreach ($topics as $topic)
                                                                         <tr>
                                                                             <td class="text-bold-700">
-                                                                                <a href="{{ route('topics.show', $topic->id) }}">{{ $topic->import_id }}</a></td> </td>
+                                                                                <a
+                                                                                    href="{{ route('topics.show', $topic->id) }}">{{ $topic->import_id }}</a>
+                                                                            </td>
+                                                                            </td>
                                                                             <td class="text-bold-700">
                                                                                 {{ $topic->recived_date->format('d-M-y') }}
                                                                             </td>
@@ -159,7 +163,7 @@
                                                                             <td class="text-bold-700">{{ $topic->name }}
                                                                             </td>
                                                                             <td class="text-bold-700">
-                                                                                @foreach ($export as $exports)
+                                                                                @foreach ($export->where('topic_id', $topic->id) as $exports)
                                                                                     {{ $topic->recived_date->diffInDays($exports->send_date) ?? 'null' }}
                                                                                     يوم
                                                                                 @endforeach
@@ -206,10 +210,10 @@
                                         </div>
                                         <div class="tab-pane fade" id="export" role="tabpanel"
                                             aria-labelledby="export-tab2">
-                                            <div class="section-title">الملفات الصادرة</div>
-                                            <div class="card-body" style="direction: rtl;">
+
+                                            <div style="direction: rtl;padding-top: 15px;padding-bottom: 15px;">
                                                 <div class="table-responsive">
-                                                    <table class="table table-striped table-hover" id="save-stage"
+                                                    <table class="table table-striped table-hover" id="table-2"
                                                         style="width:100%;">
                                                         <thead>
                                                             <tr>

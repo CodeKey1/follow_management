@@ -10,6 +10,8 @@ use App\Models\Export;
 use App\Models\R_export;
 use App\Models\Response_Topic;
 use App\Models\Topic;
+use App\Models\Responsible_export;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,15 +22,17 @@ class TopicController extends Controller
     {
         $response = Response_Topic::select()->with('R_topic')->get();
         $topics_trash = Topic::select()->where('state', '<>', 1)->where('cat_name', Auth::user()->cat_name)->count();
-        $topics = Topic::select()->with('rsename','t_export')->where('cat_name', Auth::user()->cat_name)->get();
+        $topics = Topic::select()->with('rsename', 't_export')->where('cat_name', Auth::user()->cat_name)->get();
         $exports = Export::select()->with('topic_export')->where('cat_name', Auth::user()->cat_name)->get();
-        return view('topics.index', compact('topics', 'topics_trash', 'exports','response'));
+        $inside_import = R_export::select()->get();
+        return view('topics.index', compact('topics', 'topics_trash', 'exports', 'response','inside_import'));
     }
 
     public function T_archive()
     {
-
-        $topics = Topic::onlyTrashed()->where('cat_name', Auth::user()->cat_name)->get();
+        $topics = Topic::onlyTrashed()
+            ->where('cat_name', Auth::user()->cat_name)
+            ->get();
         return view('topics.archive', compact('topics'));
     }
 
@@ -40,14 +44,19 @@ class TopicController extends Controller
     }
     public function reply()
     {
-        $exports = Export::select()->where('topic_id', null)->get();
+        $inside_export = Responsible_export::select()->get();
+        $restopic = Response_Topic::select('state')->get();
+        $exports = Export::select()
+            ->where('topic_id', null)
+            ->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        return view('topics.reply', compact('responsibles', 'side','exports'));
+        return view('topics.reply', compact('responsibles', 'side', 'exports', 'inside_export','restopic'));
     }
 
-    public function reply_save(Request $request){
-        $file = array();
+    public function reply_save(Request $request)
+    {
+        $file = [];
         if ($files = $request->file('reply_file')) {
             foreach ($files as $file) {
                 $ext = strtolower($file->getClientOriginalName());
@@ -57,30 +66,34 @@ class TopicController extends Controller
                 $upload[] = $file_name;
             }
         } else {
-            $upload[] = "";
+            $upload[] = '';
         }
-        // try {
-            R_export::create(([
-                'export_id' => $request['export_id'],
-                'reply_id' => $request['reply_id'],
-                'responsibles_id' => $request['responsibles_id'],
-                'topic' => $request['topic'],
-                'date' => $request['date'],
-                'reply_file' => implode('|',$upload ),
-                'cat_name' => $request['cat_name'],
-
-            ]));
-            return redirect()->route('topic.index')->with(['success' => 'تم حفظ الموضوع بنجاح']);
-        // } catch (\Exception $ex) {
-        //     return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        // }
-
+        try {
+            $rexport = R_export::create([
+            'responsible_export_id' => $request['responsible_export_id'],
+            'reply_id' => $request['reply_id'],
+            'responsibles_id' => $request['responsibles_id'],
+            'topic' => $request['topic'],
+            'date' => $request['date'],
+            'reply_file' => implode('|', $upload),
+            'cat_name' => $request['cat_name'],
+        ]);
+        Response_Topic::where('topic_id', $rexport->topic_id)
+            ->where('responsible_id', $request['responsibles_id'])
+            ->update([
+                'state' => 1,
+            ]);
+        return redirect()
+            ->route('topic.index')
+            ->with(['success' => 'تم حفظ الموضوع بنجاح']);
+        } catch (\Exception $ex) {
+            return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
     }
-
 
     public function save(Request $request)
     {
-        $file = array();
+        $file = [];
         if ($files = $request->file('file')) {
             foreach ($files as $file) {
                 $ext = strtolower($file->getClientOriginalName());
@@ -90,10 +103,10 @@ class TopicController extends Controller
                 $upload[] = $file_name;
             }
         } else {
-            $upload[] = "";
+            $upload[] = '';
         }
         try {
-            $topics = Topic::create(([
+            $topics = Topic::create([
                 'import_id' => $request['import_id'],
                 'office_id' => $request['office_id'],
                 'name' => $request['name'],
@@ -106,38 +119,44 @@ class TopicController extends Controller
                 'users_name' => $request['users_name'],
                 'notes' => $request['notes'],
                 'cat_name' => $request['cat_name'],
-
-            ]));
+            ]);
             for ($i = 0; $i < count($request->responsibles_id); $i++) {
                 $responsibles_id[] = $request->responsibles_id[$i];
 
-                Response_Topic::create(([
+                Response_Topic::create([
                     'responsible_id' => $responsibles_id[$i],
                     'topic_id' => $topics->id,
                     'state' => 0,
-                ]));
+                ]);
             }
-            return redirect()->route('topic.index')->with(['success' => 'تم حفظ الموضوع بنجاح']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['success' => 'تم حفظ الموضوع بنجاح']);
         } catch (\Exception $ex) {
-            return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
-
 
     public function edit($id)
     {
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        $topics = Topic::select()->with('rsename')->find($id);
+        $topics = Topic::select()
+            ->with('rsename')
+            ->find($id);
         if (!$topics) {
-            return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['error' => 'هذه الموضوع غير موجوده']);
         }
         return view('topics.edit', compact('topics', 'responsibles', 'side'));
     }
 
     public function update(Request $request, $id)
     {
-        $file = array();
+        $file = [];
         if ($files = $request->file('file')) {
             foreach ($files as $file) {
                 $ext = strtolower($file->getClientOriginalName());
@@ -147,78 +166,104 @@ class TopicController extends Controller
                 $upload[] = $file_name;
             }
         } else {
-            $upload[] = "";
+            $upload[] = '';
         }
 
         $topics = Topic::find($id);
         if (!$topics) {
-            return redirect()->route('topic.index', $id)->with(['error' => 'هذه الموضوع غير موجوده']);
+            return redirect()
+                ->route('topic.index', $id)
+                ->with(['error' => 'هذه الموضوع غير موجوده']);
         }
-        if (!$request->has('active'))
+        if (!$request->has('active')) {
             $request->request->add(['active' => 0]);
+        }
 
         $topics->update($request->except('_token'));
-        return redirect()->route('topic.index')->with(['success' => 'تم تعديل الموضوع بنجاح']);
+        return redirect()
+            ->route('topic.index')
+            ->with(['success' => 'تم تعديل الموضوع بنجاح']);
     }
 
     public function destroy(string $id)
     {
-
         try {
             $topics = Topic::find($id);
             if (!$topics) {
-                return redirect()->route('topic.index', $id)->with(['error' => 'هذه الموضوع غير موجوده']);
+                return redirect()
+                    ->route('topic.index', $id)
+                    ->with(['error' => 'هذه الموضوع غير موجوده']);
             }
             $topics->forcedelete();
 
-            return redirect()->route('topic.index')->with(['success' => 'تم حذف الموضوع بنجاح']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['success' => 'تم حذف الموضوع بنجاح']);
         } catch (\Exception $ex) {
-            return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
 
     public function archive(string $id)
     {
-
         try {
             $topics = Topic::find($id);
             if (!$topics) {
-                return redirect()->route('topic.index', $id)->with(['error' => 'هذه الموضوع غير موجوده']);
+                return redirect()
+                    ->route('topic.index', $id)
+                    ->with(['error' => 'هذه الموضوع غير موجوده']);
             }
             $topics->delete();
 
-            return redirect()->route('topic.index')->with(['success' => 'تم نقل الي الارشيف بنجاح']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['success' => 'تم نقل الي الارشيف بنجاح']);
         } catch (\Exception $ex) {
-            return redirect()->route('topic.index')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
 
     public function show(string $import_id)
     {
-        $topics = Topic::select()->with('t_export','name_side')->where('id',$import_id)->find($import_id);
+        $now = Carbon::today();
+        $topics = Topic::select()
+            ->with('t_export', 'name_side')
+            ->where('id', $import_id)
+            ->find($import_id);
         $side = Side::select()->get();
-        $exports = Export::select()->where('topic_id',$import_id)->get();
-        $response = Response_Topic::select()->with('R_topic')->get();
+        $exports = Export::select()
+            ->where('topic_id', $import_id)
+            ->get();
+        $response = Response_Topic::select()
+            ->with('R_topic')
+            ->get();
 
         if (!$topics) {
-            return redirect()->route('topic.index')->with(['error' => 'هذه الموضوع غير موجوده']);
+            return redirect()
+                ->route('topic.index')
+                ->with(['error' => 'هذه الموضوع غير موجوده']);
         }
 
-        return view('topics.read', compact('topics','response', 'side','exports'));
+        return view('topics.read', compact('topics', 'response', 'side', 'exports', 'now'));
     }
 
     public function response(Request $request)
     {
-
         try {
-
-            Responsible::create(([
+            Responsible::create([
                 'name' => $request['name'],
-
-            ]));
-            return redirect()->route('adtopics.create')->with(['success' => 'تم حفظ المسؤل بنجاح']);
+            ]);
+            return redirect()
+                ->route('adtopics.create')
+                ->with(['success' => 'تم حفظ المسؤل بنجاح']);
         } catch (\Exception $ex) {
-            return redirect()->route('topics.create')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+            return redirect()
+                ->route('topics.create')
+                ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
 }

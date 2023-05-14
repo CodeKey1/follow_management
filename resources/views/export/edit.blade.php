@@ -63,14 +63,12 @@
                                                         name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                     <label>رقم الوارد</label>
                                                     <select class="form-control" name="topic_id" @readonly(true)>
-                                                        @isset($topics)
-                                                            @if ($topics && $topics->count() > 0)
+
                                                                 <option value="{{ $exports->topic_export->id ?? '' }}"
                                                                     selected>
                                                                     {{ $exports->topic_export->import_id ?? 'لايوجد' }}
                                                                 </option>
-                                                            @endif
-                                                        @endisset
+                                                            
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">

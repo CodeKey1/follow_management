@@ -11,7 +11,7 @@ class Side extends Model
 
     protected $table  = 'sides';
 
-    protected $fillable = ['id','side_name','created_at','updated_at'];
+    protected $fillable = ['id','side_name','side_image','created_at','updated_at'];
 
     public function side_topic(){
         return $this->hasMany(Topic::class,'side_id');

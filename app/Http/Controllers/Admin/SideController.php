@@ -37,23 +37,26 @@ class SideController extends Controller
     public function store(Request $request)
     {
         //
-        // try {
+        $imageName = time().'.'.$request->side_image->extension();
+        try {
 
             $side = Side::create(([
-                'side_name' => $request['side_name']
+                'side_name' => $request['side_name'],
+                'side_image' => $request->side_image->move(public_path('images'), $imageName),
             ]));
             for ($i = 0; $i < count($request->name); $i++) {
                 $name[] = $request->name[$i];
 
                 Side_brach::create(([
                     'name' => $name[$i],
+                    'side_image' => $request->side_image->move(('images'), $imageName),
                     'sides_id' => $side->id,
                 ]));
             }
             return redirect()->route('side')->with(['success' => 'تم حفظ الجهة']);
-        // } catch (\Exception $ex) {
-        //     return redirect()->route('side')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        // }
+        } catch (\Exception $ex) {
+            return redirect()->route('side')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
     }
 
     /**
@@ -71,20 +74,24 @@ class SideController extends Controller
         }
         $now = Carbon::today();
         $month = [];
-        $service = [];
-        $user = [];
+        $X = [];
+        $M = [];
+        $N = [];
         for ($i = 0; $i < 12; $i++) {
-            $end =  Export::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state', 1)->get();
-            $start =  Topic::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            $Xport =  Export::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            $Mport =  Topic::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            $Nx =  Topic::where('side_id',$id)->whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state','<>', 1)->get();
             array_push($month, $now->format('M') . ' ' . $now->format('Y'));
-            array_push($service, $end->count());
-            array_push($user, $start->count());
+            array_push($X, $Xport->count());
+            array_push($M, $Mport->count());
+            array_push($N, $Nx->count());
             $now =  $now->subMonth();
         }
 
-        $master['service'] = json_encode($service);
+        $master['X'] = json_encode($X);
         $master['month'] = json_encode($month);
-        $master['user'] = json_encode($user);
+        $master['M'] = json_encode($M);
+        $master['N'] = json_encode($N);
 
         return view('sides.profile', compact('side','export','topics','master'));
     }
@@ -109,7 +116,7 @@ class SideController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        // try {
+        try {
             $side = Side::find($id);
             if (!$side) {
                 return redirect()->route('side.profile', $id)->with(['error' => 'هذه الملف الصادر غير موجوده']);
@@ -132,9 +139,9 @@ class SideController extends Controller
 
             return redirect()->route('side.profile', $id)->with(['success' => 'تم تعديل الجهة بنجاح']);
 
-        // } catch (\Exception $ex) {
-        //     return redirect()->route('side.profile', $id)->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        // }
+        } catch (\Exception $ex) {
+            return redirect()->route('side.profile', $id)->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
     }
 
     /**

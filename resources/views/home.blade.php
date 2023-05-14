@@ -323,8 +323,9 @@
                                 <div class="card-body">
                                     <div class="recent-report__chart">
                                         <div id="chart1"></div>
-                                        <input type="hidden" name="users" value="{{ $users['user'] }}">
-                                        <input type="hidden" name="service" value="{{ $users['service'] }}">
+                                        <input type="hidden" name="N" value="{{ $users['N'] }}">
+                                        <input type="hidden" name="M" value="{{ $users['M'] }}">
+                                        <input type="hidden" name="X" value="{{ $users['X'] }}">
                                         <input type="hidden" name="month" value="{{ $users['month'] }}">
                                     </div>
                                 </div>
@@ -343,7 +344,7 @@
                                             <div>
                                                 <div class="user-item">
                                                     <a href="{{ route('side.profile', $side->id) }}"> <img
-                                                            alt="image" src="assets/img/males-wazra.png"
+                                                            alt="image" src="{{ URL::to('images/'. $side->side_image ) }}"
                                                             class="img-fluid" style="width:100%;display:inline-block">
                                                     </a>
 

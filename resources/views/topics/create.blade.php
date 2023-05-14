@@ -21,6 +21,11 @@
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
+    <style>
+        #reply {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="light theme-white dark-sidebar sidebar-gone">
@@ -37,30 +42,52 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 @include('layouts.success')
                                 @include('layouts.error')
-                                <form class="needs-validation" id="work_experience" novalidate=""
-                                    action="{{ route('topics.save') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="card card-primary">
-                                        <div class="card-header">
-                                            <h4>اضــافة وارد جديــد</h4>
-                                            <div class="card-header-action">
-                                                <a href="{{ route('topic.index') }}" class="btn btn-info"
-                                                    data-toggle="modal" data-target="#exampleModal"> اضافة جهة </a>
-                                                <a href="{{ route('topic.index') }}" class="btn btn-warning">كل
-                                                    الوارد</a>
-                                                <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h4>اضــافة وارد جديــد</h4>
+                                        <div class="card-header-action">
+
+                                            <a href="{{ route('topic.index') }}" class="btn btn-warning">كل
+                                                الوارد</a>
+                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <label for="select" class="col-md-2 col-form-label text-md-end"
+                                                    style="font-size: 16px; font-weight: 800;
+                                                    color: black;">{{ __(' اختر نوع الملف الوارد ') }}</label>
+                                                <div class="col-md-10">
+                                                    <select class="form-control" id="mselect" name="select"
+                                                        onChange="hola();" required>
+                                                        <option value="" disabled selected> اختر نوع الوارد
+                                                        </option>
+                                                        <option value="1"> وارد لجهة </option>
+                                                        <option value="2"> وارد لإدارة</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-secondary">
+                                </div>
+                                <div class="card card-secondary" id="side">
+                                    <form class="needs-validation" id="work_experience" novalidate=""
+                                        action="{{ route('topics.save') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <div class="card-body">
-                                            <input class="user-name text-bold-700 float-left" type="hidden" name="cat_name" value="{{ Auth::user()->cat_name }}">
-                                            <input class="user-name text-bold-700 float-left" type="hidden" name="users_name" value="{{ Auth::user()->name }}">
+                                            <input class="user-name text-bold-700 float-left" type="hidden"
+                                                name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                            <input class="user-name text-bold-700 float-left" type="hidden"
+                                                name="users_name" value="{{ Auth::user()->name }}">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label>رقم الوارد المكاتبة</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="number"
-                                                        name="import_id" class="form-control"placeholder="" required>
+                                                    <input style="height: calc(2.25rem + 6px);" id="side"
+                                                        type="number" name="import_id"
+                                                        class="form-control"placeholder="" required>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>تاريخ الوارد المكاتبة</label>
@@ -79,8 +106,10 @@
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label> الإدارة المسؤلة </label>
-                                                    <select class="form-control select2"  name="responsibles_id[]" multiple style="    width: 100%;">
-                                                        <option value="" disabled > الإدارة المسؤلة للمتابعة </option>
+                                                    <select class="form-control select2" name="responsibles_id[]"
+                                                        multiple style="    width: 100%;">
+                                                        <option value="" disabled> الإدارة المسؤلة للمتابعة
+                                                        </option>
                                                         @isset($responsibles)
                                                             @if ($responsibles && $responsibles->count() > 0)
                                                                 @foreach ($responsibles as $Response)
@@ -97,9 +126,9 @@
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
                                                         name="name" class="form-control"placeholder="" required>
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-6">
                                                     <label> اسم الجهة الوارد منها</label>
-                                                    <select class="form-control"  name="side_id" required>
+                                                    <select class="form-control" name="side_id" required>
                                                         <option value="" disabled selected>اختر الجهة</option>
                                                         @isset($side)
                                                             @if ($side && $side->count() > 0)
@@ -112,28 +141,13 @@
                                                         @endisset
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-3">
-                                                    <label> اسم الادارة الوارد منها</label>
-                                                    <select class="form-control"  name="side_id" required>
-                                                        <option value="" disabled selected>اختر الادارة</option>
-                                                        @isset($responsibles)
-                                                            @if ($responsibles && $responsibles->count() > 0)
-                                                                @foreach ($responsibles as $Response)
-                                                                    <option value="{{ $Response->id }}">
-                                                                        {{ $Response->name }}
-                                                                    </option>
-                                                                @endforeach
-                                                            @endif
-                                                        @endisset
-                                                    </select>
-                                                </div>
                                                 <div class="form-group col-md-6">
                                                     <label> الموقف التنفيذي </label>
-                                                    <select class="form-control"  name="state">
-                                                        <option value="" disabled >اختر موقف الرد</option>
+                                                    <select class="form-control" name="state">
+                                                        <option value="" disabled>اختر موقف الرد</option>
                                                         <option value="2" selected> جاري المتابعة </option>
-                                                        <option value="1"> تم الرد  </option>
-                                                        <option value="0">  لم يتم الرد </option>
+                                                        <option value="1"> تم الرد </option>
+                                                        <option value="0"> لم يتم الرد </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -146,8 +160,8 @@
 
                                                 <div class="form-group col-md-6">
                                                     <label> الملف المرفق</label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                        name="file[]" class="form-control">
+                                                    <input style="height: calc(2.25rem + 6px);" type="file"
+                                                        multiple name="file[]" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -160,12 +174,94 @@
                                             <button type="submit" class="btn btn-success"
                                                 style="float: left;">حفظ</button>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+                                <div class="card card-secondary" id="reply">
+                                    <form class="needs-validation" id="work_experience" novalidate=""
+                                        action="{{ route('topics.reply.save') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="card-body">
+                                            <input class="user-name text-bold-700 float-left" type="hidden"
+                                                name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label>رقم الرد</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="number"
+                                                        name="reply_id" class="form-control"placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label> لصادر رقم</label>
+                                                    <select class="form-control select2" id="project"
+                                                        name="export_id" style="width: 100%;">
+                                                        <option value="" disabled selected>اختر رقم الصادر
+                                                        </option>
+                                                        @isset($exports)
+                                                            @if ($exports && $exports->count() > 0)
+                                                                @foreach ($exports as $exportID)
+                                                                    <option value="{{ $exportID->id }}">
+                                                                        {{ $exportID->export_no }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label> رد الإدارة </label>
+                                                    <select class="form-control select2" name="responsibles_id"
+                                                        style="width: 100%;">
+                                                        <option value="" disabled selected> وارد إدارة </option>
+                                                        @isset($responsibles)
+                                                            @if ($responsibles && $responsibles->count() > 0)
+                                                                @foreach ($responsibles as $Response)
+                                                                    <option value="{{ $Response->id }}">
+                                                                        {{ $Response->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>تاريخ استلام الرد</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="date"
+                                                        name="date" class="form-control"placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label> الملف المرفق</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="file"
+                                                        multiple name="reply_file[]" class="form-control">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label> تصديق معالي الوزير / المحافظ  </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"  name="" class="form-control">
+                                                </div>
+
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label>عنوان موضوع الوارد</label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"
+                                                        name="topic" class="form-control"placeholder="" required>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label>اضافة ملاحظات</label>
+                                                    <textarea class="form-control" cols="10" rows="5" name="notes"> </textarea>
+
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success"
+                                                style="float: left;">حفظ</button>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
-                            {{-- <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;" id="addWork-btn"
-                                class="btn btn-primary form-label" onclick="addWorkRow()">+ اضف مستحق
-                            </a> --}}
+
                         </div>
                     </div>
             </div>
@@ -190,7 +286,8 @@
                                             name="name">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary m-t-15 waves-effect" style="float:left">حفظ الجهة</button>
+                                <button type="submit" class="btn btn-primary m-t-15 waves-effect"
+                                    style="float:left">حفظ الجهة</button>
                             </form>
                         </div>
                     </div>
@@ -222,7 +319,25 @@
             $('.city-' + e.target.value).show();
         });
     </script>
+    <script>
+        function hola() {
+            var mselect = document.getElementById("mselect");
+            var mselectvalue = mselect.options[mselect.selectedIndex].value;
+            var mdivone = document.getElementById("side");
+            var mdivtwo = document.getElementById("reply");
 
+
+            if (mselectvalue == 1) {
+                mdivone.style.display = "block";
+                mdivtwo.style.display = "none";
+                document.getElementById("side").disabled = true;
+            } else {
+                mdivone.style.display = "none";
+                mdivtwo.style.display = "block";
+                document.getElementById("side").disabled = false;
+            }
+        }
+    </script>
 </body>
 
 

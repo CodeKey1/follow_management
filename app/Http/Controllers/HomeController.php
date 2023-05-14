@@ -100,25 +100,28 @@ class HomeController extends Controller
             'data3' => json_encode($master3), 'data4' => json_encode($master4), 'data5' => json_encode($master5), 'data6' => json_encode($master6)
         ];
     }
-
     public function userChart()
     {
         $now = Carbon::today();
         $month = [];
-        $service = [];
-        $user = [];
+        $X = [];
+        $M = [];
+        $N = [];
         for ($i = 0; $i < 12; $i++) {
-            $end =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state', 1)->get();
-            $start =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
+            $Nx =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state','<>', 1)->get();
+            $Xport =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->where('state', 1)->get();
+            $Mport =  Topic::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->get();
             array_push($month, $now->format('M') . ' ' . $now->format('Y'));
-            array_push($service, $end->count());
-            array_push($user, $start->count());
+            array_push($X, $Xport->count());
+            array_push($M, $Mport->count());
+            array_push($N, $Nx->count());
             $now =  $now->subMonth();
         }
 
-        $master['service'] = json_encode($service);
+        $master['X'] = json_encode($X);
         $master['month'] = json_encode($month);
-        $master['user'] = json_encode($user);
+        $master['M'] = json_encode($M);
+        $master['N'] = json_encode($N);
         return $master;
     }
     public function manageChart()
