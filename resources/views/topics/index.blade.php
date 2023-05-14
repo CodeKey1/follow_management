@@ -261,12 +261,12 @@
                                                                             <i class="material-icons">delete</i>
                                                                         </a>
                                                                     @endif
-                                                                    <a href="{{ route('topics.archive', $Topic->id) }}"
+                                                                    {{-- <a href="{{ route('topics.archive', $Topic->id) }}"
                                                                         class="col-dark-gray waves-effect m-r-20"
                                                                         title="" data-toggle="tooltip"
                                                                         data-original-title="الارشيف">
                                                                         <i class="material-icons">archive</i>
-                                                                    </a>
+                                                                    </a> --}}
 
                                                                 </td>
                                                             </tr>
@@ -308,7 +308,7 @@
                                                     @isset($inside_import)
                                                         @foreach ($inside_import as $inside)
                                                             <tr>
-                                                              
+
                                                                 <td>{{ $inside->reply_id }}</td>
                                                                 <td>{{ $inside->date }}</td>
                                                                 <td>{{ $inside->topic }}</td>

@@ -41,7 +41,7 @@
                                     <div class="card-header">
                                         <h4> كل ملفات متابعة الصادرة </h4>
                                         <div class="card-header-action">
-                                            
+
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                                                                 @if ($inside->topic_id)
                                                                     <td class="text-bold-700">
                                                                         <a
-                                                                            href="{{ route('topics.edit', $inside->inside_export->id) }}">
+                                                                            href="#">
                                                                             {{ $inside->inside_export->import_id }}
                                                                         </a>
                                                                     </td>

@@ -260,12 +260,12 @@
                                                                             <i class="material-icons">delete</i>
                                                                         </a>
                                                                     @endif
-                                                                    <a href="{{ route('exports.archive', $Export->id) }}"
+                                                                    {{-- <a href="{{ route('exports.archive', $Export->id) }}"
                                                                         class="col-dark-gray waves-effect m-r-20"
                                                                         title="" data-toggle="tooltip"
                                                                         data-original-title="الارشيف">
                                                                         <i class="material-icons">archive</i>
-                                                                    </a>
+                                                                    </a> --}}
 
                                                                 </td>
 

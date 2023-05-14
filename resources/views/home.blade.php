@@ -277,24 +277,24 @@
                                                     style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
                                                     رئاسة مجلس النواب</label>
                                                 <div id="chart12"></div>
-                                                <input type="hidden" name="data4"
-                                                    value="{{ $orderCharts['data4'] }}">
+                                                <input type="hidden" name="data6"
+                                                    value="{{ $orderCharts['data6'] }}">
                                             </div>
                                             <div class="recent-report__chart">
                                                 <label for="chart10"
                                                     style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
                                                     هيئات - شركات</label>
                                                 <div id="chart13"></div>
-                                                <input type="hidden" name="data5"
-                                                    value="{{ $orderCharts['data5'] }}">
+                                                <input type="hidden" name="data4"
+                                                    value="{{ $orderCharts['data4'] }}">
                                             </div>
                                             <div class="recent-report__chart">
                                                 <label for="chart11"
                                                     style="font-size: 16px; font-weight: 700; color: black;padding-right: 90px;">
                                                     جهات أخري </label>
                                                 <div id="chart14"></div>
-                                                <input type="hidden" name="data6"
-                                                    value="{{ $orderCharts['data6'] }}">
+                                                <input type="hidden" name="data5"
+                                                    value="{{ $orderCharts['data5'] }}">
                                             </div>
                                         </div>
                                     </div>
