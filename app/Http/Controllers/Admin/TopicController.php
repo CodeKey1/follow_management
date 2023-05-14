@@ -38,17 +38,16 @@ class TopicController extends Controller
 
     public function create()
     {
+        $inside_export = Responsible_export::select()->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        return view('topics.create', compact('responsibles', 'side'));
+        return view('topics.create', compact('responsibles','inside_export', 'side'));
     }
     public function reply()
     {
         $inside_export = Responsible_export::select()->get();
         $restopic = Response_Topic::select('state')->get();
-        $exports = Export::select()
-            ->where('topic_id', null)
-            ->get();
+        $exports = Export::select()->where('topic_id', null)->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
         return view('topics.reply', compact('responsibles', 'side', 'exports', 'inside_export','restopic'));
@@ -75,6 +74,7 @@ class TopicController extends Controller
             'responsibles_id' => $request['responsibles_id'],
             'topic' => $request['topic'],
             'date' => $request['date'],
+            'confirm_vic' => $request['confirm_vic'],
             'reply_file' => implode('|', $upload),
             'cat_name' => $request['cat_name'],
         ]);

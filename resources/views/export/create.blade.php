@@ -236,9 +236,9 @@
                                                             style="width: 100%;">
                                                             <option value="" disabled selected>اختر الملف الوارد
                                                             </option>
-                                                            @isset($topics)
-                                                                @if ($topics && $topics->count() > 0)
-                                                                    @foreach ($topics as $topic)
+                                                            @isset($topics_inside)
+                                                                @if ($topics_inside && $topics_inside->count() > 0)
+                                                                    @foreach ($topics_inside as $topic)
                                                                         <option value="{{ $topic->id }}">
                                                                             {{ $topic->import_id }}
                                                                         </option>

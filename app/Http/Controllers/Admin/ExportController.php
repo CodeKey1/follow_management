@@ -41,9 +41,10 @@ class ExportController extends Controller
     public function create()
     {
         $topics = Topic::select()->with('name_side')->where('state', '<>', 1)->get();
+        $topics_inside = Topic::select()->with('name_side')->get();
         $side = Side::select()->get();
         $responsibles = Responsible::select()->get();
-        return view('export.create', compact('responsibles', 'topics', 'side'));
+        return view('export.create', compact('responsibles', 'topics', 'side','topics_inside'));
     }
     public function export_internal()
     {

@@ -193,14 +193,14 @@
                                                 <div class="form-group col-md-3">
                                                     <label> لصادر رقم</label>
                                                     <select class="form-control select2" id="project"
-                                                        name="export_id" style="width: 100%;">
+                                                        name="responsible_export_id" style="width: 100%;">
                                                         <option value="" disabled selected>اختر رقم الصادر
                                                         </option>
-                                                        @isset($exports)
-                                                            @if ($exports && $exports->count() > 0)
-                                                                @foreach ($exports as $exportID)
+                                                        @isset($inside_export)
+                                                            @if ($inside_export && $inside_export->count() > 0)
+                                                                @foreach ($inside_export as $exportID)
                                                                     <option value="{{ $exportID->id }}">
-                                                                        {{ $exportID->export_no }}
+                                                                        {{ $exportID->export_number }}
                                                                     </option>
                                                                 @endforeach
                                                             @endif
@@ -235,7 +235,7 @@
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label> تصديق معالي الوزير / المحافظ  </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"  name="" class="form-control">
+                                                    <input style="height: calc(2.25rem + 6px);" type="text"  name="confirm_vic" class="form-control">
                                                 </div>
 
                                             </div>
