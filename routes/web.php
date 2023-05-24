@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/psdview', [App\Http\Controllers\Admin\TaskController::class, 'psd'])->name('psd');
+Route::get('/psdviewscan', [App\Http\Controllers\Admin\TaskController::class, 'scan'])->name('scan');
 
 ///////////////////////////////////////////// users view ///////////////////////////////////////////
 

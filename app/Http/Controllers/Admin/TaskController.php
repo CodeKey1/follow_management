@@ -14,8 +14,8 @@ class TaskController extends Controller
     public function index(){
 
 
-        $imports = Import::select()->where('cat_name',Auth::user()->cat_name )->get();
-        return view('admin.task.task', compact('imports'));
+        // $imports = Import::select()->where('cat_name',Auth::user()->cat_name )->get();
+        // return view('admin.task.task', compact('imports'));
     }
     public function create()
     {
@@ -23,5 +23,9 @@ class TaskController extends Controller
     }
     public function psd(){
         return view('psdview');
+    }
+
+    public function scan(){
+        return view('scan');
     }
 }
