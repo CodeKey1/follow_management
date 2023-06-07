@@ -50,21 +50,15 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-secondary" style="border-right: 63px solid #ffa426;border-top:0px;">
-                                    {{-- <div class="card-header">
-                                        <h4> كل ملفات البريد الوارد </h4>
-                                        <div class="card-header-action">
-                                            <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
-                                        </div>
-                                    </div> --}}
-                                </div>
-                                <div class="card card-secondary">
                                     <div class="card-header">
+                                        <h4> فاكس الملف الوارد </h4>
                                         <div class="card-header-action">
-                                            <h4> فاكس الملف الوارد </h4>
                                             <a data-collapse="#mycard-collapse" class="btn btn-icon btn-info"
                                                 href="#"><i class="fas fa-minus"></i></a>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card">
                                     <div class="collapse show" id="mycard-collapse">
                                         <div class="card-body">
                                             <embed src="attatch_office/export_follow/abc.pdf" type="application/pdf"
