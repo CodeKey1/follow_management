@@ -62,7 +62,7 @@
                                                 <div class="form-group col-md-6">
                                                     <label> صورة الجهة </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="file"
-                                                        name="side_image" accept="image/*" class="form-control">
+                                                        name="side_image" accept="image/*" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-row work-xp" >

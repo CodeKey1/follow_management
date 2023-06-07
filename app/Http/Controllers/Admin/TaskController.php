@@ -7,6 +7,7 @@ use App\Models\Import;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Governor_signatur;
 
 class TaskController extends Controller
 {
@@ -25,7 +26,8 @@ class TaskController extends Controller
         return view('psdview');
     }
 
-    public function scan(){
-        return view('scan');
+    public function scan(string $id){
+        $Gsignatur = Governor_signatur::select()->find($id);
+        return view('scan',compact('Gsignatur'));
     }
 }

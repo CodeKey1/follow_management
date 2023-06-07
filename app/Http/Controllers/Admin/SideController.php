@@ -42,7 +42,7 @@ class SideController extends Controller
 
             $side = Side::create(([
                 'side_name' => $request['side_name'],
-                'side_image' => $request->side_image->move(public_path('images'), $imageName),
+                'side_image' => $imageName,
             ]));
             for ($i = 0; $i < count($request->name); $i++) {
                 $name[] = $request->name[$i];

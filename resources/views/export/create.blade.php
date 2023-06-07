@@ -41,7 +41,7 @@
             display: none;
         } */
         #side {
-            display: none;
+            /* display: none; */
         }
 
 
@@ -130,7 +130,7 @@
                                                             @endisset
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-12">
+                                                    {{-- <div class="form-group col-md-12">
                                                         <label> الإدارة المسؤلة </label>
                                                         <select class="form-control select2" multiple disabled
                                                             style="width: 100%;" name="responsible_id[]">
@@ -138,7 +138,7 @@
                                                                 @if ($topics && $topics->count() > 0)
                                                                     @foreach ($topics as $value)
                                                                         @foreach ($value->rsename as $values)
-                                                                            <option value="{{ $values->id }}" selected>
+                                                                            <option value="{{ $values->id }}">
                                                                                 {{ $values->name }}
                                                                             </option>
                                                                         @endforeach
@@ -146,16 +146,14 @@
                                                                 @endif
                                                             @endisset
                                                         </select>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group col-md-12">
                                                         <label>عنوان الملف الصادر</label>
                                                         @isset($topics)
                                                             @if ($topics && $topics->count() > 0)
                                                                 @foreach ($topics as $topic)
-                                                                    <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}"
-                                                                        class="option license-{{ $topic->id }} form-control" id="tittle">{{ $topic->name }}</textarea>
-                                                                    <textarea name="name" cols="10" rows="2" value="{{ $topic->name }}"
-                                                                        class="option license-{{ $topic->id }} form-control" hidden>{{ $topic->name }}</textarea>
+                                                                    <input name="name" cols="10" rows="2" value="{{ $topic->name }}"
+                                                                        class="option license-{{ $topic->id }} form-control" id="tittle" />{{ $topic->name }}
                                                                 @endforeach
                                                             @endif
                                                         @endisset

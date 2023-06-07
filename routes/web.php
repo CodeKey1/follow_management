@@ -18,9 +18,19 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/psdview', [App\Http\Controllers\Admin\TaskController::class, 'psd'])->name('psd');
-Route::get('/psdviewscan', [App\Http\Controllers\Admin\TaskController::class, 'scan'])->name('scan');
+//Route::get('/psdview', [App\Http\Controllers\Admin\TaskController::class, 'psd'])->name('psd');
+Route::get('/psdviewscan{id}', [App\Http\Controllers\Admin\TaskController::class, 'scan'])->name('scan');
 
+///////////////////////////////////////////// Bosta view ///////////////////////////////////////////
+
+Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
+    Route::get('/bosta'         ,[App\Http\Controllers\Admin\BostaController::class,'index'])          -> name('bosta.index');
+    Route::get('/bosta_create'        ,[App\Http\Controllers\Admin\BostaController::class,'create'])    -> name('bosta.Create');
+    Route::post('/bosta_save'         ,[App\Http\Controllers\Admin\BostaController::class,'save'])      -> name('bosta.store');
+    Route::get('/bosta_show'     ,[App\Http\Controllers\Admin\BostaController::class,'vic_done'])      -> name('bosta.show');
+    Route::post('/bosta_update/{id}'  ,[App\Http\Controllers\Admin\BostaController::class,'update'])    -> name('bosta.update');
+    Route::get('/bosta_delete/{id}'   ,[App\Http\Controllers\Admin\BostaController::class,'delete'])    -> name('bosta.delete');
+});
 ///////////////////////////////////////////// users view ///////////////////////////////////////////
 
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
@@ -93,6 +103,11 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 
     Route::get('/edit_inside{id}', [App\Http\Controllers\Admin\ExportController::class, 'inside'])->name('inside.edit');
     Route::post('/update_inside{id}', [App\Http\Controllers\Admin\ExportController::class, 'inside_update'])->name('inside.update');
+    ///////////////////////////////////////////// connection view ///////////////////////////////////////////
+
+    Route::get('/report', [App\Http\Controllers\Admin\OfficereportController::class, 'index'])->name('report');
+    Route::post('/report_search', [App\Http\Controllers\Admin\OfficereportController::class, 'ajax_search'])->name('report.ajax_search');
+    //Route::post('/update_inside{id}', [App\Http\Controllers\Admin\OfficereportController::class, 'inside_update'])->name('inside.update');
 
 });
 

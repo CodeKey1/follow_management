@@ -19,7 +19,7 @@ class UserController extends Controller
 {
     //
     public function index(){
-
+        if (auth()->user()->hasRole('admin'))
         $users = User::select()->get();
         return view('users.index', compact('users'));
     }

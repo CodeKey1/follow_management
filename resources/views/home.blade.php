@@ -170,7 +170,11 @@
                                         <h4 class="card-title"> عدد الوارد </h4>
                                         <span class="text-nowrap"> اجمالي الملفات الواردة </span>
                                         <span
-                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">{{ $topics->count() }}</span>
+                                            style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
+
+                                            {{ $topics->count() }}
+                                            
+                                        </span>
                                         <div class="progress mt-1 mb-1" data-height="8">
                                             @if ($topics->count() && $topics->where('state', 1)->count() != 0)
                                                 <div class="progress-bar l-bg-green" role="progressbar"
@@ -381,15 +385,12 @@
                                                 <tbody>
                                                     @isset($topics)
                                                         @foreach ($topics as $Topic)
+                                                        @if ($Topic->state == 0 || $Topic->state == 2)
                                                             <tr>
                                                                 <td class="text-bold-700">
                                                                     <a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a></td>
                                                                 <td>
-                                                                    @if ($Topic->state == 1)
-                                                                    <div class="spinner-grow text-success" role="status">
-                                                                        <span class="visually-hidden" style="color: #000">   </span>
-                                                                      </div>
-                                                                    @elseif($Topic->state == 0)
+                                                                    @if($Topic->state == 0)
                                                                     <div class="spinner-grow text-danger" role="status">
                                                                         <span class="visually-hidden" style="color: #000">    </span>
                                                                       </div>
@@ -400,13 +401,35 @@
                                                                     @endif
                                                                 </td>
                                                                 <td class="text-bold-700">
+                                                                    <p style="display: none;">{{ $delaiy = $Topic->import_date->diffInDays($Topic->recived_date) }}</p>
+                                                                    @if ($Topic->state == 0)
                                                                     <button type="button" class="btn btn-danger date">
-                                                                    <span class="badge badge-transparent" >
-                                                                     {{ $Topic->import_date->diffInDays($Topic->recived_date) }}
-                                                                    </span>يوم
+                                                                        @if($delaiy<365)
+                                                                            <span class="badge badge-transparent" >
+                                                                            {{$Topic->import_date->diffInDays($Topic->recived_date) }}
+                                                                            </span>يوم
+                                                                            @elseif($delaiy>=365)
+                                                                            <span class="badge badge-transparent" >
+                                                                                {{$Topic->import_date->diffInYears($Topic->recived_date) }}
+                                                                                </span>سنة
+                                                                        @endif
                                                                     </button>
+                                                                    @elseif($Topic->state == 2)
+                                                                    <button type="button" class="btn btn-warning date">
+                                                                        @if($delaiy<365)
+                                                                            <span class="badge badge-transparent" >
+                                                                            {{$Topic->import_date->diffInDays($Topic->recived_date) }}
+                                                                            </span>يوم
+                                                                            @elseif($delaiy>=365)
+                                                                            <span class="badge badge-transparent" >
+                                                                                {{$Topic->import_date->diffInYears($Topic->recived_date) }}
+                                                                                </span>سنة
+                                                                        @endif
+                                                                    </button>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
+                                                            @endif
                                                         @endforeach
                                                     @endisset
                                                 </tbody>
@@ -435,9 +458,7 @@
     <script src="assets/js/page/chart-apexcharts.js"></script>
     <script src="assets/js/page/datatables.js"></script>
     <!-- Template JS File -->
-    <script src="assets/bundles/chartjs/chart.min.js"></script>
     <!-- Page Specific JS File -->
-    <script src="assets/js/page/chart-chartjs.js"></script>
     <script src="assets/js/scripts.js"></script>
     <!-- Custom JS File -->
     <script src="assets/js/custom.js"></script>

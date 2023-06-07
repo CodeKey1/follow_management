@@ -1,13 +1,4 @@
-var pdf = new PDFAnnotate("pdf-container", "scan/report.pdf", {
-  onPageUpdated(page, oldData, newData) {
-    console.log(page, oldData, newData);
-  },
-  ready() {
-    console.log("Plugin initialized successfully");
-  },
-  scale: 1.5,
-  pageImageCompression: "MEDIUM", // FAST, MEDIUM, SLOW(Helps to control the new PDF file size)
-});
+
 
 function changeActiveTool(event) {
     var element = $(event.target).hasClass("tool-button")
@@ -60,8 +51,11 @@ function deleteSelectedObject(event) {
 }
 
 function savePDF() {
-    // pdf.savePdf();
-    pdf.savePdf('sample.pdf'); // save with given file name
+     pdf.savePdf('sample.pdf');
+    //  document.getElementById('myDate').value = pdf.document('text.pdf');
+    //console.log(pdf)
+
+    // pdf.d('sample.pdf'); // save with given file name
 }
 
 function clearPage() {

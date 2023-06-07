@@ -92,6 +92,13 @@
                             data-feather="monitor"></i></a>
                 </li>
                 <li class="dropdown">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><span>  الفاكس </span>
+                        <i data-feather="chevrons-right"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('bosta.index') }}">  تأشيرة السيد المحافظ </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><span> الإدارت المسؤلة للمتابعة
                         </span>
                         <i data-feather="chevrons-right"></i></a>
@@ -139,8 +146,8 @@
                     <a href="#" class="menu-toggle nav-link has-dropdown"><span> التقارير </span>
                         <i data-feather="briefcase"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="">تقرير الطلبات</a></li>
-                        <li><a class="nav-link" href="">تقرير المزادات</a></li>
+                        <li><a class="nav-link" href="{{ route('report') }}">تقرير الطلبات الواردة</a></li>
+                        <li><a class="nav-link" href="">تقرير شهري/سنوي </a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -161,6 +168,7 @@
                         <li><a class="nav-link" href="{{ route('admin.users') }}"> المستخدمين</a></li>
                         <li><a class="nav-link" href="{{ route('role') }}">الصلحيات</a></li>
                         <li><a class="nav-link" href="">اعدادات البرنامج</a></li>
+
                     </ul>
                 </li>
             </ul>

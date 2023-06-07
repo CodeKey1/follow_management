@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function() {
     $(document).on('change', '#start_balance_status', function(e) {
         if ($(this).val() == "") {
@@ -82,6 +83,3 @@ $(document).ready(function() {
         });
     });
 });
-
-"use strict";
-

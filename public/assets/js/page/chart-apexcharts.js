@@ -672,6 +672,11 @@ function chart10() {
     var data2 = JSON.parse($('input[name=data2]').val());
     var options = {
         chart: {
+            events: {
+                click: function(event, chartContext, config) {
+                  // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts
+                }
+            },
             width: 300,
             height: 300,
             type: "pie",
@@ -680,13 +685,14 @@ function chart10() {
             position: 'bottom'
           },
           colors: ['#00e396', '#feb018', '#ff4560'],
-        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد " ],
+        labels:[" تـم الإنتـهـاء"," جاري العمل ", " لـم يتـم الـرد <a href='http://127.0.0.1:8000/'>hhkghk</a> "],
         series: data2,
         responsive: [
             {
                 breakpoint: 480,
                 options: {
                     chart: {
+
                         width: 200,
                     },
                     legend: {
