@@ -20,9 +20,10 @@ class TopicController extends Controller
     //
     public function index()
     {
+        $now = Carbon::today();
         $response = Response_Topic::select()->with('R_topic')->get();
         $topics_trash = Topic::select()->where('state', '<>', 1)->where('cat_name', Auth::user()->cat_name)->count();
-        $topics = Topic::select()->with('rsename', 't_export')->where('cat_name', Auth::user()->cat_name)->get();
+        $topics = Topic::select()->with('rsename', 't_export')->where('cat_name', Auth::user()->cat_name)->whereYear('recived_date',$now->year)->get();
         $exports = Export::select()->with('topic_export')->where('cat_name', Auth::user()->cat_name)->get();
         $inside_import = R_export::select()->get();
         return view('topics.index', compact('topics', 'topics_trash', 'exports', 'response','inside_import'));
@@ -30,8 +31,10 @@ class TopicController extends Controller
 
     public function T_archive()
     {
-        $topics = Topic::onlyTrashed()
+        $now = Carbon::today();
+        $topics = Topic::select()
             ->where('cat_name', Auth::user()->cat_name)
+            ->whereYear('recived_date','<',$now->year)
             ->get();
         return view('topics.archive', compact('topics'));
     }

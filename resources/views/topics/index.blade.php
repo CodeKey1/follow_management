@@ -171,28 +171,28 @@
                                                     <tr>
                                                         <th> # </th>
                                                         <th> رقم المكاتبة </th>
-                                                        <th> تاريخ استلام الوارد </th>
-                                                        <th>اسم الوارد</th>
+                                                        <th> ت : الإستلام </th>
+                                                        <th style="width: 30%;"> الموضوع </th>
                                                         <th> جهة الوارد</th>
                                                         <th> حالة الرد</th>
-                                                        <th> الإدارات المسؤلة </th>
-                                                        <th> رقم الصادر </th>
-                                                        <th>تفاصيل</th>
+                                                        <th> الإدارات </th>
+                                                        {{-- <th> رقم الصادر </th> --}}
+                                                        <th style="width: 3%;"> </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @isset($topics)
-                                                        @foreach ($topics as $Topic)
+                                                        @foreach ($topics as $num=>$Topic)
                                                             <tr>
-                                                                <td class="text-bold-700"> {{ $Topic->id }}</td>
+                                                                <td class="text-bold-700"> {{ $num + 1 }}</td>
                                                                 <td class="text-bold-700">
-                                                                    <a
-                                                                        href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a>
+                                                                    <a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a>
                                                                 </td>
                                                                 <td class="text-bold-700">
-                                                                    {{ $Topic->recived_date->format('Y-M-d') }}</td>
-                                                                <td class="text-bold-700" style="text-align: right;">
-                                                                    {{ $Topic->name }}</td>
+                                                                    {{ $Topic->recived_date->format('y-m-d') }}</td>
+                                                                <td class="text-bold-700" style="text-align: right; color:#000;">
+                                                                    <a href="{{ route('topics.show', $Topic->id) }}" style="text-align: right; color:#001f85;">{{ $Topic->name }}</a>
+                                                                    </td>
                                                                 <td class="text-bold-700">
                                                                     {{ $Topic->name_side->side_name }}
 
@@ -232,7 +232,7 @@
                                                                         @endif
                                                                     @endforeach
                                                                 </td>
-                                                                <td class="text-bold-700">
+                                                                {{-- <td class="text-bold-700">
                                                                     @if (auth()->user()->hasRole('admin') ||
                                                                             auth()->user()->hasRole('export_user'))
                                                                         @foreach ($Topic->t_export as $Num)
@@ -244,8 +244,8 @@
                                                                         <span class="badge badge-danger"> ليس لديك صلاحية
                                                                         </span>
                                                                     @endif
-                                                                </td>
-                                                                <td style="width: 15%">
+                                                                </td> --}}
+                                                                <td style="width: 10%">
                                                                     <a href="{{ route('topics.edit', $Topic->id) }}"
                                                                         class="col-dark-gray waves-effect m-r-20"
                                                                         title="" data-toggle="tooltip"
@@ -253,14 +253,14 @@
                                                                         <i class="material-icons">edit</i>
                                                                     </a>
 
-                                                                    @if (auth()->user()->hasRole('admin'))
+                                                                    {{-- @if (auth()->user()->hasRole('admin'))
                                                                         <a href="{{ route('topics.delete', $Topic->id) }}"
                                                                             class="col-dark-gray waves-effect m-r-20"
                                                                             title="" data-toggle="tooltip"
                                                                             data-original-title="حذف">
                                                                             <i class="material-icons">delete</i>
                                                                         </a>
-                                                                    @endif
+                                                                    @endif --}}
                                                                     {{-- <a href="{{ route('topics.archive', $Topic->id) }}"
                                                                         class="col-dark-gray waves-effect m-r-20"
                                                                         title="" data-toggle="tooltip"

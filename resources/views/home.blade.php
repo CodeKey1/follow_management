@@ -173,12 +173,12 @@
                                             style="color: black;font-size: 16px;font-weight: 800;padding: 40px;">
 
                                             {{ $topics->count() }}
-                                            
+
                                         </span>
                                         <div class="progress mt-1 mb-1" data-height="8">
                                             @if ($topics->count() && $topics->where('state', 1)->count() != 0)
                                                 <div class="progress-bar l-bg-green" role="progressbar"
-                                                    data-width="{{ ($topics->where('state', 1)->count() / $topics->count()) * 100 }}%"
+                                                    data-width="{{ ($topics->count() / $topics->where('state', 1)->count()) * 100 }}%"
                                                     aria-valuenow="{{ $topics->count() }}"
                                                     aria-valuemin="{{ $topics->count() }}"
                                                     aria-valuemax="{{ $topics->count() }}"></div>
@@ -369,7 +369,7 @@
                         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card  card-danger">
                                     <div class="card-header">
-                                        <h4> المكاتبات  لم يتم الرد</h4>
+                                        <h4> متابعة المكاتبات  </h4>
                                     </div>
                                     <div style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
                                         <div class="table-responsive">
@@ -378,6 +378,7 @@
                                                     <tr>
 
                                                         <th> رقم المكاتبة </th>
+                                                        <th> تاريخ المكاتبة </th>
                                                         <th> الحالة </th>
                                                         <th>مدة التأخير</th>
                                                     </tr>
@@ -387,8 +388,8 @@
                                                         @foreach ($topics as $Topic)
                                                         @if ($Topic->state == 0 || $Topic->state == 2)
                                                             <tr>
-                                                                <td class="text-bold-700">
-                                                                    <a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a></td>
+                                                                <td class="text-bold-700"><a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->import_id }}</a></td>
+                                                                <td class="text-bold-700"><a href="{{ route('topics.show', $Topic->id) }}">{{ $Topic->recived_date->format('Y-m-d') }}</a></td>
                                                                 <td>
                                                                     @if($Topic->state == 0)
                                                                     <div class="spinner-grow text-danger" role="status">
@@ -401,16 +402,16 @@
                                                                     @endif
                                                                 </td>
                                                                 <td class="text-bold-700">
-                                                                    <p style="display: none;">{{ $delaiy = $Topic->import_date->diffInDays($Topic->recived_date) }}</p>
+                                                                    <p style="display: none;">{{ $delaiy = $Topic->recived_date->diffInDays($now) }}</p>
                                                                     @if ($Topic->state == 0)
                                                                     <button type="button" class="btn btn-danger date">
                                                                         @if($delaiy<365)
                                                                             <span class="badge badge-transparent" >
-                                                                            {{$Topic->import_date->diffInDays($Topic->recived_date) }}
+                                                                            {{$Topic->recived_date->diffInDays($now) }}
                                                                             </span>يوم
                                                                             @elseif($delaiy>=365)
                                                                             <span class="badge badge-transparent" >
-                                                                                {{$Topic->import_date->diffInYears($Topic->recived_date) }}
+                                                                                {{$Topic->recived_date->diffInYears($now) }}
                                                                                 </span>سنة
                                                                         @endif
                                                                     </button>
@@ -418,11 +419,11 @@
                                                                     <button type="button" class="btn btn-warning date">
                                                                         @if($delaiy<365)
                                                                             <span class="badge badge-transparent" >
-                                                                            {{$Topic->import_date->diffInDays($Topic->recived_date) }}
+                                                                            {{$Topic->recived_date->diffInDays($now) }}
                                                                             </span>يوم
                                                                             @elseif($delaiy>=365)
                                                                             <span class="badge badge-transparent" >
-                                                                                {{$Topic->import_date->diffInYears($Topic->recived_date) }}
+                                                                                {{$Topic->recived_date->diffInYears($now) }}
                                                                                 </span>سنة
                                                                         @endif
                                                                     </button>

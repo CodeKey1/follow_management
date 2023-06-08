@@ -125,7 +125,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-5">
                                                     <label> تأشيرة السيد المحافظ </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
                                                         value="{{ $topics->vic_sign }}"
@@ -134,7 +134,16 @@
                                                         name="vic_sign" value="{{ $topics->vic_sign }}"
                                                         class="form-control" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-2">
+                                                    <label> تاريخ الوارد المكاتبة </label>
+                                                    <input style="height: calc(2.25rem + 6px);" type="datetime-local"
+                                                        value="{{ $topics->import_date }}" class="form-control"
+                                                        readonly>
+                                                    <input style="height: calc(2.25rem + 6px);" type="datetime-local"
+                                                        name="import_date" value="{{ $topics->import_date }}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group col-md-2">
                                                     <label> تاريخ استلام الوارد </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="datetime-local"
                                                         value="{{ $topics->recived_date }}" class="form-control"
@@ -143,8 +152,8 @@
                                                         name="recived_date" value="{{ $topics->recived_date }}"
                                                         class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-2">
-                                                    <label> الموقف التنفيذي </label>
+                                                <div class="form-group col-md-1">
+                                                    <label> م/ التنفيذي </label>
                                                     <select class="form-control" disabled>
                                                         <option
                                                             value="1"@if ($topics->state == '1') selected @endif>
@@ -155,6 +164,9 @@
                                                         <option
                                                             value="2"@if ($topics->state == '2') selected @endif>
                                                             جاري المتابعة </option>
+                                                        <option
+                                                            value="2"@if ($topics->state == '3') selected @endif>
+                                                             ليس له رد </option>
                                                     </select>
                                                     <select class="form-control" name="state">
                                                         <option value="" disabled>اختر موقف الرد</option>

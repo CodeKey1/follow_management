@@ -32,8 +32,13 @@
                                 <div class="card">
                                     <div class="body">
                                         <div id="mail-nav">
-                                            {{-- <button type="button"
-                                                class="btn btn-danger waves-effect btn-compose m-b-15">COMPOSE</button> --}}
+                                            <a href="{{ route('topics.edit', $topics->id) }}" class="col-dark-gray"
+                                                title="" data-toggle="tooltip" data-original-title="عرض وتعديل">
+                                                <button type="button"
+                                                    class="btn btn-primary waves-effect btn-compose m-b-15">
+                                                    تعديل
+                                                </button>
+                                            </a>
                                             <h6 class="b-b p-10 text-strong">الإدارات المسؤلة للمتابعة المكاتبة الواردة
                                                 </h5>
                                                 <ul class="" id="mail-labels">
@@ -116,10 +121,11 @@
                                                                     </span>
                                                                 </h6>
                                                             </div>
+
                                                             <div class="col-9">
-                                                                <h4 class="vew-mail-header">
+                                                                <h6 class="vew-mail-header" style="color: #000">
                                                                     <b>{{ $topics->name }}</b>
-                                                                </h4>
+                                                                </h6>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -130,10 +136,9 @@
                                                                 class="btn btn-primary date pull-left">
                                                                 يوم <span class="badge badge-transparent">
                                                                     @if ($topics->state == 1)
-                                                                    @foreach ($topics->t_export as $x_date)
-                                                                    {{ $topics->recived_date->diffInDays($x_date->send_date) }}
-                                                                @endforeach
-
+                                                                        @foreach ($topics->t_export as $x_date)
+                                                                            {{ $topics->recived_date->diffInDays($x_date->send_date) }}
+                                                                        @endforeach
                                                                     @else
                                                                         {{ $topics->recived_date->diffInDays($now) }}
                                                                     @endif
@@ -327,7 +332,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                {{-- @elseif($topics->state == 0)
+                                    {{-- @elseif($topics->state == 0)
                                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">

@@ -41,7 +41,8 @@ class BostaController extends Controller
     public function vic_done()
     {
         //
-        return view('posta.view_pdf');
+        $Gsignatur = Governor_signatur::select()->get();
+        return view('posta.view_pdf',compact('Gsignatur'));
     }
     /**
      * Display the specified resource.

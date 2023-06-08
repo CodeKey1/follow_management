@@ -37,14 +37,11 @@
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12">
-                                <div class="card card-secondary" style="background-color: #ffa4267a !important;">
+                                <div class="card card-secondary" style="background-color: #97cbfc7a !important;">
                                     <div class="card-header">
                                         <h4>  أرشيف متابعة الملفات الواردة </h4>
                                         <div class="card-header-action">
                                             <div class="dropdown">
-                                                <a href="{{ route('topics.create') }}" class="btn btn-warning "> وارد
-                                                    جديد </a>
-
                                             </div>
                                             <a href="{{ route('home') }}" class="btn btn-primary">الرئيسية</a>
                                         </div>
@@ -60,25 +57,32 @@
                                                         <th> # </th>
                                                         <th>اسم الوارد</th>
                                                         <th> جهة الوارد</th>
+                                                        <th> ت : الوارد </th>
                                                         <th>تفاصيل</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @isset($topics)
-                                                        @foreach ($topics as $Topic)
+                                                        @foreach ($topics as $num=>$Topic)
                                                             <tr>
-                                                                <td class="text-bold-700"> {{ $Topic->id }}</td>
-                                                                <td class="text-bold-700" style="text-align: right;">
-                                                                    {{ $Topic->name }}</td>
-                                                                <td class="text-bold-700"> {{ $Topic->responsibles_id }}
+                                                                <td class="text-bold-700"> {{ $num + 1 }}</td>
+                                                                <td class="text-bold-900" style="text-align: right;">
+                                                                    <a href="{{ route('topics.show', $Topic->id) }}" style="text-align: right; color:#001f85;">{{ $Topic->name }}</a>
                                                                 </td>
-
+                                                                <td class="text-bold-700">
+                                                                    {{ $Topic->name_side->side_name }}
+                                                                </td>
+                                                                <td class="text-bold-900">
+                                                                    {{ $Topic->recived_date->format('Y') }}
+                                                                </td>
                                                                 <td style="width: 15%">
 
-                                                                    <a class="btn btn-icon btn-danger"
-                                                                        href="{{ route('topics.delete', $Topic->id) }}"ata-toggle="tooltip"
-                                                                        data-placement="top" title="حذف"><i
-                                                                            class="fas fa-times"></i></a>
+                                                                    <a href="{{ route('topics.edit', $Topic->id) }}"
+                                                                        class="col-dark-blue waves-effect m-r-20"
+                                                                        title="" data-toggle="tooltip"
+                                                                        data-original-title="عرض وتعديل">
+                                                                        <i class="material-icons">edit</i>
+                                                                    </a>
                                                                     {{-- <a class="btn btn-icon btn-info"
                                                                         href="{{ route('topics.archive', $Topic->id) }}"ata-toggle="tooltip"
                                                                         data-placement="top" title="نقل الارشيف"><i
