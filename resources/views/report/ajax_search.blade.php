@@ -1,6 +1,6 @@
 @if (@isset($data) && !@empty($data) && count($data) > 0)
-
-    <table id="example2" class="table table-bordered table-hover">
+<div id="print" style="direction: rtl">
+    <table id="example2" class="table table-bordered table-hover" style="direction: rtl">
         <thead class="custom_thead">
             <th style="width: 11%;"> الجهة </th>
             <th> الموضوع </th>
@@ -40,6 +40,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
     <br>
     <div class="col-md-12" id="ajax_pagination_in_search">
 

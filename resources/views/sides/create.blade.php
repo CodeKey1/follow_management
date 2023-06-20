@@ -75,7 +75,6 @@
                                                     <a href="javascript:void(0)" style="width:50px; height: 35px;"
                                                     id="addWork-btn" class="btn btn-primary"
                                                     onclick="addWorkRow()"> + </a>
-
                                                 </div>
                                             </div>
 

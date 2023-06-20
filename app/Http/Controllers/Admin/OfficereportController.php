@@ -95,8 +95,9 @@ class OfficereportController extends Controller
                     $field1 = "notes";
                     $operator1 = "like";
                     $value1 = "%{$search_by_text}%";
-                }
-            } else {
+                } 
+            }
+            else {
                 //true
                 $field1 = "id";
                 $operator1 = ">";
@@ -123,21 +124,6 @@ class OfficereportController extends Controller
                 $operator4 = "<=";
                 $value4 = $order_date_to;
             }
-
-            // if ($searchByactiveStatus == 1) {
-            //     $field5 = "state";
-            //     $operator5 = "!=";
-            //     $value5 = $searchByactiveStatus;
-            // } elseif ($searchByactiveStatus == 2) {
-
-            //     $field5 = "state";
-            //     $operator5 = "=";
-            //     $value5 = $searchByactiveStatus;
-            // } else {
-            //     $field5 = "state";
-            //     $operator5 = "=";
-            //     $value5 = 0;
-            // }
             if ($searchByactiveStatus == "all") {
                 $field5 = "id";
                 $operator5 = ">";

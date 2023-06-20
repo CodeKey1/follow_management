@@ -86,6 +86,7 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/side'        ,[App\Http\Controllers\Admin\SideController::class,'index'])    -> name('side');
     Route::get('/side-create'        ,[App\Http\Controllers\Admin\SideController::class,'create'])    -> name('side.create');
     Route::post('/side-store' ,[App\Http\Controllers\Admin\SideController::class,'store'])    -> name('side.store');
+    Route::post('/store' ,[App\Http\Controllers\Admin\SideController::class,'Qstore'])    -> name('q.store');
     Route::get('/side-edit{id}' ,[App\Http\Controllers\Admin\SideController::class,'edit'])    -> name('side.edit');
     Route::post('/side-update{id}' ,[App\Http\Controllers\Admin\SideController::class,'update'])    -> name('side.update');
 

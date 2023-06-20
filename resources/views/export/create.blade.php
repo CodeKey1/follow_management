@@ -41,7 +41,7 @@
             display: none;
         } */
         #side {
-            /* display: none; */
+             display: none;
         }
 
 
@@ -96,6 +96,7 @@
                                         <div class="card card-secondary" id="div1">
                                             <div class="card-body">
                                                 <div class="form-row">
+
                                                     <div class="form-group col-md-6">
                                                         <label>رقم الوارد</label>
                                                         <select class="form-control select2" id="project" name="topic_id"
@@ -147,7 +148,7 @@
                                                             @endisset
                                                         </select>
                                                     </div> --}}
-                                                    <div class="form-group col-md-12">
+                                                    {{-- <div class="form-group col-md-12">
                                                         <label>عنوان الملف الصادر</label>
                                                         @isset($topics)
                                                             @if ($topics && $topics->count() > 0)
@@ -157,13 +158,18 @@
                                                                 @endforeach
                                                             @endif
                                                         @endisset
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card card-secondary">
                                             <div class="card-body" id="work_side">
                                                 <div class="form-row">
+                                                    <div class="form-group col-md-12" id="div7">
+                                                        <label> عنوان الصادر </label>
+                                                        <input style="height: calc(2.25rem + 6px);" type="text" multiple
+                                                            name="name" class="form-control">
+                                                    </div>
                                                     <div class="form-group col-md-6">
                                                         <input class="user-name text-bold-700 float-left" type="hidden"
                                                             name="cat_name" value="{{ Auth::user()->cat_name }}">

@@ -37,8 +37,7 @@
                             <div class="col-12">
                                 <div class="card card-secondary">
                                     <input type="hidden" id="token_search" value="{{ csrf_token() }}">
-                                        <input type="hidden" id="ajax_search_url"
-                                            value="{{ route('report.ajax_search') }}">
+                                        <input type="hidden" id="ajax_search_url" value="{{ route('report.ajax_search') }}">
                                     <div class="card-header">
                                         <h4> تقارير المكاتبات </h4>
 
@@ -61,26 +60,19 @@
                                                     class="form-control">
                                                     <option value="" selected disabled> اختر التقرير </option>
                                                     <option value="1"> الوارد </option>
-                                                    <option value="2"> الصادر </option>
-                                                    {{-- <option value="0"> الجهـة  </option> --}}
-                                                    <option value="3"> الجهة </option>
+                                                    {{-- <option value="2"> الصادر </option>
+
+                                                    <option value="3"> الجهة </option> --}}
                                                 </select>
                                             </div>
                                         </div>
                                         <div id="div1" style="display: none;">
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    <input type="radio" checked name="searchbyradio"
-                                                        id="searchbyradio" value="import_id"> برقم الواد
-                                                    <input type="radio" name="searchbyradio" id="searchbyradio"
-                                                        value="name"> عنوان الوارد
-                                                    <input type="radio" name="searchbyradio" id="searchbyradio"
-                                                        value="note"> بشأن
-                                                    <input autofocus
-                                                        style="margin-top: 10px !important;height: calc(2.25rem + 6px);"
-                                                        type="text" id="search_by_text"
-                                                        placeholder=" بشأن  - عنوان الوارد  - برقم الواد "
-                                                        class="form-control">
+                                                    <input type="radio" checked name="searchbyradio" id="searchbyradio" value="import_id"> برقم الواد
+                                                    <input type="radio" name="searchbyradio" id="searchbyradio" value="name"> عنوان الوارد
+                                                    <input type="radio" name="searchbyradio" id="searchbyradio" value="note"> بشأن
+                                                    <input autofocus style="margin-top: 10px !important;height: calc(2.25rem + 6px);" type="text" id="search_by_text" placeholder=" بشأن  - عنوان الوارد  - برقم الواد " class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for=""> حالة تنفيذ الوارد </label>
@@ -191,7 +183,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="card card-secondary" id="Report" style="display: none;">
@@ -238,6 +229,10 @@
                                                عفوا لاتوجد بيانات لعرضها !!
                                             </div>
                                             @endif
+                                        </div>
+                                        <div class="justify-content-left d-flex">
+                                            <button class="btn btn-danger mt-3 mr-2" id="print_Button" onclick="printDiv()"> <i
+                                                    class="mdi mdi-printer ml-1"></i>طباعة</button>
                                         </div>
                                     </div>
                                 </div>
@@ -304,6 +299,18 @@
         }
     </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <!-- File export topics table -->
+    <script type="text/javascript">
+        function printDiv() {
+            var printContents = document.getElementById('print').innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            location.reload();
+        }
+
+    </script>
 </body>
 
 

@@ -58,6 +58,21 @@ class SideController extends Controller
             return redirect()->route('side')->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
+    public function Qstore(Request $request)
+    {
+        //
+        $imageName = time().'.'.$request->side_image->extension();
+        try {
+
+            $side = Side::create(([
+                'side_name' => $request['side_name'],
+                'side_image' => $imageName,
+            ]));
+            return redirect()->back()->with(['success' => 'تم حفظ الجهة']);
+        } catch (\Exception $ex) {
+            return redirect()->back()->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
+    }
 
     /**
      * Display the specified resource.
