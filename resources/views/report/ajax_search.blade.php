@@ -14,26 +14,30 @@
                 <tr>
                     <td>{{ $info->name_side->side_name }}</td>
                     <td>{{ $info->name }}</td>
-                    <td>
+                    <td >
                         <ul>
                             @foreach ($info->rsename as $value)
                                 <li>{{ $value->name }}</li>
                             @endforeach
                         </ul>
                     </td>
-                    <td>
+                    <td style="color: red;">
                         {{ $info->vic_sign }}
                     </td>
 
-                    <td>
-                        @if ($info->state == 1)
-                            <span class="visually-hidden" style="color: #000"> تم التنفيذ </span>
-                        @elseif($info->state == 0)
-                            <span class="visually-hidden" style="color: #000"> لم يتم </span>
-                        @elseif($info->state == 2)
-                            <span class="visually-hidden" style="color: #000"> جاري </span>
-                        @endif
+                    @if ($info->state == 1)
+                    <td style="background-color: #54ca68;">
+                            <span class="visually-hidden" style="color: #000;"> تم التنفيذ </span>
                     </td>
+                        @elseif($info->state == 0)
+                        <td style="background-color: #ff4040;">
+                            <span class="visually-hidden" style="color: #000"> لم يتم </span>
+                        </td>
+                        @elseif($info->state == 2)
+                        <td style="background-color: #ffdf2c;">
+                            <span class="visually-hidden" style="color: #000"> جاري </span>
+                        </td>
+                        @endif
                     <td>{{ $info->notes }}</td>
 
                 </tr>

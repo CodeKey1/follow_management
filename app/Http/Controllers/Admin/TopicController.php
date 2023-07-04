@@ -109,7 +109,7 @@ class TopicController extends Controller
         } else {
             $upload[] = '';
         }
-        // try {
+        try {
             $topics = Topic::create([
                 'import_id' => $request['import_id']. '/'. $request['side_id'] . '/'. $now->year,
                 'office_id' => $request['office_id'],
@@ -136,11 +136,11 @@ class TopicController extends Controller
             return redirect()
                 ->route('topic.index')
                 ->with(['success' => 'تم حفظ الموضوع بنجاح']);
-        // } catch (\Exception $ex) {
-        //     return redirect()
-        //         ->route('topic.index')
-        //         ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
-        // }
+        } catch (\Exception $ex) {
+            return redirect()
+                ->route('topic.index')
+                ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
     }
 
     public function edit($id)

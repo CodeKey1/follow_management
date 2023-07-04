@@ -187,7 +187,7 @@
                                 </div>
                                 <div class="card card-secondary" id="Report" style="display: none;">
                                     <div class="card-body" style="direction: rtl;">
-                                        <div id="ajax_responce_serarchDiv" class="col-md-12">
+                                        <div id="ajax_responce_serarchDiv" class="col-md-12" style="padding: 0 !important">
                                             @if (@isset($data) && !@empty($data) && count($data) > 0)
                                             {{-- <table id="example2" class="table table-bordered table-hover">
                                                 <thead class="custom_thead">

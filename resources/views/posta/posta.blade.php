@@ -55,7 +55,7 @@
                                         <h4> البريد </h4>
                                         <div class="card-header-action">
                                             <div class="btn-group">
-                                                <a href="{{ route('bosta.show') }}" class="btn btn-warning"> تأشيرة
+                                                <a href="#" class="btn btn-warning"> تأشيرة
                                                     السيد المحافظ داخلي </a>
                                             </div>
                                             <a href="{{ route('bosta.Create') }}" class="btn btn-info"> أضافة بريد </a>
@@ -84,7 +84,7 @@
                                                                 <td class="text-bold text-bold-700" style="width: 10%">
                                                                     {{ $GS->posta_date }}</td>
                                                                 <td class="text-bold text-bold-400" style="color: #000086;">
-                                                                    {{ $GS->posta_side }}</td>
+                                                                    {{ $GS->side_name }}</td>
                                                                 <td style="width: 5%">
                                                                     <div class="badge badge-danger">{{ $GS->posta_state }}
                                                                     </div>
@@ -92,7 +92,7 @@
                                                                 <td class="text-bold text-bold-700"> {{ $GS->posta_about }}
                                                                 </td>
                                                                 <td style="width: 10%">
-                                                                    <a href="{{ route('bosta.show') }}" class="portfolio-box" target="_blank">
+                                                                    <a href="{{ route('bosta.show',$GS->id) }}" class="portfolio-box" target="_blank">
                                                                         <i class="material-icons">attach_file</i>
                                                                     </a>
                                                                 </td>

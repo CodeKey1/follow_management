@@ -26,8 +26,8 @@ Route::get('/psdviewscan{id}', [App\Http\Controllers\Admin\TaskController::class
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/bosta'         ,[App\Http\Controllers\Admin\BostaController::class,'index'])          -> name('bosta.index');
     Route::get('/bosta_create'        ,[App\Http\Controllers\Admin\BostaController::class,'create'])    -> name('bosta.Create');
-    Route::post('/bosta_save'         ,[App\Http\Controllers\Admin\BostaController::class,'save'])      -> name('bosta.store');
-    Route::get('/bosta_show'     ,[App\Http\Controllers\Admin\BostaController::class,'vic_done'])      -> name('bosta.show');
+    Route::post('/bosta_save'         ,[App\Http\Controllers\Admin\BostaController::class,'store'])      -> name('bosta.store');
+    Route::get('/bosta_show{id}'     ,[App\Http\Controllers\Admin\BostaController::class,'vic_done'])      -> name('bosta.show');
     Route::post('/bosta_update/{id}'  ,[App\Http\Controllers\Admin\BostaController::class,'update'])    -> name('bosta.update');
     Route::get('/bosta_delete/{id}'   ,[App\Http\Controllers\Admin\BostaController::class,'delete'])    -> name('bosta.delete');
 });

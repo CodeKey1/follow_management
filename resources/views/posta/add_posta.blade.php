@@ -37,12 +37,12 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 @include('layouts.success')
                                 @include('layouts.error')
-                                <form class="needs-validation"  novalidate=""
-                                    action="{{ route('side.store') }}" method="POST" enctype="multipart/form-data">
+                                <form class="needs-validation" novalidate="" action="{{ route('bosta.store') }}"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h4> اضافة وارد فاكس  </h4>
+                                            <h4> اضافة وارد فاكس </h4>
                                             <div class="card-header-action">
                                                 <a href="{{ route('bosta.index') }}" class="btn btn-warning"> وارد فاكس
                                                 </a>
@@ -50,60 +50,81 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-secondary" >
+                                    <div class="card card-secondary">
                                         <div class="card-body " id="work_experience">
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>   رقم المكاتبة </label>
+                                                    <label> رقم المكاتبة </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
-                                                    name="side_name" class="form-control">
+                                                        name="posta_num" class="form-control" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>   رقم المكتب </label>
+                                                    <label> رقم المكتب </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="number"
-                                                    name="side_name" class="form-control">
+                                                        name="posta_office_num" class="form-control" required >
                                                 </div>
 
                                                 <div class="form-group col-md-2">
-                                                    <label>  التاريخ </label>
+                                                    <label> التاريخ </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="bosta_date" accept="image/*" class="form-control" required>
+                                                        name="posta_date" class="form-control" required>
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label>  تاريخ الوارد </label>
+                                                    <label> تاريخ الوارد </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="date"
-                                                        name="bosta_date" accept="image/*" class="form-control" required>
+                                                        name="bosta_recive" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label>  جهة الوارد </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                    name="side_name" class="form-control">
+                                                    <label> جهة الوارد </label>
+                                                    <select class="form-control" name="side_name" required>
+                                                        <option value="" disabled selected>اختر الجهة</option>
+                                                        @isset($side)
+                                                            @if ($side && $side->count() > 0)
+                                                                @foreach ($side as $sides)
+                                                                    <option value="{{ $sides->side_name }}">
+                                                                        {{ $sides->side_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
                                                 </div>
-
                                                 <div class="form-group col-md-6">
-                                                    <label>  الملف الوارد </label>
+                                                    <label> الملف الوارد </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="file"
-                                                        name="bosta_date" accept="image/*" class="form-control" required>
+                                                        name="posta_file" accept="image/*" class="form-control"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label> بشأن </label>
                                                     <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="bosta_date" accept="image/*" class="form-control" required>
+                                                        name="posta_about" accept="image/*" class="form-control"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label> الجهات المعنية </label>
-                                                    <input style="height: calc(2.25rem + 6px);" type="text"
-                                                        name="bosta_date" accept="image/*" class="form-control" required>
+                                                    <select class="form-control select2" name="side_mean[]" multiple
+                                                        style="width: 100%;" required>
+                                                        <option value="" disabled> الإدارة المسؤلة للمتابعة
+                                                        </option>
+                                                        @isset($responsibles)
+                                                            @if ($responsibles && $responsibles->count() > 0)
+                                                                @foreach ($responsibles as $Response)
+                                                                    <option value="{{ $Response->name }}">
+                                                                        {{ $Response->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endif
+                                                        @endisset
+                                                    </select>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <div class="card-footer text-right">
                                             <button class="btn btn-primary" type="submit">حفظ</button>
@@ -147,12 +168,12 @@
             if (empty == "no" && document.getElementsByClassName("work-xp").length < 4) {
                 const div = document.createElement('div');
                 div.className = 'form-row';
-                div.innerHTML = `
+                div.innerHTML =
+                    `
                 <div class="form-group col-md-11">
                     <input type="text" class="form-control" name="name[]" placeholder=" اسم الجهة الفرعية ">
                 </div>
-                    <input type="button" class="btn btn-danger" style="width:50px; height: 35px;" value="x" onclick="removeWorkRow(this)" /> `;
-                 ;
+                    <input type="button" class="btn btn-danger" style="width:50px; height: 35px;" value="x" onclick="removeWorkRow(this)" /> `;;
                 document.getElementById('work_experience').appendChild(div);
                 if (document.getElementsByClassName("work-xp").length == 4) {
                     document.getElementById("addWork-btn").style.display = "none";
