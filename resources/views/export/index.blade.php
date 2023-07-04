@@ -54,6 +54,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                @include('layouts.error')
+                                @include('layouts.success')
                                 <div class="section-body">
                                     <div class="row ">
 

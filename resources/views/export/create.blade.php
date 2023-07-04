@@ -40,11 +40,17 @@
         #div6 {
             display: none;
         } */
-        #side {
-             display: none;
+        .alert-cust{
+            border: 1px solid red;
+            color: red;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+
         }
-
-
+        #side {
+            display: none;
+        }
     </style>
 </head>
 
@@ -61,7 +67,15 @@
                             <div class="col-12 col-md-12 col-lg-12">
                                 @include('layouts.success')
                                 @include('layouts.error')
-
+                                {{-- @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif --}}
                                 <div class="card card-primary">
                                     <div class="card-header">
                                         <h4>اضــافة ملف صادر جديــد </h4>
@@ -71,6 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
+
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <label for="select" class="col-md-2 col-form-label text-md-end"
@@ -78,12 +93,17 @@
                                                     color: black;">{{ __(' اختر نوع الملف الصادر ') }}</label>
                                                 <div class="col-md-10">
                                                     <select class="form-control" id="mselect" name="select"
-                                                        onChange="hola();" required>
-                                                        <option value="" disabled selected> اختر نوع الصادر
+                                                        onChange="hola();"
+                                                        class="@error('select') is-invalid @enderror">
+
+                                                        <option value="" disabled  selected > اختر نوع الصادر
                                                         </option>
                                                         <option value="1"> صادر لجهة </option>
                                                         <option value="2"> صادر لإدارة</option>
                                                     </select>
+                                                    @error('select')
+                                                        <div class="alert alert-cust ">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +111,7 @@
                                 </div>
                                 <div id="side">
                                     <form class="needs-validation" novalidate="" action="{{ route('exports.save') }}"
-                                         method="POST" enctype="multipart/form-data">
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="card card-secondary" id="div1">
                                             <div class="card-body">
@@ -99,10 +119,12 @@
 
                                                     <div class="form-group col-md-6">
                                                         <label>رقم الوارد</label>
-                                                        <select class="form-control select2" id="project" name="topic_id"
-                                                            style="width: 100%;">
+                                                        <select class="form-control" id="project"
+                                                            name="topic_id" style="width: 100%;"
+                                                            class="@error('topic_id') is-invalid @enderror">
                                                             <option value="" disabled selected>اختر الملف الوارد
                                                             </option>
+
                                                             @isset($topics)
                                                                 @if ($topics && $topics->count() > 0)
                                                                     @foreach ($topics as $topic)
@@ -113,7 +135,11 @@
                                                                 @endif
                                                             @endisset
                                                         </select>
+                                                        @error('topic_id')
+                                                        <div class="alert alert-cust ">{{ $message }}</div>
+                                                    @enderror
                                                     </div>
+                                                   
                                                     <div class="form-group col-md-6">
                                                         <label> اسم الجهة الوارد منها </label>
                                                         <select class="form-control" id="sub_cat" name="">
@@ -167,21 +193,32 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12" id="div7">
                                                         <label> عنوان الصادر </label>
-                                                        <input style="height: calc(2.25rem + 6px);" type="text" multiple
-                                                            name="name" class="form-control">
+                                                        <input style="height: calc(2.25rem + 6px);" type="text"
+                                                            multiple name="name" class="form-control"
+                                                            class="@error('name') is-invalid @enderror">
+                                                        @error('name')
+                                                            <div class="alert  alert-cust">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <input class="user-name text-bold-700 float-left" type="hidden"
                                                             name="cat_name" value="{{ Auth::user()->cat_name }}">
                                                         <label>رقم الصادر</label>
                                                         <input style="height: calc(2.25rem + 6px);" type="number"
-                                                            name="export_no[]" class="form-control" required>
+                                                            name="export_no[]" class="form-control"
+                                                            id="export_no"
+                                                            class="@error('export_no') is-invalid @enderror">
+                                                            
+                                                        @error('export_no')
+                                                            <div class="alert alert-cust">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group col-md-6" id="div4">
                                                         <label> اسم الجهة الصادر اليها</label>
                                                         <select class="form-control select2" name="side_id[]"
                                                             style="width: 100%;">
-                                                            <option value="" disabled selected>اختر الجهة</option>
+                                                            <option value="" disabled selected>اختر الجهة
+                                                            </option>
                                                             @isset($side)
                                                                 @if ($side && $side->count() > 0)
                                                                     @foreach ($side as $sides)
@@ -192,16 +229,24 @@
                                                                 @endif
                                                             @endisset
                                                         </select>
+                                                        
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label> تاريخ الإرسال </label>
                                                         <input style="height: calc(2.25rem + 6px);" type="date"
-                                                            name="send_date" class="form-control">
+                                                            name="send_date" class="form-control"
+                                                            class="@error('send_date') is-invalid @enderror"
+                                                            >
+                                                            @error('send_date')
+                                                            <div class="alert alert-cust">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label> الملف المرفق</label>
-                                                        <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                            name="upload_f[]" class="form-control">
+                                                        <input style="height: calc(2.25rem + 6px);" type="file"
+                                                            multiple name="upload_f[]" class="form-control"
+                                                            class="@error('send_date') is-invalid @enderror">
+                                                          
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>اضافة ملاحظات</label>
@@ -210,7 +255,7 @@
                                                 </div>
                                                 <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
                                                     id="addside-btn" class="btn btn-primary form-label"
-                                                    onclick="addsideRow()"> اضافة جهة  صادر
+                                                    onclick="addsideRow()"> اضافة جهة صادر
                                                     اليها
                                                 </a>
                                                 <hr>
@@ -222,8 +267,9 @@
                                     </form>
                                 </div>
                                 <div id="manage">
-                                    <form class="needs-validation" novalidate="" action="{{ route('exports.save') }}"
-                                         method="POST" enctype="multipart/form-data">
+                                    <form class="needs-validation" novalidate=""
+                                        action="{{ route('exports.save') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
 
                                         <div class="card card-secondary">
@@ -231,13 +277,13 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12" id="div7">
                                                         <label> عنوان الصادر </label>
-                                                        <input style="height: calc(2.25rem + 6px);" type="text" multiple
-                                                            name="namex" class="form-control">
+                                                        <input style="height: calc(2.25rem + 6px);" type="text"
+                                                            multiple name="namex" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-6" id="div2">
                                                         <label>رقم الوارد</label>
-                                                        <select class="form-control select2" id="project" name="topic_id"
-                                                            style="width: 100%;">
+                                                        <select class="form-control select2" id="project"
+                                                            name="topic_id" style="width: 100%;">
                                                             <option value="" disabled selected>اختر الملف الوارد
                                                             </option>
                                                             @isset($topics_inside)
@@ -252,11 +298,12 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <input class="user-name text-bold-700 float-left" type="hidden"
-                                                            name="cat_name" value="{{ Auth::user()->cat_name }}">
+                                                        <input class="user-name text-bold-700 float-left"
+                                                            type="hidden" name="cat_name"
+                                                            value="{{ Auth::user()->cat_name }}">
                                                         <label>رقم الصادر</label>
                                                         <input style="height: calc(2.25rem + 6px);" type="number"
-                                                            name="export_number[]" class="form-control" required>
+                                                            name="export_number[]" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-6" id="div3">
                                                         <label> اسم الإدارة الصادر اليها</label>
@@ -281,22 +328,22 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label> الملف المرفق</label>
-                                                        <input style="height: calc(2.25rem + 6px);" type="file" multiple
-                                                            name="file[]" class="form-control">
+                                                        <input style="height: calc(2.25rem + 6px);" type="file"
+                                                            multiple name="file[]" class="form-control">
                                                     </div>
-                                                    <div class="form-group col-md-6" >
+                                                    <div class="form-group col-md-6">
                                                         <label> حالة الرد </label>
                                                         <select class="form-control" name="state">
                                                             <option value="" disabled>اختر الرد</option>
-                                                            <option value="1" > لا يوجد</option>
-                                                            <option value="2" > جاري </option>
-                                                            <option value="3" >تم الرد</option>
+                                                            <option value="1"> لا يوجد</option>
+                                                            <option value="2"> جاري </option>
+                                                            <option value="3">تم الرد</option>
 
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>اضافة ملاحظات</label>
-                                                        <textarea class="form-control" cols="10" rows="5" name="details[]" >  </textarea>
+                                                        <textarea class="form-control" cols="10" rows="5" name="details[]">  </textarea>
                                                     </div>
                                                 </div>
                                                 <a href="javascript:void(0)" style="padding: 5px 10px 5px 10px;"
@@ -355,7 +402,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                              <label>رقم الصادر</label>
-                             <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" required>
+                             <input style="height: calc(2.25rem + 6px);" type="number" name="export_no[]" class="form-control" >
                         </div>
                         <div class="form-group col-md-4" id="div5">
                             <label> اسم الجهة الصادر اليها</label>
@@ -394,6 +441,7 @@
                 alert("برجاء ملء البيانات!");
             }
         }
+
         function addWorkRow() {
             var elements = document.getElementsByClassName('work-xp-input');
             var empty = "no"
@@ -411,7 +459,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                              <label>رقم الصادر</label>
-                             <input style="height: calc(2.25rem + 6px);" type="number" name="export_number[]" class="form-control" required>
+                             <input style="height: calc(2.25rem + 6px);" type="number" name="export_number[]" class="form-control" >
                         </div>
                         <div class="form-group col-md-4" id="div6">
                             <label> اسم الإدارة الصادر اليها</label>
@@ -450,6 +498,7 @@
                 alert("برجاء ملء البيانات!");
             }
         }
+
         function removeWorkRow(input) {
             confirm("متأكد؟") ? document.getElementById('work_manage').removeChild(input.parentNode) : 0;
             if (document.getElementsByClassName("work-xp").length != 4) {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SaveRequest;
+use App\Http\Requests\ExportRequest;
 use App\Models\Responsible;
 use App\Models\Side;
 use Carbon\Carbon;
@@ -105,7 +105,7 @@ class ExportController extends Controller
                 ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
         }
     }
-    public function save(Request $request)
+    public function save(ExportRequest $request)
     {
         $now = Carbon::today();
         $file = [];
