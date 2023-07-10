@@ -24,6 +24,8 @@ Route::get('/psdviewscan{id}', [App\Http\Controllers\Admin\TaskController::class
 ///////////////////////////////////////////// Bosta view ///////////////////////////////////////////
 
 Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
+    Route::get('/signature'         ,[App\Http\Controllers\Admin\SignatureController::class,'index'])          -> name('signature');
+    Route::post('/signature_save'         ,[App\Http\Controllers\Admin\SignatureController::class,'store'])          -> name('signpad.save');
     Route::get('/bosta'         ,[App\Http\Controllers\Admin\BostaController::class,'index'])          -> name('bosta.index');
     Route::get('/bosta_create'        ,[App\Http\Controllers\Admin\BostaController::class,'create'])    -> name('bosta.Create');
     Route::post('/bosta_save'         ,[App\Http\Controllers\Admin\BostaController::class,'store'])      -> name('bosta.store');
@@ -55,6 +57,7 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
     Route::get('/archive/{id}'   ,[App\Http\Controllers\Admin\TopicController::class,'archive'])      -> name('topics.archive');
     Route::get('/topics_archive' ,[App\Http\Controllers\Admin\TopicController::class,'T_archive'])    -> name('archive');
     Route::get('/read-mfile/{import_id}',[App\Http\Controllers\Admin\TopicController::class,'show'])         -> name('topics.show');
+    Route::post('/viceNote',[App\Http\Controllers\Admin\TopicController::class,'vice_note'])         -> name('viceNote');
     Route::post('/response'      ,[App\Http\Controllers\Admin\TopicController::class,'response'])     -> name('topics.response');
 
     ///////////////////////////////////////////// Export view ///////////////////////////////////////////

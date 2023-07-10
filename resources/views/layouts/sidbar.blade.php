@@ -92,11 +92,27 @@
                             data-feather="monitor"></i></a>
                 </li>
                 <li class="dropdown">
+                    <a href="{{ route('home') }}" class="nav-link"><span> تأشيرة السيد المحافظ  </span><i
+                            data-feather="monitor"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('home') }}" class="nav-link"><span>  الأجندة </span><i
+                            data-feather="monitor"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('home') }}" class="nav-link"><span>  النوتة </span><i
+                            data-feather="monitor"></i></a>
+                </li>
+
+                <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><span>  الفاكس </span>
                         <i data-feather="chevrons-right"></i></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('bosta.index') }}">  تأشيرة السيد المحافظ </a></li>
                     </ul>
+                </li>
+                <li class="menu-header">
+                    <hr />
                 </li>
                 <li class="dropdown">
                     <a href="#" class="menu-toggle nav-link has-dropdown"><span> الإدارت المسؤلة للمتابعة

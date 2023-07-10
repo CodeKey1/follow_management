@@ -68,8 +68,7 @@
                                         <div class="collapse show" id="mycard-collapse">
                                             <div class="card-body">
                                                 <div class="owl-carousel owl-theme slider" id="slider1">
-                                                    <div><img alt="image"
-                                                            src="{{ URL::to('/' . $Gsignatur->posta_file) }}"></div>
+                                                    <div><img alt="image"src="{{ URL::to('/' . $Gsignatur->posta_file) }}"></div>
                                                 </div>
                                             </div>
 
@@ -138,7 +137,8 @@
                                                                     </td>
                                                                     <td class="text-bold-700"
                                                                         style="border-right: 2px solid;width:5%">
-                                                                        <input type="radio" name="side2" id=""
+                                                                        <input type="radio" name="side2"
+                                                                            id=""
                                                                             style="width: 35px;height: 35px;">
                                                                     </td>
 
@@ -159,14 +159,18 @@
                                                                         <tr style="border: 2px solid;">
                                                                             <td class="text-bold-700"
                                                                                 style="border-right: 2px solid;width:5%">
-                                                                                <input type="checkbox" name="side3" id="" style="width: 35px;height: 35px;">
+                                                                                <input type="checkbox" name="side3"
+                                                                                    id=""
+                                                                                    style="width: 35px;height: 35px;">
                                                                             </td>
                                                                             <td class="text-bold-700">
                                                                                 <h6> {{ $GS->side_mean }}</h6>
                                                                             </td>
                                                                             <td class="text-bold-700"
                                                                                 style="border-left: 2px solid;width:5%">
-                                                                                <input type="radio" name="side3" id="" style="width: 35px;height: 35px;">
+                                                                                <input type="radio" name="side3"
+                                                                                    id=""
+                                                                                    style="width: 35px;height: 35px;">
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -180,16 +184,19 @@
 
                                                                     </td>
                                                                     <td class="text-bold-700">
-                                                                        <h6> <input style="height: calc(2.25rem + 6px);    text-align: center;
+                                                                        <h6> <input
+                                                                                style="height: calc(2.25rem + 6px);    text-align: center;
                                                                             font-size: 1rem;
                                                                             font-weight: 700;"
                                                                                 type="text" name="side_name"
                                                                                 class="form-control"> </h6>
                                                                     </td>
                                                                     <td class="text-bold-700"
-                                                                                style="border-left: 2px solid;width:5%">
-                                                                                <input type="checkbox" name="side3" id="" style="width: 35px;height: 35px;">
-                                                                            </td>
+                                                                        style="border-left: 2px solid;width:5%">
+                                                                        <input type="checkbox" name="side3"
+                                                                            id=""
+                                                                            style="width: 35px;height: 35px;">
+                                                                    </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -206,23 +213,17 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-2"
                                                             style=" border-radius: 100px;border: 1px solid #000; height: 165px;">
-                                                            <h6
-                                                                style="    text-align: center;
-                                                margin-top: 35px;">
-                                                                متابعة</h6>
-                                                            <input class="form-control" type="date" lang="fr-CA"
-                                                                name="notes"
-                                                                style="border: 0px;
-                                                border-bottom: 1px solid;">
-
+                                                            <h6 style="text-align: center;margin-top: 35px;">متابعة</h6>
+                                                            <input class="form-control" type="date" lang="fr-CA" name="notes" style="border: 0px; border-bottom: 1px solid;">
                                                         </div>
                                                         <div class="form-group col-md-8">
+                                                            <div><img alt="image"src="{{ URL::to('signatures/vice64abd2b1a77d4.png') }}"></div>
 
                                                         </div>
-
                                                     </div>
                                                     <div class="card-footer">
                                                         <button type="submit" class="btn btn-primary"> حــفــظ </button>
+                                                        <button type="button" class="btn btn-primary"> اضافة توقيع </button>
                                                     </div>
 
                                                 </div>

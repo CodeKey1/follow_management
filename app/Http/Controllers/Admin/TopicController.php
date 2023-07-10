@@ -7,6 +7,7 @@ use App\Http\Requests\TopicsRequest;
 use App\Models\Responsible;
 use App\Models\Side;
 use App\Models\Export;
+use App\Models\Vice_noteTopic;
 use App\Models\R_export;
 use App\Models\Response_Topic;
 use App\Models\Topic;
@@ -253,6 +254,26 @@ class TopicController extends Controller
         }
 
         return view('topics.read', compact('topics', 'response', 'side', 'exports', 'now'));
+    }
+
+    public function vice_note(Request $request)
+    {
+        $now = Carbon::today();
+        try {
+             Vice_noteTopic::create([
+                'topic_id' => $request['topic_id'],
+                'date' => $now,
+                'vice_note' => $request['vice_note'],
+            ]);
+
+            return redirect()
+                ->back()
+                ->with(['success' => 'تم حفظ التعليمات بنجاح']);
+        } catch (\Exception $ex) {
+            return redirect()
+                ->back()
+                ->with(['error' => 'هناك خطا ما يرجي المحاوله فيما بعد']);
+        }
     }
 
     public function response(Request $request)

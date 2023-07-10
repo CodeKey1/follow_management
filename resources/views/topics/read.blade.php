@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('css')
-
 @endsection
 @section('content')
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="direction: rtl">
@@ -151,9 +150,30 @@
                             <p class="p-b-20" style="color:#ff0011dd">
                                 {{ $topics->vic_sign }} </p>
                         </div>
+
                     </section>
                 </div>
             </div>
+        </div>
+        <div class="card">
+            <form action="{{ route('viceNote') }}" method="POST"enctype="multipart/form-data">
+                @csrf
+                <div class="boxs mail_listing">
+                    <div class="inbox-body no-pad">
+                        <section class="mail-list">
+                            <input type="text" name="topic_id" value="{{ $topics->id }}" hidden>
+                            <label class="m-t-0" for="vice"
+                                style="color:#000000;margin-bottom: -1.5rem;font-size: 17px;font-weight: 700;"> ملاحظات السـيد
+                                الـمحافظ <img alt="image" width="30" src="../images/logo/aswan.png"
+                                    class="img-thumbnail img-responsive"></label>
+                            <textarea class="replyBox m-t-10" name="vice_note" style="width:100%;" cols="5" rows="4"></textarea>
+                            <div class="card-footer text-left">
+                                <button class="btn btn-success" type="submit">حفظ</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -284,20 +304,22 @@
                     </div>
                 </div>
             </div>
-            @elseif($topics->state == 0)
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="direction: rtl">
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                    <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15"style="width: 100%"> لم يتم الرد علي المكاتبة برقم
-                        صادر{{ $value->export_no }}</button>
-                 </div>
-            @elseif($topics->state == 2)
-                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="direction: rtl">
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-                   <button type="button" class="btn btn-warning waves-effect btn-compose m-b-15"style="width: 100%"> جاري المتابعة علي المكاتبة برقم
-                صادر{{ $value->export_no }}</button>
-                </div>
+        @elseif($topics->state == 0)
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="direction: rtl">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <button type="button" class="btn btn-danger waves-effect btn-compose m-b-15"style="width: 100%"> لم يتم
+                    الرد علي المكاتبة برقم
+                    صادر{{ $value->export_no }}</button>
+            </div>
+        @elseif($topics->state == 2)
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" style="direction: rtl">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <button type="button" class="btn btn-warning waves-effect btn-compose m-b-15"style="width: 100%"> جاري
+                    المتابعة علي المكاتبة برقم
+                    صادر{{ $value->export_no }}</button>
+            </div>
         @endif
     @endforeach
 @endsection
