@@ -122,5 +122,5 @@ Route::group(['namespace'=> 'admin','middleware' => 'auth'],function (){
 Route::get('fullcalendar' ,[App\Http\Controllers\FullCalendarController::class, 'index']);
 Route::get('fullcalendar/create',[App\Http\Controllers\FullCalendarController::class, 'create']);
 Route::post('fullcalendar/update',[App\Http\Controllers\FullCalendarController::class, 'update']);
-Route::post('fullcalendar/delete',[App\Http\Controllers\FullCalendarController::class, 'delete']);
+Route::post('fullcalendar/delete',[App\Http\Controllers\FullCalendarController::class, 'destroy']);
 

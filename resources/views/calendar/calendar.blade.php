@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="fc-overflow">
-                                            <div id="calendar"></div>
+                                            <div id="myEvent"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var calendar = $('#calendar').fullCalendar({
+            var calendar = $('#myEvent').fullCalendar({
                 editable: true,
                 displayEventTime: true,
                 height: "auto",
