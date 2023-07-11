@@ -24,6 +24,11 @@
 
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
+    <style>
+        #import_vice_nondone {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="light theme-white dark-sidebar sidebar-gone">
@@ -52,27 +57,27 @@
                                 </div>
                                 <div class="card card-secondary">
                                     <div class="card-header">
-                                        <h4> البريد </h4>
+                                        <h4> الفاكس </h4>
                                         <div class="card-header-action">
                                             <div class="btn-group">
-                                                <a href="#" class="btn btn-warning"> تأشيرة
-                                                    السيد المحافظ داخلي </a>
+                                                <a href="#" class="btn btn-warning" onclick="myFunction2()"> تم التأشيرة </a>
                                             </div>
-                                            <a href="{{ route('bosta.Create') }}" class="btn btn-info"> أضافة بريد </a>
+                                            <a href="#" class="btn btn-danger" onclick="myFunction()">لم يتم التأشيرة </a>
+
                                         </div>
                                     </div>
-                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl">
+                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl" id="import_vice_done">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover"
                                                 id="table-2"style="width:100%;">
                                                 <thead style="background-color: #26557c;">
                                                     <tr>
                                                         <th style="color: white"> # </th>
-                                                        <th style="color: white"> ت : البريد </th>
+                                                        {{-- <th style="color: white"> ت : البريد </th> --}}
                                                         <th style="color: white"> الجهة وارد البريد</th>
-                                                        <th style="color: white"> الحالة </th>
                                                         <th style="color: white"> بشــــــــــــــــــــــــــــــــــأن
                                                         </th>
+                                                        <th style="color: white"> الحالة </th>
                                                         <th style="color: white">الملف</th>
                                                     </tr>
                                                 </thead>
@@ -81,18 +86,30 @@
                                                         @foreach ($Gsignatur as $num => $GS)
                                                             <tr>
                                                                 <td class="text-bold-700">{{ $num + 1 }}</td>
-                                                                <td class="text-bold text-bold-700" style="width: 10%">
-                                                                    {{ $GS->posta_date }}</td>
-                                                                <td class="text-bold text-bold-400" style="color: #000086;">
+                                                                {{-- <td class="text-bold text-bold-700" style="width: 10%">
+                                                                    {{ $GS->posta_date }}</td> --}}
+                                                                <td class="text-bold text-bold-400"
+                                                                    style="color: #000086;width: 15%">
                                                                     {{ $GS->side_name }}</td>
-                                                                <td style="width: 5%">
-                                                                    <div class="badge badge-danger">{{ $GS->posta_state }}
-                                                                    </div>
+
+                                                                <td class="text-bold text-bold-700">
+                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                        style="color: black">{{ $GS->posta_about }}</a>
                                                                 </td>
-                                                                <td class="text-bold text-bold-700"> {{ $GS->posta_about }}
+                                                                <td style="width: 5%">
+                                                                    @if ($GS->posta_state == 'تم')
+                                                                    <div class="badge badge-success">تم
+                                                                    </div>
+                                                                    @elseif($GS->posta_state == 'لم يتم')
+                                                                    <div class="badge badge-danger">لم يتم
+                                                                    </div>
+
+                                                                    @endif
+
                                                                 </td>
                                                                 <td style="width: 10%">
-                                                                    <a href="{{ route('bosta.show',$GS->id) }}" class="portfolio-box" target="_blank">
+                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                        class="portfolio-box" target="_blank">
                                                                         <i class="material-icons">attach_file</i>
                                                                     </a>
                                                                 </td>
@@ -106,7 +123,63 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl" id="import_vice_nondone">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover"
+                                                id="table-2"style="width:100%;">
+                                                <thead style="background-color: #26557c;">
+                                                    <tr>
+                                                        <th style="color: white"> # </th>
+                                                        {{-- <th style="color: white"> ت : البريد </th> --}}
+                                                        <th style="color: white"> الجهة وارد البريد</th>
+                                                        <th style="color: white"> بشــــــــــــــــــــــــــــــــــأن
+                                                        </th>
+                                                        <th style="color: white"> الحالة </th>
+                                                        <th style="color: white">الملف</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="background-color: #437dad59;">
+                                                    @isset($Gsignatur)
+                                                        @foreach ($Gsignatur as $num => $GS)
+                                                            <tr>
+                                                                <td class="text-bold-700">{{ $num + 1 }}</td>
+                                                                {{-- <td class="text-bold text-bold-700" style="width: 10%">
+                                                                    {{ $GS->posta_date }}</td> --}}
+                                                                <td class="text-bold text-bold-400"
+                                                                    style="color: #000086;width: 15%">
+                                                                    {{ $GS->side_name }}</td>
 
+                                                                <td class="text-bold text-bold-700">
+                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                        style="color: black">{{ $GS->posta_about }}</a>
+                                                                </td>
+                                                                <td style="width: 5%">
+                                                                    @if ($GS->posta_state == 'تم')
+                                                                    <div class="badge badge-success">تم
+                                                                    </div>
+                                                                    @elseif($GS->posta_state == 'لم يتم')
+                                                                    <div class="badge badge-danger">لم يتم
+                                                                    </div>
+
+                                                                    @endif
+
+                                                                </td>
+                                                                <td style="width: 10%">
+                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                        class="portfolio-box" target="_blank">
+                                                                        <i class="material-icons">attach_file</i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endisset
+                                                </tbody>
+                                            </table>
+                                            <div id="pdf-container">
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -142,6 +215,17 @@
     </script>
     <!-- Custom JS File -->
     <script src="assets/js/custom.js"></script>
+    <script>
+        function myFunction() {
+            document.getElementById("import_vice_done").style.display = "none";
+            document.getElementById("import_vice_nondone").style.display = "block";
+        }
+
+        function myFunction2() {
+            document.getElementById("import_vice_done").style.display = "block";
+            document.getElementById("import_vice_nondone").style.display = "none";
+        }
+    </script>
 </body>
 
 

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event as AppEvent;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Redirect,Illuminate\Http\Response;
 
 
 class FullCalendarController extends Controller
@@ -17,8 +18,8 @@ class FullCalendarController extends Controller
             $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
             $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
 
-            $data = AppEvent::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
-            return Response::json($data);
+            $data = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
+            return json_encode($data);
         }
         return view('fullcalendar');
     }
@@ -30,8 +31,8 @@ class FullCalendarController extends Controller
             'start' => $request->start,
             'end' => $request->end
         ];
-        $event = AppEvent::insert($insertArr);
-        return Response::json($event);
+        $event = Event::insert($insertArr);
+        return json_encode($event);
     }
 
 
@@ -39,17 +40,17 @@ class FullCalendarController extends Controller
     {
         $where = array('id' => $request->id);
         $updateArr = ['title' => $request->title,'start' => $request->start, 'end' => $request->end];
-        $event  = AppEvent::where($where)->update($updateArr);
+        $event  = Event::where($where)->update($updateArr);
 
-        return Response::json($event);
+        return json_encode($event);
     }
 
 
     public function destroy(Request $request)
     {
-        $event = AppEvent::where('id',$request->id)->delete();
+        $event = Event::where('id',$request->id)->delete();
 
-        return Response::json($event);
+        return json_encode($event);
     }
 
 

@@ -64,7 +64,6 @@
         </li>
 
     </ul>
-
     <div class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar"
@@ -84,6 +83,46 @@
                 <span class="logo-name"> مكتب السيد المحافظ </span>
             </a>
         </div>
+        {{-- /* vice permission and role for sidebar*/ --}}
+        @if (auth()->user()->hasRole('vice'))
+            <ul class="sidebar-menu">
+                <li class="dropdown active">
+                    <a href="{{ route('home') }}" class="nav-link"><span> المتابعة </span><i
+                            data-feather="monitor"></i></a>
+                </li>
+                <li class="menu-header">
+                </li>
+                <li class="dropdown " style="background-color: tomato;">
+                    <a href="{{ route('bosta.index') }}" class="nav-link">
+                        <span class="">تأشيرة السيد المحافظ </span>
+                        <i data-feather="monitor"></i>
+                    </a>
+                </li>
+                <li class="menu-header">
+                </li>
+                <li class="dropdown" style="background-color: #ff9147;">
+                    <a href="{{ route('calendar') }}" class="nav-link"><span>  الأجندة </span><i
+                            data-feather="monitor"></i></a>
+                </li>
+                <li class="menu-header">
+                </li>
+                <li class="dropdown" style="background-color: #00703b;">
+                    <a href="{{ route('home') }}" class="nav-link"><span>  النوتة </span><i
+                            data-feather="monitor"></i></a>
+                </li>
+                <li class="menu-header">
+                </li>
+                <li class="dropdown" style="background-color: #478aff;">
+                    <a href="#" class="menu-toggle nav-link has-dropdown"><span>  الفاكس </span>
+                        <i data-feather="chevrons-right"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('bosta.Create') }}" style="color: black"> اضافة فاكس </a></li>
+                    </ul>
+                </li>
+                <li class="menu-header">
+                </li>
+            </ul>
+        @endif
         {{-- /* super admin permission and role for sidebar*/ --}}
         @if (auth()->user()->hasRole('admin'))
             <ul class="sidebar-menu">
@@ -91,9 +130,15 @@
                     <a href="{{ route('home') }}" class="nav-link"><span>الرئيسية</span><i
                             data-feather="monitor"></i></a>
                 </li>
-                <li class="dropdown">
-                    <a href="{{ route('home') }}" class="nav-link"><span> تأشيرة السيد المحافظ  </span><i
-                            data-feather="monitor"></i></a>
+
+                {{-- <button type="button" class="btn btn-danger">
+                     <span class="badge badge-transparent">4</span>
+                  </button> --}}
+                <li class="dropdown ">
+                    <a href="{{ route('home') }}" class="nav-link">
+                        <span class="">تأشيرة السيد المحافظ </span>
+                        <i data-feather="monitor"></i>
+                    </a>
                 </li>
                 <li class="dropdown">
                     <a href="{{ route('home') }}" class="nav-link"><span>  الأجندة </span><i

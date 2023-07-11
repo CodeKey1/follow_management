@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='images/logo/aswan.png' />
     <style>
+        #signatur {
+            display: none;
+        }
         .table.table-bordered td,
         .table.table-bordered th {
             height: 40px !important;
@@ -57,10 +60,11 @@
                                     <div class="card card-secondary"
                                         style="border-right: 63px solid #ffa426;border-top:0px;">
                                         <div class="card-header">
-                                            <h4> فاكس الملف الوارد </h4>
+                                            <h4> تأشيرة السيد المحافظ </h4>
                                             <div class="card-header-action">
                                                 <a data-collapse="#mycard-collapse" class="btn btn-icon btn-info"
                                                     href="#"><i class="fas fa-minus"></i></a>
+                                                    <a href="{{ route('bosta.index') }}" class="btn btn-danger"> عودة  -> </a>
                                             </div>
                                         </div>
                                     </div>
@@ -217,13 +221,13 @@
                                                             <input class="form-control" type="date" lang="fr-CA" name="notes" style="border: 0px; border-bottom: 1px solid;">
                                                         </div>
                                                         <div class="form-group col-md-8">
-                                                            <div><img alt="image"src="{{ URL::to('signatures/vice64abd2b1a77d4.png') }}"></div>
+                                                            <div id="signatur"><img alt="image"src="{{ URL::to('signatures/vice64abd2b1a77d4.png') }}" ></div>
 
                                                         </div>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <button type="submit" class="btn btn-primary"> حــفــظ </button>
-                                                        <button type="button" class="btn btn-primary"> اضافة توقيع </button>
+                                                        <button type="submit" class="btn btn-primary" > حــفــظ </button>
+                                                        <button type="button" class="btn btn-primary" onclick="myFunction()"> اضافة توقيع </button>
                                                     </div>
 
                                                 </div>
@@ -310,6 +314,11 @@
 
     <!-- Custom JS File -->
     <script src="assets/js/custom.js"></script>
+    <script>
+        function myFunction() {
+            document.getElementById("signatur").style.display = "block";
+        }
+    </script>
 </body>
 
 

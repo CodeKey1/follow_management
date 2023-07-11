@@ -240,18 +240,17 @@
                                             @endforeach
                                         </td> --}}
                                         {{-- <td class="text-bold-700">
-                                        @if (auth()->user()->hasRole('admin') ||
-    auth()->user()->hasRole('export_user'))
+                                            @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('export_user'))
                                             @foreach ($Topic->t_export as $Num)
                                                 <a
                                                     href="{{ route('exports.edit', $Num->id) }}">
                                                     {{ $Num->export_no }} , </a>
                                             @endforeach
-                                        @else
+                                            @else
                                             <span class="badge badge-danger"> ليس لديك صلاحية
                                             </span>
-                                        @endif
-                                    </td> --}}
+                                            @endif
+                                        </td> --}}
                                         <td style="width: 10%">
                                             <a href="{{ route('topics.edit', $Topic->id) }}"
                                                 class="col-dark-gray waves-effect m-r-20" title=""
