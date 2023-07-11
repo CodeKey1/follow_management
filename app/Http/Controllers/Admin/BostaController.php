@@ -68,7 +68,7 @@ class BostaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function vic_done(string $id)
+    public function vic_done(Request $request,string $id)
     {
         //
         $Gsignatur = Governor_signatur::select()->find($id);

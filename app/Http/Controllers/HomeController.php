@@ -6,6 +6,7 @@ use App\Models\Export;
 use App\Models\Responsible;
 use App\Models\Topic;
 use App\Models\Side;
+use App\Models\Governor_signatur;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $Gsignatur = Governor_signatur::select()->where('posta_state', 'لم يتم')->get();
         $now = Carbon::today();
         $sides = Side::select()->get();
         $manage = Responsible::select()->get();
@@ -40,7 +42,7 @@ class HomeController extends Controller
         $topics = Topic::select()->where('cat_name', Auth::user()->cat_name)->whereYear('recived_date',$now->year)->get();
         $now = Carbon::today()->format('y-m-d');
         $users = $this->userChart();
-        return view('home', compact('now', 'users', 'topics_trash', 'topics', 'exports_trash', 'exports', 'orderCharts', 'sides', 'manageChart','manage'));
+        return view('home', compact('now','Gsignatur', 'users', 'topics_trash', 'topics', 'exports_trash', 'exports', 'orderCharts', 'sides', 'manageChart','manage'));
     }
 
     public function orderChart()
@@ -126,6 +128,7 @@ class HomeController extends Controller
         $master['N'] = json_encode($N);
         return $master;
     }
+    
     public function manageChart()
     {
         $manage = array();

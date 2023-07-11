@@ -94,6 +94,9 @@
                 </li>
                 <li class="dropdown " style="background-color: tomato;">
                     <a href="{{ route('bosta.index') }}" class="nav-link">
+                        <span class="badge badge-dark" style="padding: 8px 4px;
+                        margin-top: 0px;
+                        width: 40px;">{{ App\Models\Governor_signatur::where('posta_state','لم يتم')->count() }}</span>
                         <span class="">تأشيرة السيد المحافظ </span>
                         <i data-feather="monitor"></i>
                     </a>
@@ -120,6 +123,10 @@
                     </ul>
                 </li>
                 <li class="menu-header">
+                </li>
+                <li class="dropdown" style="background-color: #7c8a00;">
+                    <a href="{{ route('signature') }}" class="nav-link"><span>   التوقيع الإلكتروني  </span><i
+                            data-feather="monitor"></i></a>
                 </li>
             </ul>
         @endif

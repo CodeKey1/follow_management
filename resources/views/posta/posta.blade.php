@@ -60,13 +60,16 @@
                                         <h4> الفاكس </h4>
                                         <div class="card-header-action">
                                             <div class="btn-group">
-                                                <a href="#" class="btn btn-warning" onclick="myFunction2()"> تم التأشيرة </a>
+                                                <a href="#" class="btn btn-warning" onclick="myFunction2()"> تم
+                                                    التأشيرة </a>
                                             </div>
-                                            <a href="#" class="btn btn-danger" onclick="myFunction()">لم يتم التأشيرة </a>
+                                            <a href="#" class="btn btn-danger" onclick="myFunction()">لم يتم
+                                                التأشيرة </a>
 
                                         </div>
                                     </div>
-                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl" id="import_vice_done">
+                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl"
+                                        id="import_vice_done">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover"
                                                 id="table-2"style="width:100%;">
@@ -84,36 +87,37 @@
                                                 <tbody style="background-color: #437dad59;">
                                                     @isset($Gsignatur)
                                                         @foreach ($Gsignatur as $num => $GS)
-                                                            <tr>
-                                                                <td class="text-bold-700">{{ $num + 1 }}</td>
-                                                                {{-- <td class="text-bold text-bold-700" style="width: 10%">
+                                                            @if ($GS->posta_state == 'تم')
+                                                                <tr>
+                                                                    <td class="text-bold-700">{{ $num + 1 }}</td>
+                                                                    {{-- <td class="text-bold text-bold-700" style="width: 10%">
                                                                     {{ $GS->posta_date }}</td> --}}
-                                                                <td class="text-bold text-bold-400"
-                                                                    style="color: #000086;width: 15%">
-                                                                    {{ $GS->side_name }}</td>
+                                                                    <td class="text-bold text-bold-400"
+                                                                        style="color: #000086;width: 15%">
+                                                                        {{ $GS->side_name }}</td>
 
-                                                                <td class="text-bold text-bold-700">
-                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
-                                                                        style="color: black">{{ $GS->posta_about }}</a>
-                                                                </td>
-                                                                <td style="width: 5%">
-                                                                    @if ($GS->posta_state == 'تم')
-                                                                    <div class="badge badge-success">تم
-                                                                    </div>
-                                                                    @elseif($GS->posta_state == 'لم يتم')
-                                                                    <div class="badge badge-danger">لم يتم
-                                                                    </div>
+                                                                    <td class="text-bold text-bold-700">
+                                                                        <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                            style="color: black">{{ $GS->posta_about }}</a>
+                                                                    </td>
+                                                                    <td style="width: 5%">
+                                                                        @if ($GS->posta_state == 'تم')
+                                                                            <div class="badge badge-success">تم
+                                                                            </div>
+                                                                        @elseif($GS->posta_state == 'لم يتم')
+                                                                            <div class="badge badge-danger">لم يتم
+                                                                            </div>
+                                                                        @endif
 
-                                                                    @endif
-
-                                                                </td>
-                                                                <td style="width: 10%">
-                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
-                                                                        class="portfolio-box" target="_blank">
-                                                                        <i class="material-icons">attach_file</i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                            class="portfolio-box" target="_blank">
+                                                                            <i class="material-icons">attach_file</i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
                                                     @endisset
                                                 </tbody>
@@ -123,7 +127,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl" id="import_vice_nondone">
+                                    <div class="" style="padding-top: 15px;padding-bottom: 15px;direction:rtl"
+                                        id="import_vice_nondone">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover"
                                                 id="table-2"style="width:100%;">
@@ -141,36 +146,37 @@
                                                 <tbody style="background-color: #437dad59;">
                                                     @isset($Gsignatur)
                                                         @foreach ($Gsignatur as $num => $GS)
-                                                            <tr>
-                                                                <td class="text-bold-700">{{ $num + 1 }}</td>
-                                                                {{-- <td class="text-bold text-bold-700" style="width: 10%">
+                                                            @if ($GS->posta_state == 'لم يتم')
+                                                                <tr>
+                                                                    <td class="text-bold-700">{{ $num + 1 }}</td>
+                                                                    {{-- <td class="text-bold text-bold-700" style="width: 10%">
                                                                     {{ $GS->posta_date }}</td> --}}
-                                                                <td class="text-bold text-bold-400"
-                                                                    style="color: #000086;width: 15%">
-                                                                    {{ $GS->side_name }}</td>
+                                                                    <td class="text-bold text-bold-400"
+                                                                        style="color: #000086;width: 15%">
+                                                                        {{ $GS->side_name }}</td>
 
-                                                                <td class="text-bold text-bold-700">
-                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
-                                                                        style="color: black">{{ $GS->posta_about }}</a>
-                                                                </td>
-                                                                <td style="width: 5%">
-                                                                    @if ($GS->posta_state == 'تم')
-                                                                    <div class="badge badge-success">تم
-                                                                    </div>
-                                                                    @elseif($GS->posta_state == 'لم يتم')
-                                                                    <div class="badge badge-danger">لم يتم
-                                                                    </div>
+                                                                    <td class="text-bold text-bold-700">
+                                                                        <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                            style="color: black">{{ $GS->posta_about }}</a>
+                                                                    </td>
+                                                                    <td style="width: 5%">
+                                                                        @if ($GS->posta_state == 'تم')
+                                                                            <div class="badge badge-success">تم
+                                                                            </div>
+                                                                        @elseif($GS->posta_state == 'لم يتم')
+                                                                            <div class="badge badge-danger">لم يتم
+                                                                            </div>
+                                                                        @endif
 
-                                                                    @endif
-
-                                                                </td>
-                                                                <td style="width: 10%">
-                                                                    <a href="{{ route('bosta.show', $GS->id) }}"
-                                                                        class="portfolio-box" target="_blank">
-                                                                        <i class="material-icons">attach_file</i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <a href="{{ route('bosta.show', $GS->id) }}"
+                                                                            class="portfolio-box" target="_blank">
+                                                                            <i class="material-icons">attach_file</i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
                                                         @endforeach
                                                     @endisset
                                                 </tbody>
