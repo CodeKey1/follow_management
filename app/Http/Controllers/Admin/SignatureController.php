@@ -46,7 +46,7 @@ class SignatureController extends Controller
             'signature' => uniqid() . '.' . $image_type
         ]);
 
-        return back()->with('success', 'Successfully saved the signature');
+        return back()->with('success', ' تم حفظ التوقيع الإلكتروني بنجاح ');
     }
 
     /**

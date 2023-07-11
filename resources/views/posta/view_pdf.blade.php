@@ -226,8 +226,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <button type="submit" class="btn btn-primary" > حــفــظ </button>
+                                                        <button type="submit" class="btn btn-success" style="float: left;"> حــفــظ </button>
                                                         <button type="button" class="btn btn-primary" onclick="myFunction()"> اضافة توقيع </button>
+                                                        <button type="button" class="btn btn-danger" onclick="myFunction2()"> حذف توقيع </button>
                                                     </div>
 
                                                 </div>
@@ -317,6 +318,9 @@
     <script>
         function myFunction() {
             document.getElementById("signatur").style.display = "block";
+        }
+        function myFunction2() {
+            document.getElementById("signatur").style.display = "none";
         }
     </script>
 </body>

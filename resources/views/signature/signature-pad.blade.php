@@ -17,10 +17,10 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-3 mt-5">
-                <div class="card">
+            <div class="col-md-12 offset-md-12 mt-5" >
+                <div class="card" style="direction: rtl;text-align: right;">
                     <div class="card-header">
-                        <h5>Laravel Signature Pad Example - codingdriver.com</h5>
+                        <h5> اضافة تأشيرة السيد المحافظ الإلكترونية </h5>
                     </div>
                     <div class="card-body">
                         @if (session('success'))
@@ -35,22 +35,22 @@
                                  <input type="text" name="name" class="form-group" value="">
                             </div> --}}
                             <div class="col-md-12">
-                                <label>Signature:</label>
+                                <label>التوقيع الإلكتروني:</label>
                                 <br/>
                                 <div id="sig"></div>
                                 <br/><br/>
-                                <button id="clear" class="btn btn-danger btn-sm">Clear</button>
+                                <button id="clear" class="btn btn-danger btn-sm"> مسح </button>
                                 <textarea id="signature" name="signed" style="display: none"></textarea>
                             </div>
                             <br/>
-                            <button class="btn btn-primary">Save</button>
+                            <button class="btn btn-primary" style="float: left;"> حفظ </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script type="text/javascript">
         var sig = $('#sig').signature({syncField: '#signature', syncFormat: 'PNG'});
         $('#clear').click(function (e) {
